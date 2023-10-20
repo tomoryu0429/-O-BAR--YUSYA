@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HPSystem : MonoBehaviour
+public class YarukiSystem : MonoBehaviour
 {
-    GameObject _Image;
+    GameObject _image;
     private void Start()
     {
-        //
-        _Image = GameObject.Find("HealthBar");
+        _image = GameObject.Find("YarukiBar");
     }
     public void HPDown(float _current, int _max)
     {
-        _Image.GetComponent<Image>().fillAmount = _current / _max;
+        _image.GetComponent<Image>().fillAmount = _current / _max;
     }
 }
