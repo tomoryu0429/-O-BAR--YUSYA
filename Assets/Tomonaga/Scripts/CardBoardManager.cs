@@ -8,11 +8,11 @@ using UnityEngine;
 
 public class CardBoardManager : MonoBehaviour
 {
-    public static int _MountainCardNum = 9;
-    public static int _HandCardNum = 0;
-    public static int _GabageCardNum = 0;
-    public GameObject _MountainCard;
-    public GameObject _GabageCard;
+    public static int _MountainCardNum = 9;     //RD‚Ì–‡”‚Ì
+    public static int _HandCardNum = 0;         //èD‚Ì–‡”‚Ì
+    public static int _GabageCardNum = 0;       //Ì‚ÄD‚Ì–‡”
+    public GameObject _MountainCard;            //RD
+    public GameObject _GabageCard;              //Ì‚ÄD
 
 
     // Start is called before the first frame update
@@ -36,26 +36,30 @@ public class CardBoardManager : MonoBehaviour
         _GabageCardNum = 0;
     }
 
-    //Ì‚ÄD•\¦‚Ì§Œä
-    void GabageZoneCtrl()
+    //RD•\¦‚Ì§Œä
+    void MountainZoneCtrl()
     {
+        //RD‚Ì–‡”‚ª0‚ÅRD‚ª•\¦‚³‚ê‚Ä‚¢‚éARD‚Ì•\¦‚ğÁ‚·
         if(_MountainCardNum == 0 && _MountainCard.activeSelf)
         {
             _MountainCard.SetActive(false);
         }
+        //RD‚Ì–‡”‚ª0‚Å‚Í‚È‚­ARD‚ª•\¦‚³‚ê‚Ä‚¢‚È‚¢ARD‚ğ•\¦‚·‚é
         else if(_MountainCardNum != 0 && !_MountainCard.activeSelf)
         {
             _MountainCard.SetActive(true);
         }
     }
 
-    //RD•\¦‚Ì§Œä
-    void MountainZoneCtrl()
+    //Ì‚ÄD•\¦‚Ì§Œä
+    void GabageZoneCtrl()
     {
+        //Ì‚ÄD‚ª0‚ÅÌ‚ÄD‚ª•\¦‚³‚ê‚Ä‚¢‚éAÌ‚ÄD‚Ì•\¦‚ğÁ‚·
         if (_GabageCardNum == 0 && _GabageCard.activeSelf)
         {
             _GabageCard.SetActive(false);
         }
+        //Ì‚ÄD‚ª0‚Å‚Í‚È‚­AÌ‚ÄD‚ª•\¦‚³‚ê‚Ä‚¢‚È‚¢AÌ‚ÄD‚ğ•\¦‚·‚é
         else if (_GabageCardNum != 0 && !_GabageCard.activeSelf)
         {
             _GabageCard.SetActive(true);
@@ -66,6 +70,7 @@ public class CardBoardManager : MonoBehaviour
     //ƒJ[ƒh‚Ìƒhƒ[
     public void Draw()
     {
+        //RD‚ª0–‡‚Å‚Í‚È‚¢A‚à‚µ‚­‚ÍèD‚ª‚R–‡‚Å‚È‚¢‚Æ‚«ƒhƒ[‚Å‚«‚é
         if(_MountainCardNum > 0 || _HandCardNum <3)
         {
             _MountainCardNum -= 3;
@@ -80,9 +85,10 @@ public class CardBoardManager : MonoBehaviour
     }
 
     //—vC³
-    //ƒJ[ƒh‚Ìg—p
-    public void UseCard()
+    //ƒJ[ƒh‚ğÌ‚Ä‚é
+    public void ThrowCard()
     {
+        //èD‚ª0o‚È‚¢‚ÉÀs‰Â”\
         if(_HandCardNum >0)
         {
             _HandCardNum -= 3;

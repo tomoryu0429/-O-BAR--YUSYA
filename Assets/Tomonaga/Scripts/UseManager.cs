@@ -15,7 +15,6 @@ public class UseManager : MonoBehaviour
     public Card _card09;
 
     private int _choiseNum;
-    private int _loopcount = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -29,19 +28,22 @@ public class UseManager : MonoBehaviour
         
     }
 
-
-    public void UseCard()
+    //カードを捨てる
+    public void ThrowCard()
     {
+        //＝＝＝＝現在３枚同時に使うことになっているのでこれを１枚づつに変える＝＝＝＝//
+        //山札のカードを全て確認
         for(int i = 1; i<10;i++)
         {
-           if(GetChoiseCard(i).state == State.Hand)
+            //手札にある場合は捨て札に
+            if(GetChoiseCard(i).state == CardState.Hand)
             {
-                GetChoiseCard(i).state = State.Gabage;
+                GetChoiseCard(i).state = CardState.Gabage;
             }
         }
     }
 
-
+    //選ばれたカードの情報を取得
     Card GetChoiseCard(int ChoiseNum)
     {
         switch (ChoiseNum)

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DrawManager : MonoBehaviour
 {
-
+    //カードの情報を格納
     public Card _card01;
     public GameObject _card1;
     public Card _card02;
@@ -27,7 +27,9 @@ public class DrawManager : MonoBehaviour
     public GameObject _handPos2;
     public GameObject _handPos3;
 
+    //選ばれた数字
     private int _choiseNum;
+    //繰り返しを行う回数
     private int _loopcount = 0;
 
     // Start is called before the first frame update
@@ -44,21 +46,28 @@ public class DrawManager : MonoBehaviour
 
     public void DrawCard()
     {
+        //３枚ドローをするまで繰り返し
         while(_loopcount <3)
         {
+            //1～9の中からランダムに数字を取得
             int _choiseNum = Random.Range(1, 10);
-            if (GetChoiseCard(_choiseNum).state == State.Mountain)
+            //選ばれた数字に対応するカードが山札にある場合ドローを行う
+            if (GetChoiseCard(_choiseNum).state == CardState.Mountain)
             {
-                GetChoiseCard(_choiseNum).state = State.Hand;
+                //山札から手札へ
+                GetChoiseCard(_choiseNum).state = CardState.Hand;
+                //カードのオブジェクトを手札の位置へ移動
                 GetObjectChoiseCard(_choiseNum).transform.position= MoveToHandPos(_loopcount).transform.position;
+                //繰り返し回数をカウント
                 _loopcount++;
             }
-
         }
+        //ドローが終われば繰り返し回数をリセット
         _loopcount = 0;
       
     }
 
+    //選ばれたカードの情報を取得
     Card GetChoiseCard(int ChoiseNum)
     {
         switch (ChoiseNum)
@@ -87,6 +96,7 @@ public class DrawManager : MonoBehaviour
 
     }
 
+    //選ばれたカードのゲームオブジェクトを取得
     GameObject GetObjectChoiseCard(int ChoiseNum)
     {
         switch (ChoiseNum)
@@ -115,6 +125,7 @@ public class DrawManager : MonoBehaviour
 
     }
 
+    //ドローされた順番に従い手札の移動先を取得
     GameObject MoveToHandPos(int _loopnum )
     {
         switch (_loopnum)

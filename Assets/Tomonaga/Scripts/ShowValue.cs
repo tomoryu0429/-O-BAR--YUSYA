@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class ShowValue : MonoBehaviour
 {
-    //“_”‚ğŠi”[‚·‚é•Ï”
     public int value = 0;
     public int type = 0;
 

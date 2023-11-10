@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-public enum State
+//カードの現状
+public enum CardState
 {
     Mountain,
     Hand,
@@ -12,19 +12,22 @@ public enum State
 
 public class Card : MonoBehaviour
 {
-    public State state;     //カードの状況
+    public CardState state;     //カードの状況
     public int Type; //カードの種類
+    private bool selected = false;
 
-    public SpriteRenderer spriteRenderer ;
-    public GameObject poolPos;
-    CardBoardManager cbMa;
+    public SpriteRenderer spriteRenderer; //このカードのスプライトレンダラー
+    public Transform poolPos;             //画面外のカード待機場所の座標
+    CardBoardManager cbMa;                //カードボードマネージャーのインスタンス
+    public Transform playPos;
 
 
     // Start is called before the first frame update
     void Start()
     {
         CardColor();
-        state = State.Mountain;
+        //ゲームが始まった時は山札
+        state = CardState.Mountain;
     }
 
     // Update is called once per frame
@@ -33,22 +36,55 @@ public class Card : MonoBehaviour
         CardPosition();
     }
 
+    //状況が手札でない場合、待機場所に
     void CardPosition()
     {
-        if(state != State.Hand)
+        if(state != CardState.Hand)
         {
-            this.transform.position = poolPos.transform.position;
+            this.transform.position = poolPos.position;
         }
     }
 
-    
-
-    public void ResetState()
+    //カーソルが合ってる間サイズをアップ
+    public void CardSizeUp()
     {
-        state = State.Mountain;
+        if(state == CardState.Hand)
+        {
+            this.transform.localScale = playPos.localScale * 1.5f;
+            Debug.Log("UP");
+            selected = true;
+        }
+    }
+    //カーソルが外れるとサイズダウン
+    public void CardSizeDown()
+    {
+        if(state == CardState.Hand)
+        {
+            this.transform.localScale = playPos.localScale;
+            Debug.Log("Down");
+            selected = false;
+        }
+      
     }
 
-    //制作用
+    public void UseSelectCard()
+    {
+        if(selected == true && state == CardState.Hand)
+        {
+            Debug.Log("使用");
+            this.transform.localScale = playPos.localScale;
+            this.transform.localPosition = playPos.localPosition;
+            selected = false;
+        }
+    }
+    
+    //Resetされると山札に
+    public void ResetState()
+    {
+        state = CardState.Mountain;
+    }
+
+    //α制作用
     void CardColor()
     {
         switch (Type)
