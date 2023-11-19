@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 //カードの現状
 public enum CardState
@@ -20,6 +21,7 @@ public class Card : MonoBehaviour
     public Transform poolPos;             //画面外のカード待機場所の座標
     CardBoardManager cbMa;                //カードボードマネージャーのインスタンス
     public Transform playPos;
+   
 
 
     // Start is called before the first frame update
@@ -48,7 +50,7 @@ public class Card : MonoBehaviour
     //カーソルが合ってる間サイズをアップ
     public void CardSizeUp()
     {
-        if(state == CardState.Hand)
+        if(state == CardState.Hand && FazeManager.NowCardFaze == CardFaze.Selsect)
         {
             this.transform.localScale = playPos.localScale * 1.5f;
             Debug.Log("UP");
@@ -58,7 +60,7 @@ public class Card : MonoBehaviour
     //カーソルが外れるとサイズダウン
     public void CardSizeDown()
     {
-        if(state == CardState.Hand)
+        if(state == CardState.Hand && FazeManager.NowCardFaze == CardFaze.Selsect)
         {
             this.transform.localScale = playPos.localScale;
             Debug.Log("Down");
@@ -75,6 +77,8 @@ public class Card : MonoBehaviour
             this.transform.localScale = playPos.localScale;
             this.transform.localPosition = playPos.localPosition;
             selected = false;
+            EffectManager.EffectHub(Type);
+            FazeManager.NowCardFaze = CardFaze.Throw;
         }
     }
     
@@ -82,6 +86,7 @@ public class Card : MonoBehaviour
     public void ResetState()
     {
         state = CardState.Mountain;
+        FazeManager.NowCardFaze = CardFaze.Draw;
     }
 
     //α制作用

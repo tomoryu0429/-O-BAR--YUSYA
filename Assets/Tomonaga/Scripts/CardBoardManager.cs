@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 
 
 
@@ -13,17 +13,23 @@ public class CardBoardManager : MonoBehaviour
     public static int _GabageCardNum = 0;       //Ì‚ÄD‚Ì–‡”
     public GameObject _MountainCard;            //RD
     public GameObject _GabageCard;              //Ì‚ÄD
-
+    public Text valueM;
+    public Text valueH;
+    public Text valueG;
 
     // Start is called before the first frame update
     void Start()
     {
         
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        valueM.text = "RD: " + _MountainCardNum.ToString();
+        valueH.text = "èD: " + _HandCardNum.ToString();
+        valueG.text = "Ì‚ÄD: " + _GabageCardNum.ToString();
         GabageZoneCtrl();
         MountainZoneCtrl();
     }
@@ -70,36 +76,53 @@ public class CardBoardManager : MonoBehaviour
     //ƒJ[ƒh‚Ìƒhƒ[
     public void Draw()
     {
-        //RD‚ª0–‡‚Å‚Í‚È‚¢A‚à‚µ‚­‚ÍèD‚ª‚R–‡‚Å‚È‚¢‚Æ‚«ƒhƒ[‚Å‚«‚é
-        if(_MountainCardNum > 0 || _HandCardNum <3)
+        if(FazeManager.NowCardFaze == CardFaze.Draw)
         {
-            _MountainCardNum -= 3;
-            _HandCardNum += 3;
-            Debug.Log("RD:"+ _MountainCardNum);
-            Debug.Log("èD:" + _HandCardNum);
+            //RD‚ª0–‡‚Å‚Í‚È‚¢A‚à‚µ‚­‚ÍèD‚ª‚R–‡‚Å‚È‚¢‚Æ‚«ƒhƒ[‚Å‚«‚é
+            if (_MountainCardNum > 0 || _HandCardNum < 3)
+            {
+                _MountainCardNum -= 3;
+                _HandCardNum += 3;
+                //Debug.Log("RD:"+ _MountainCardNum);
+                //Debug.Log("èD:" + _HandCardNum);
+            }
+            else
+            {
+                Debug.Log("RD‚ª‚È‚¢‚©èD‚ª‚¢‚Á‚Ï‚¢‚¾‚æ");
+            }
         }
         else
         {
-            Debug.Log("RD‚ª‚È‚¢‚©èD‚ª‚¢‚Á‚Ï‚¢‚¾‚æ");
+                Debug.Log("Faze‚ªƒhƒ[‚Å‚Í‚È‚¢‚æ");
         }
+
+
     }
 
     //—vC³
     //ƒJ[ƒh‚ğÌ‚Ä‚é
     public void ThrowCard()
     {
-        //èD‚ª0o‚È‚¢‚ÉÀs‰Â”\
-        if(_HandCardNum >0)
+        if (FazeManager.NowCardFaze == CardFaze.Throw)
         {
-            _HandCardNum -= 3;
-            _GabageCardNum += 3;
-            Debug.Log("Ì‚ÄD:" + _GabageCardNum);
-            Debug.Log("èD:" + _HandCardNum);
+            //èD‚ª0o‚È‚¢‚ÉÀs‰Â”\
+            if (_HandCardNum > 0)
+            {
+                _HandCardNum -= 3;
+                _GabageCardNum += 3;
+                //Debug.Log("Ì‚ÄD:" + _GabageCardNum);
+                //Debug.Log("èD:" + _HandCardNum);
+            }
+            else
+            {
+                Debug.Log("èD‚ª‚È‚¢‚æ");
+            }
         }
         else
         {
-            Debug.Log("èD‚ª‚È‚¢‚æ");
+            Debug.Log("Faze‚ªƒXƒ[‚Å‚Í‚È‚¢‚æ");
         }
+            
     }
 
 }
