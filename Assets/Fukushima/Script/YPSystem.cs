@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class YarukiSystem : MonoBehaviour
+public class YPSystem : MonoBehaviour
 {
     GameObject _image;
     private void Start()
