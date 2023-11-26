@@ -42,6 +42,8 @@ public class CardBoardManager : MonoBehaviour
         _GabageCardNum = 0;
     }
 
+
+
     //RD•\¦‚Ì§Œä
     void MountainZoneCtrl()
     {
@@ -76,27 +78,28 @@ public class CardBoardManager : MonoBehaviour
     //ƒJ[ƒh‚Ìƒhƒ[
     public void Draw()
     {
-        if(FazeManager.NowCardFaze == CardFaze.Draw)
+        if (TurnManager.turnState == TurnState.Card)
         {
-            //RD‚ª0–‡‚Å‚Í‚È‚¢A‚à‚µ‚­‚ÍèD‚ª‚R–‡‚Å‚È‚¢‚Æ‚«ƒhƒ[‚Å‚«‚é
-            if (_MountainCardNum > 0 || _HandCardNum < 3)
+            if (FazeManager.NowCardFaze == CardFaze.Draw)
             {
-                _MountainCardNum -= 3;
-                _HandCardNum += 3;
-                //Debug.Log("RD:"+ _MountainCardNum);
-                //Debug.Log("èD:" + _HandCardNum);
+                //RD‚ª0–‡‚Å‚Í‚È‚¢A‚à‚µ‚­‚ÍèD‚ª‚R–‡‚Å‚È‚¢‚Æ‚«ƒhƒ[‚Å‚«‚é
+                if (_MountainCardNum > 0 || _HandCardNum < 3)
+                {
+                    _MountainCardNum -= 3;
+                    _HandCardNum += 3;
+                    
+                }
+                else
+                {
+                    Debug.Log("RD‚ª‚È‚¢‚©èD‚ª‚¢‚Á‚Ï‚¢‚¾‚æ");
+                }
             }
             else
             {
-                Debug.Log("RD‚ª‚È‚¢‚©èD‚ª‚¢‚Á‚Ï‚¢‚¾‚æ");
+                Debug.Log("Faze‚ªƒhƒ[‚Å‚Í‚È‚¢‚æ");
             }
         }
-        else
-        {
-                Debug.Log("Faze‚ªƒhƒ[‚Å‚Í‚È‚¢‚æ");
-        }
-
-
+       
     }
 
     //—vC³
@@ -110,8 +113,7 @@ public class CardBoardManager : MonoBehaviour
             {
                 _HandCardNum -= 3;
                 _GabageCardNum += 3;
-                //Debug.Log("Ì‚ÄD:" + _GabageCardNum);
-                //Debug.Log("èD:" + _HandCardNum);
+               
             }
             else
             {

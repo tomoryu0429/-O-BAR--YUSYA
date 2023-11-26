@@ -9,6 +9,8 @@ public enum CardState
     Mountain,
     Hand,
     Gabage,
+    Death,
+    Pool,
 }
 
 public class Card : MonoBehaviour
@@ -21,6 +23,7 @@ public class Card : MonoBehaviour
     public Transform poolPos;             //画面外のカード待機場所の座標
     CardBoardManager cbMa;                //カードボードマネージャーのインスタンス
     public Transform playPos;
+    public bool isCookCard;                  //料理カードか素材カードか
    
 
 
@@ -29,7 +32,10 @@ public class Card : MonoBehaviour
     {
         CardColor();
         //ゲームが始まった時は山札
-        state = CardState.Mountain;
+        if(!isCookCard)
+            state = CardState.Mountain;
+        else
+            state = CardState.Pool;
     }
 
     // Update is called once per frame

@@ -27,6 +27,8 @@ public class CardManager : MonoBehaviour
     public GameObject _handPos2;
     public GameObject _handPos3;
 
+    
+
     //選ばれた数字
     private int _choiseNum;
     //繰り返しを行う回数
@@ -41,63 +43,69 @@ public class CardManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
 
     //カードを捨てる
     public void ThrowCard()
     {
-        if (FazeManager.NowCardFaze == CardFaze.Throw)
-        {
-            //山札のカードを全て確認
-            for (int i = 1; i < 10; i++)
+        
+            if (FazeManager.NowCardFaze == CardFaze.Throw)
             {
-                //手札にある場合は捨て札に
-                if (GetChoiseCard(i).state == CardState.Hand)
+                //山札のカードを全て確認
+                for (int i = 1; i < 10; i++)
                 {
-                    GetChoiseCard(i).state = CardState.Gabage;
+                    //手札にある場合は捨て札に
+                    if (GetChoiseCard(i).state == CardState.Hand)
+                    {
+                        GetChoiseCard(i).state = CardState.Gabage;
+                    }
                 }
+            FazeManager.NowCardFaze = CardFaze.Draw;
+            TurnManager.turnState = TurnState.HeroAttack;
             }
-            FazeManager.NowCardFaze = CardFaze.ELSE;
-        }
-
+        
+      
     }
 
     public void DrawCard()
     {
-        if (FazeManager.NowCardFaze == CardFaze.Draw)
+        if (TurnManager.turnState == TurnState.Card)
         {
-            //３枚ドローをするまで繰り返し
-            while (_loopcount < 3)
+            if (FazeManager.NowCardFaze == CardFaze.Draw)
             {
-                //1～9の中からランダムに数字を取得
-                int _choiseNum = Random.Range(1, 10);
-                //選ばれた数字に対応するカードが山札にある場合ドローを行う
-                if (GetChoiseCard(_choiseNum).state == CardState.Mountain)
+                //３枚ドローをするまで繰り返し
+                while (_loopcount < 3)
                 {
-                    //山札から手札へ
-                    GetChoiseCard(_choiseNum).state = CardState.Hand;
-                    //カードのオブジェクトを手札の位置へ移動
-                    GetObjectChoiseCard(_choiseNum).transform.position = MoveToHandPos(_loopcount).transform.position;
-                    //繰り返し回数をカウント
-                    _loopcount++;
+                    //1～9の中からランダムに数字を取得
+                    int _choiseNum = Random.Range(1, 10);
+                    //選ばれた数字に対応するカードが山札にある場合ドローを行う
+                    if (GetChoiseCard(_choiseNum).state == CardState.Mountain)
+                    {
+                        //山札から手札へ
+                        GetChoiseCard(_choiseNum).state = CardState.Hand;
+                        //カードのオブジェクトを手札の位置へ移動
+                        GetObjectChoiseCard(_choiseNum).transform.position = MoveToHandPos(_loopcount).transform.position;
+                        //繰り返し回数をカウント
+                        _loopcount++;
+                    }
                 }
+                //ドローが終われば繰り返し回数をリセット
+                _loopcount = 0;
+                FazeManager.NowCardFaze = CardFaze.Selsect;
             }
-            //ドローが終われば繰り返し回数をリセット
-            _loopcount = 0;
-            FazeManager.NowCardFaze = CardFaze.Selsect;
-        }
-        else
-        {
-            Debug.Log("Fazeがドローじゃないよ");
+            else
+            {
+                Debug.Log("Fazeがドローじゃないよ");
+            }
         }
 
     }
 
 
     //選ばれたカードの情報を取得
-    Card GetChoiseCard(int ChoiseNum)
+    public Card GetChoiseCard(int ChoiseNum)
     {
         switch (ChoiseNum)
         {
@@ -146,5 +154,8 @@ public class CardManager : MonoBehaviour
         }
 
     }
+
+
+
 
 }
