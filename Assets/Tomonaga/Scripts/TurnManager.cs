@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public enum TurnState
 {
     Card,
+    Cook,
     HeroAttack,
     EnemyAttack,
     End,
@@ -48,14 +49,19 @@ public class TurnManager : MonoBehaviour
 
     public@void ProgressTurn()
     {
-        if(turnState != TurnState.End)
-        {
-            turnState++;
-        }
-        else
+        if(turnState == TurnState.End)
         {
             turnState = TurnState.Card;
             AddTurnNum();
+            
+        }
+        else if(turnState == TurnState.Card)
+        {
+            turnState += 2;
+        }
+        else
+        {
+            turnState++;
         }
       
     }

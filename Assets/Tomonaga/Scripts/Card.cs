@@ -13,6 +13,8 @@ public enum CardState
     Pool,
 }
 
+
+
 public class Card : MonoBehaviour
 {
     public CardState state;     //カードの状況
@@ -23,19 +25,18 @@ public class Card : MonoBehaviour
     public Transform poolPos;             //画面外のカード待機場所の座標
     CardBoardManager cbMa;                //カードボードマネージャーのインスタンス
     public Transform playPos;
-    public bool isCookCard;                  //料理カードか素材カードか
-   
+    public bool isCookCard  = false;                  //料理カードか素材カードか
 
 
     // Start is called before the first frame update
     void Start()
     {
         CardColor();
-        //ゲームが始まった時は山札
-        if(!isCookCard)
-            state = CardState.Mountain;
-        else
-            state = CardState.Pool;
+        ////ゲームが始まった時は山札
+        //if(!isCookCard)
+        //    state = CardState.Mountain;
+        //else
+        //    state = CardState.Pool;
     }
 
     // Update is called once per frame
@@ -95,6 +96,7 @@ public class Card : MonoBehaviour
         FazeManager.NowCardFaze = CardFaze.Draw;
     }
 
+
     //α制作用
     void CardColor()
     {
@@ -108,6 +110,9 @@ public class Card : MonoBehaviour
                 break;
             case 2:
                 spriteRenderer.color = Color.green;
+                break;
+           case 3:
+                spriteRenderer.color = Color.yellow;
                 break;
         }
     }
