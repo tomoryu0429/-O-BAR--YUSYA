@@ -66,6 +66,12 @@ public class TurnManager : MonoBehaviour
       
     }
 
+    public void AddTurnState()
+    {
+        turnState++;
+    }
+
+
     void AddTurnNum()
     {
         TurnNum++;

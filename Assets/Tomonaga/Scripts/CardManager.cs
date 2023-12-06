@@ -56,7 +56,7 @@ public class CardManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        GabageBackToMountain();
     }
 
 
@@ -64,27 +64,27 @@ public class CardManager : MonoBehaviour
     public void ThrowCard()
     {
         
-            if (FazeManager.NowCardFaze == CardFaze.Throw)
-            {
-                //山札のカードを全て確認
-                for (int i = 0; i < _deckNum; i++)
-                {
-
-                GameObject _cardObject;
-                     if (deckDictionary.TryGetValue(i, out _cardObject))
-                     {
-                         Card _card = _cardObject.GetComponent<Card>();
-                         if (_card.state == CardState.Hand)
-                         {
-                             _card.state = CardState.Gabage;
-                         }
-                     
-                     }
-                }
-
-            FazeManager.NowCardFaze = CardFaze.Draw;
-            TurnManager.turnState = TurnState.HeroAttack;
-            }
+         if (FazeManager.NowCardFaze == CardFaze.Throw)
+         {
+             //山札のカードを全て確認
+             for (int i = 0; i < _deckNum; i++)
+             {
+         
+             GameObject _cardObject;
+                  if (deckDictionary.TryGetValue(i, out _cardObject))
+                  {
+                      Card _card = _cardObject.GetComponent<Card>();
+                      if (_card.state == CardState.Hand)
+                      {
+                          _card.state = CardState.Gabage;
+                      }
+                  
+                  }
+             }
+         
+         FazeManager.NowCardFaze = CardFaze.Draw;
+         TurnManager.turnState = TurnState.HeroAttack;
+         }
         
       
     }
@@ -127,6 +127,51 @@ public class CardManager : MonoBehaviour
         }
 
     }   
+
+    void GabageBackToMountain()
+    {
+        if(TurnManager.turnState == TurnState.End)
+        {
+            int MountainNum = 0;
+            //カードを全て確認
+            for (int i = 0; i < _deckNum; i++)
+            {
+
+                GameObject _cardObject;
+                if (deckDictionary.TryGetValue(i, out _cardObject))
+                {
+                    Card _card = _cardObject.GetComponent<Card>();
+                    if (_card.state == CardState.Mountain)
+                    {
+                        MountainNum++;
+                    }
+
+                }
+            }
+
+            Debug.Log(MountainNum);
+            if(MountainNum == 0)
+            {
+                //カードを全て確認
+                for (int i = 0; i < _deckNum; i++)
+                {
+
+                    GameObject _cardObject;
+                    if (deckDictionary.TryGetValue(i, out _cardObject))
+                    {
+                        Card _card = _cardObject.GetComponent<Card>();
+                        if (_card.state == CardState.Gabage)
+                        {
+                            _card.state = CardState.Mountain;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+
 
     //ドローされた順番に従い手札の移動先を取得
     GameObject MoveToHandPos(int _loopnum)

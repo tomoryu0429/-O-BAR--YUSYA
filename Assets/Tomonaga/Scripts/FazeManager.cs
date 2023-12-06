@@ -12,6 +12,12 @@ public enum CardFaze
     ELSE,
 }
 
+public enum CookFaze
+{
+    FoodSel, //—¿—‚Ì‘I‘ğ
+    MaterialSel, //‘fŞ‚Ì‘I‘ğ
+}
+
 
 public class FazeManager : MonoBehaviour
 {
