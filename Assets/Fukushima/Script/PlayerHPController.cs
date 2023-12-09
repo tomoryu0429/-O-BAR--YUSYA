@@ -5,13 +5,13 @@ using UnityEngine.UI;
 
 public class PlayerHPController : MonoBehaviour
 {
-    [SerializeField] int _maxHP = 100;
+/*    [SerializeField] int _maxHP = 100;
     [SerializeField] int _startHP = 100;
     public static float _currentHP;
     GameObject _textobj;
-    GameObject _hpSystem;
+    GameObject _hpSystem;*/
 
-    private void Start()
+/*    private void Start()
     {
         _currentHP = _startHP;
         _textobj = GameObject.Find("HPText");
@@ -29,5 +29,5 @@ public class PlayerHPController : MonoBehaviour
         {
             _currentHP = 0;
         }
-    }
+    }*/
 }
