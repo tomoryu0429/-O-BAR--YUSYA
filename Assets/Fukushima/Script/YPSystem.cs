@@ -10,7 +10,7 @@ public class YPSystem : MonoBehaviour
     {
         _image = GameObject.Find("YarukiBar");
     }
-    public void HPDown(float _current, int _max)
+    public void YPDown(float _current, int _max)
     {
         _image.GetComponent<Image>().fillAmount = _current / _max;
     }
