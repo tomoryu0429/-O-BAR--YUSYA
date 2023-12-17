@@ -20,10 +20,6 @@ public class Player : MonoBehaviour
     {
         _currentHP = _startHP;
         _currentYP = _startYP;
-        /*_hpTextobj = GameObject.Find("HPText");
-        _hpSystem = GameObject.Find("HPSystem");
-        _ypTextobj = GameObject.Find("YarukiText");
-        _ypSystem = GameObject.Find("YPSystem");*/
     }
 
     public void Update()
