@@ -9,9 +9,13 @@ public class Player : MonoBehaviour
     [SerializeField] int _maxYP = 100;
     [SerializeField] int _startHP = 100;
     [SerializeField] int _startYP = 100;
-    [SerializeField] int _diffence = 0;
+    [SerializeField] int _startdDiffence = 0;
+    [SerializeField] int _hpUpDown = 0;
+    [Tooltip("減らしたい場合は数値をマイナスにしてください")]
+    [SerializeField] int _ypDown = 15;
     public static int _currentHP = 100;
     public static int _currentYP = 100;
+    public static int _currentDif = 0; 
     public GameObject _hpTextobj;
     public GameObject _hpSystem;
     public GameObject _ypTextobj;
@@ -20,6 +24,7 @@ public class Player : MonoBehaviour
     {
         _currentHP = _startHP;
         _currentYP = _startYP;
+        _currentDif = _startdDiffence;
     }
 
     public void Update()
@@ -43,5 +48,17 @@ public class Player : MonoBehaviour
         {
             _currentYP = 0;
         }
+    }
+
+    public void HPUpDown()
+    {
+        _currentHP += _hpUpDown;
+        Debug.Log($"HP + {_hpUpDown}");
+    }
+
+    public void YPDown()
+    {
+        _currentYP -= _ypDown;
+        Debug.Log($"YP - {_ypDown}");
     }
 }
