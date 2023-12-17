@@ -8,7 +8,6 @@ public class CardScript : MonoBehaviour
 {    
     public void HPAdd10()
     {
-        PlayerHPController._currentHP += 5;
         Player._currentHP += 10;
         Debug.Log("HP +10");
     }

@@ -12,18 +12,18 @@ public class Player : MonoBehaviour
     [SerializeField] int _diffence = 0;
     public static int _currentHP = 100;
     public static int _currentYP = 100;
-    GameObject _hpTextobj;
-    GameObject _hpSystem;
-    GameObject _ypTextobj;
-    GameObject _ypSystem;
+    public GameObject _hpTextobj;
+    public GameObject _hpSystem;
+    public GameObject _ypTextobj;
+    public GameObject _ypSystem;
     public void Start()
     {
         _currentHP = _startHP;
         _currentYP = _startYP;
-        _hpTextobj = GameObject.Find("HPText");
+        /*_hpTextobj = GameObject.Find("HPText");
         _hpSystem = GameObject.Find("HPSystem");
         _ypTextobj = GameObject.Find("YarukiText");
-        _ypSystem = GameObject.Find("YPSystem");
+        _ypSystem = GameObject.Find("YPSystem");*/
     }
 
     public void Update()

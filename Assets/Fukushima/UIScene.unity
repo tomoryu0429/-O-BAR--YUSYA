@@ -771,6 +771,10 @@ MonoBehaviour:
   _startHP: 80
   _startYP: 100
   _diffence: 0
+  _hpTextobj: {fileID: 2069700640}
+  _hpSystem: {fileID: 1234734920}
+  _ypTextobj: {fileID: 1963449165}
+  _ypSystem: {fileID: 1123950328}
 --- !u!4 &1896163486
 Transform:
   m_ObjectHideFlags: 0
