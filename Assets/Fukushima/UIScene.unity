@@ -536,6 +536,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e7f0d9959bcf3f47a422caa685036d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _image: {fileID: 1637122758}
 --- !u!224 &1127114988 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8074594682157430912, guid: 0186a68d93eaaf04fb06e5d6afd54d17, type: 3}
@@ -570,6 +571,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 439dfba980b8d3246b7bb510acae856b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _image: {fileID: 1700069694}
 --- !u!4 &1234734923
 Transform:
   m_ObjectHideFlags: 0
