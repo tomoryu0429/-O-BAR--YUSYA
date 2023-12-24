@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// ƒ^[ƒ“‚ÌŠÇ—
+/// </summary>
+
 public enum TurnState
 {
     Card,

@@ -2,6 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
+using static Unity.Burst.Intrinsics.Arm;
+using UnityEngine.XR;
+using UnityEngine.EventSystems;
+using Unity.VisualScripting;
+
+/// <summary>
+/// カード1枚１枚の挙動
+/// </summary>
+
 
 //カードの現状
 public enum CardState
@@ -18,20 +28,25 @@ public enum CardState
 public class Card : MonoBehaviour
 {
     public CardState state;     //カードの状況
-    public int Type; //カードの種類
+
+    public FoodKinds type;
+
     private bool selected = false;
 
     public SpriteRenderer spriteRenderer; //このカードのスプライトレンダラー
+    public Sprite[] cardSprite = new Sprite[12];
     public Transform poolPos;             //画面外のカード待機場所の座標
     CardBoardManager cbMa;                //カードボードマネージャーのインスタンス
     public Transform playPos;
     public bool isCookCard  = false;                  //料理カードか素材カードか
 
+    EventTrigger GetTrigger;
 
     // Start is called before the first frame update
     void Start()
     {
-        CardColor();
+
+      
         ////ゲームが始まった時は山札
         //if(!isCookCard)
         //    state = CardState.Mountain;
@@ -43,6 +58,7 @@ public class Card : MonoBehaviour
     void Update()
     {
         CardPosition();
+        setCardDesing();
     }
 
     //状況が手札でない場合、待機場所に
@@ -53,41 +69,6 @@ public class Card : MonoBehaviour
             this.transform.position = poolPos.position;
         }
     }
-
-    //カーソルが合ってる間サイズをアップ
-    public void CardSizeUp()
-    {
-        if(state == CardState.Hand && FazeManager.NowCardFaze == CardFaze.Selsect)
-        {
-            this.transform.localScale = playPos.localScale * 1.5f;
-            Debug.Log("UP");
-            selected = true;
-        }
-    }
-    //カーソルが外れるとサイズダウン
-    public void CardSizeDown()
-    {
-        if(state == CardState.Hand && FazeManager.NowCardFaze == CardFaze.Selsect)
-        {
-            this.transform.localScale = playPos.localScale;
-            Debug.Log("Down");
-            selected = false;
-        }
-      
-    }
-
-    public void UseSelectCard()
-    {
-        if(selected == true && state == CardState.Hand)
-        {
-            Debug.Log("使用");
-            this.transform.localScale = playPos.localScale;
-            this.transform.localPosition = playPos.localPosition;
-            selected = false;
-            EffectManager.EffectHub(Type);
-            FazeManager.NowCardFaze = CardFaze.Throw;
-        }
-    }
     
     //Resetされると山札に
     public void ResetState()
@@ -96,25 +77,42 @@ public class Card : MonoBehaviour
         FazeManager.NowCardFaze = CardFaze.Draw;
     }
 
-
-    //α制作用
-    void CardColor()
+    private void setCardDesing()
     {
-        switch (Type)
+        spriteRenderer.sprite = cardSprite[(int)type];
+    }
+
+    void OnMouseEnter()
+    {
+        if (state == CardState.Hand && FazeManager.NowCardFaze == CardFaze.Selsect)
         {
-            case 0:
-                spriteRenderer.color = Color.red;
-                break;
-            case 1:
-                spriteRenderer.color = Color.blue;
-                break;
-            case 2:
-                spriteRenderer.color = Color.green;
-                break;
-           case 3:
-                spriteRenderer.color = Color.yellow;
-                break;
+            this.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+            Debug.Log("UP");
+            selected = true;
         }
     }
 
+    void OnMouseExit()
+    {
+        if (state == CardState.Hand && FazeManager.NowCardFaze == CardFaze.Selsect)
+        {
+            this.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
+
+            Debug.Log("Down");
+            selected = false;
+        }
+    }
+
+    void OnMouseDown()
+    {
+        if (selected == true && state == CardState.Hand)
+        {
+            Debug.Log("使用");
+            this.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
+            this.transform.localPosition = playPos.localPosition;
+            selected = false;
+            EffectManager.EffectHub(type);
+            FazeManager.NowCardFaze = CardFaze.Throw;
+        }
+    }
 }

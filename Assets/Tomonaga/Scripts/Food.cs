@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// 食材カードの設定
+/// </summary>
 public enum FoodKinds
 {
     Meat,

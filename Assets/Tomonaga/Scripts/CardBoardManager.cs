@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-
+/// <summary>
+/// ƒJ[ƒhŠÖŒW‚ÌŒ©‚½–Ú‚ÌŠÇ—
+/// </summary>
 
 
 public class CardBoardManager : MonoBehaviour
