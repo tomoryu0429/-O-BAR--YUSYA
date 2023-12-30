@@ -10,7 +10,6 @@ using UnityEngine.UI;
 public enum TurnState
 {
     Card,
-    Cook,
     HeroAttack,
     EnemyAttack,
     End,
@@ -25,6 +24,7 @@ public class TurnManager : MonoBehaviour
     public Text TurnNumText;
 
     public GameObject CardButton;
+    public GameObject HeroAttackButton;
 
     int TurnNum = 1;
 
@@ -47,6 +47,14 @@ public class TurnManager : MonoBehaviour
         else if(turnState != TurnState.Card && CardButton.activeSelf == true)
         {
             CardButton.SetActive(false);
+        }
+        if (turnState == TurnState.HeroAttack && HeroAttackButton.activeSelf == false)
+        {
+            HeroAttackButton.SetActive(true);
+        }
+        else if (turnState != TurnState.HeroAttack && HeroAttackButton.activeSelf == true)
+        {
+            HeroAttackButton.SetActive(false);
         }
 
     }

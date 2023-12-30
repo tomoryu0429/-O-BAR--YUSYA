@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class EffectManager : MonoBehaviour
 {
+
+    CardScript cardScript;
     // Start is called before the first frame update
     void Start()
     {
-        
+        cardScript = GetComponent<CardScript>();
     }
 
     // Update is called once per frame
@@ -16,34 +18,21 @@ public class EffectManager : MonoBehaviour
         
     }
 
-    static void Heal()
-    {
-        Debug.Log("回復");
-    }
-
-    static void DefBuf()
-    {
-        Debug.Log("防御力アップ");
-    }
-
-    static void YarukiUp()
-    {
-        Debug.Log("やる気アップ");
-    }
+    
 
 
-    public static void EffectHub(FoodKinds CardType)
+    public void EffectHub(FoodKinds CardType)
     {
       
         switch (CardType)
         { 
             case FoodKinds.Meat: case FoodKinds.Fish: case FoodKinds.Mushroom:
             case FoodKinds.Tomato:case FoodKinds.Onion: case FoodKinds.Rice:
-                YarukiUp();
+                cardScript.YPUp1();
                 break;
             case FoodKinds.Gelatin: case FoodKinds.Milk: case FoodKinds.Strawberry:
             case FoodKinds.Chocolate: case FoodKinds.Wheat: case FoodKinds.Honey:
-                DefBuf();
+                cardScript.DifUp1();
                 break;
 
             default:

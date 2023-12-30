@@ -15,6 +15,7 @@ public enum CardFaze
     Play,
     Throw,
     ELSE,
+    Cook,
 }
 
 public enum CookFaze

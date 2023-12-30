@@ -39,7 +39,7 @@ public class Card : MonoBehaviour
     CardBoardManager cbMa;                //カードボードマネージャーのインスタンス
     public Transform playPos;
     public bool isCookCard  = false;                  //料理カードか素材カードか
-
+    public EffectManager effectManager;
     EventTrigger GetTrigger;
 
     // Start is called before the first frame update
@@ -111,7 +111,7 @@ public class Card : MonoBehaviour
             this.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
             this.transform.localPosition = playPos.localPosition;
             selected = false;
-            EffectManager.EffectHub(type);
+            effectManager.EffectHub(type);
             FazeManager.NowCardFaze = CardFaze.Throw;
         }
     }
