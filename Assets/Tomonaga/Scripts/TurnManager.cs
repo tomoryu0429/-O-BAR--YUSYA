@@ -67,10 +67,6 @@ public class TurnManager : MonoBehaviour
             AddTurnNum();
             
         }
-        else if(turnState == TurnState.Card)
-        {
-            turnState += 2;
-        }
         else
         {
             turnState++;

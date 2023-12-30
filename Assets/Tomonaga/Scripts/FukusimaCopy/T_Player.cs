@@ -64,4 +64,10 @@ public class T_Player : MonoBehaviour
         _currentDif = 0;
         Debug.Log("–hŒä—Í‚ªƒŠƒZƒbƒg‚³‚ê‚½");
     }
+
+    public void pAttack()
+    {
+        YPDown();
+        TurnManager.turnState = TurnState.EnemyAttack;
+    }
 }
