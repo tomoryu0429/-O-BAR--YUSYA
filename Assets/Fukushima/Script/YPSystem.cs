@@ -6,8 +6,8 @@ using UnityEngine.UI;
 public class YPSystem : MonoBehaviour
 {
     public GameObject _image;
-    public void YPDown(float _current, int _max)
+    public void YPBar(int _max)
     {
-        _image.GetComponent<Image>().fillAmount = _current / _max;
+        _image.GetComponent<Image>().fillAmount = Player._currentYP / _max;
     }
 }
