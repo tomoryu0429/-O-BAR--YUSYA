@@ -5,11 +5,11 @@ using UnityEngine;
 public class EffectManager : MonoBehaviour
 {
 
-    CardScript cardScript;
+    CardEffect cardScript;
     // Start is called before the first frame update
     void Start()
     {
-        cardScript = GetComponent<CardScript>();
+        cardScript = GetComponent<CardEffect>();
     }
 
     // Update is called once per frame

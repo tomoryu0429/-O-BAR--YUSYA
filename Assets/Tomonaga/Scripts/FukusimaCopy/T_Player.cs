@@ -19,7 +19,6 @@ public class T_Player : MonoBehaviour
     {
         _currentHP = _maxHP;
         _currentYP = _maxYP;
-        _currentDif = 0;
     }
 
     public void Update()

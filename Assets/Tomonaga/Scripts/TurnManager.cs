@@ -25,6 +25,8 @@ public class TurnManager : MonoBehaviour
 
     public GameObject CardButton;
     public GameObject HeroAttackButton;
+    public GameObject EnemyAttackButton;
+
 
     int TurnNum = 1;
 
@@ -55,6 +57,14 @@ public class TurnManager : MonoBehaviour
         else if (turnState != TurnState.HeroAttack && HeroAttackButton.activeSelf == true)
         {
             HeroAttackButton.SetActive(false);
+        }
+        if (turnState == TurnState.EnemyAttack && EnemyAttackButton.activeSelf == false)
+        {
+            EnemyAttackButton.SetActive(true);
+        }
+        else if (turnState != TurnState.EnemyAttack && EnemyAttackButton.activeSelf == true)
+        {
+            EnemyAttackButton.SetActive(false);
         }
 
     }
