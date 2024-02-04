@@ -47,7 +47,7 @@ public class HartController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     private void ChangeValue(float v)
@@ -55,5 +55,5 @@ public class HartController : MonoBehaviour
         throw new NotImplementedException();
     }
 
-   
+
 }
