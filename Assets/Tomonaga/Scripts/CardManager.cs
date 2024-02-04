@@ -2,6 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
+/// <summary>
+/// カード全体の挙動
+/// </summary>
+
+
 public class CardManager : MonoBehaviour
 {
     //カードの情報を格納
@@ -16,6 +23,10 @@ public class CardManager : MonoBehaviour
     private const int _deckMax = 30;
     private int _deckNum = 9;
     
+    public FoodKinds[] _foodKinds = new FoodKinds[12];
+
+
+
 
     //選ばれた数字
     private int _choiseNum;
@@ -33,20 +44,9 @@ public class CardManager : MonoBehaviour
             Card _card = _CardObject.GetComponent<Card>();
             
             _card.state = CardState.Mountain;
+           
+            _card.type = _foodKinds[i];
             
-
-            if(i < 3)
-            {
-                _card.Type = 0;
-            }
-            else if(3<=i && i <6)
-            {
-                _card.Type = 1;
-            }
-            else if(6<=i && i <9)
-            {
-                _card.Type = 2;
-            }
 
             //生成したオブジェクトをリストに追加していく
             deckDictionary.Add(i, _CardObject);

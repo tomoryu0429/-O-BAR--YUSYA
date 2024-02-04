@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class EffectManager : MonoBehaviour
 {
+
+    CardEffect cardScript;
     // Start is called before the first frame update
     void Start()
     {
-        
+        cardScript = GetComponent<CardEffect>();
     }
 
     // Update is called once per frame
@@ -16,35 +18,23 @@ public class EffectManager : MonoBehaviour
         
     }
 
-    static void Heal()
-    {
-        Debug.Log("回復");
-    }
-
-    static void DefBuf()
-    {
-        Debug.Log("防御力アップ");
-    }
-
-    static void YarukiUp()
-    {
-        Debug.Log("やる気アップ");
-    }
+    
 
 
-    public static void EffectHub(int CardType)
+    public void EffectHub(FoodKinds CardType)
     {
+      
         switch (CardType)
-        {
-            case 0:
-                Heal();
+        { 
+            case FoodKinds.Meat: case FoodKinds.Fish: case FoodKinds.Mushroom:
+            case FoodKinds.Tomato:case FoodKinds.Onion: case FoodKinds.Rice:
+                cardScript.YPUp1();
                 break;
-            case 1:
-                DefBuf();
+            case FoodKinds.Gelatin: case FoodKinds.Milk: case FoodKinds.Strawberry:
+            case FoodKinds.Chocolate: case FoodKinds.Wheat: case FoodKinds.Honey:
+                cardScript.DifUp1();
                 break;
-            case 2:
-                YarukiUp();
-                break;
+
             default:
                 throw new System.ArgumentException("Invalid argument:効果");
 

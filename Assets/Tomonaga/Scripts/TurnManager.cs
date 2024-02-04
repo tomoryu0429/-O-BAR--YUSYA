@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// É^Å[ÉìÇÃä«óù
+/// </summary>
+
 public enum TurnState
 {
     Card,
-    Cook,
     HeroAttack,
     EnemyAttack,
     End,
@@ -21,6 +24,9 @@ public class TurnManager : MonoBehaviour
     public Text TurnNumText;
 
     public GameObject CardButton;
+    public GameObject HeroAttackButton;
+    public GameObject EnemyAttackButton;
+
 
     int TurnNum = 1;
 
@@ -44,6 +50,22 @@ public class TurnManager : MonoBehaviour
         {
             CardButton.SetActive(false);
         }
+        if (turnState == TurnState.HeroAttack && HeroAttackButton.activeSelf == false)
+        {
+            HeroAttackButton.SetActive(true);
+        }
+        else if (turnState != TurnState.HeroAttack && HeroAttackButton.activeSelf == true)
+        {
+            HeroAttackButton.SetActive(false);
+        }
+        if (turnState == TurnState.EnemyAttack && EnemyAttackButton.activeSelf == false)
+        {
+            EnemyAttackButton.SetActive(true);
+        }
+        else if (turnState != TurnState.EnemyAttack && EnemyAttackButton.activeSelf == true)
+        {
+            EnemyAttackButton.SetActive(false);
+        }
 
     }
 
@@ -54,10 +76,6 @@ public class TurnManager : MonoBehaviour
             turnState = TurnState.Card;
             AddTurnNum();
             
-        }
-        else if(turnState == TurnState.Card)
-        {
-            turnState += 2;
         }
         else
         {

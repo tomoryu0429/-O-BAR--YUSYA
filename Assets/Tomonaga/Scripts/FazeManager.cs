@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+/// <summary>
+/// カードターン内のフェイズの管理
+/// </summary>
+
 public enum CardFaze
 {
     Draw,
@@ -10,6 +15,7 @@ public enum CardFaze
     Play,
     Throw,
     ELSE,
+    Cook,
 }
 
 public enum CookFaze
