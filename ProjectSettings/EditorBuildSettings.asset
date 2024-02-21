@@ -9,15 +9,27 @@ EditorBuildSettings:
     path: Assets/Tomonaga/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
-    path: Assets/Higuchi/Start.unity
+    path: Assets/Higuchi/Scene/Start.unity
     guid: e0f35098cdcf65b4eaac112846a07b1e
   - enabled: 1
-    path: Assets/Higuchi/Game.unity
+    path: Assets/Higuchi/Scene/FirstGame.unity
     guid: 5d4ac432f369a9348b154c697df64e48
   - enabled: 1
-    path: Assets/Higuchi/Option.unity
+    path: Assets/Higuchi/Scene/Option.unity
     guid: 1bd69bfb5132c254ca8240a9adc6e93d
   - enabled: 1
-    path: Assets/Higuchi/Credit.unity
+    path: Assets/Higuchi/Scene/Credit.unity
     guid: adfaf5b62063f524a817a85529aee9ed
+  - enabled: 1
+    path: Assets/Higuchi/Scene/SecondGame1.unity
+    guid: d3a81fcf3b0f1534291e43ad172edf8b
+  - enabled: 1
+    path: Assets/Higuchi/Scene/SecondGame2.unity
+    guid: f3334b30ff6e9114981225ebba2dbdb1
+  - enabled: 1
+    path: Assets/Higuchi/Scene/ThirdGame1.unity
+    guid: acef28e543a5ade4994ff4b629cf5a68
+  - enabled: 1
+    path: Assets/Higuchi/Scene/ThirdGame2.unity
+    guid: 5132edd5e0ec15446a148bc495f35920
   m_configObjects: {}
