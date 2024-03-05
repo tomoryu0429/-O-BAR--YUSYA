@@ -36,7 +36,6 @@ public enum FoodKinds
 
 public enum FoodEffect
 {
-
     YarukiUp,
     DefenceUp,
     UsableCardAdd,
@@ -51,18 +50,35 @@ public enum FoodEfcSize
     LL,
 }
 
+public struct FoodEffectInfo
+{
+    public FoodEffect effect;
+    public FoodEfcSize size;
+
+}
+
 
 public class Food : MonoBehaviour
 {
     public FoodKinds fkinds;
-    List<FoodEffect> effectArray = new List<FoodEffect>();
-    List<FoodEfcSize> effectSizeArray = new List<FoodEfcSize>();
+    List<FoodEffectInfo> EffectInfoArray = new List<FoodEffectInfo>();
     int effectNum = 0;
+    Card thisCardScripts;
 
-    
+    public FoodEffectInfo getInfo(int arrayNum)
+    {
+        return EffectInfoArray[arrayNum];
+    }
+
+    public int getEffectNum() { return effectNum; }
 
     private void Start()
     {
+        thisCardScripts = this.GetComponent<Card>();
+
+        fkinds = thisCardScripts.type;
+
+
         if (fkinds == FoodKinds.Meat || fkinds == FoodKinds.Fish || fkinds == FoodKinds.Mushroom || fkinds == FoodKinds.Tomato || fkinds == FoodKinds.Onion || fkinds == FoodKinds.Rice) {
             AddEffect(FoodEffect.YarukiUp, FoodEfcSize.S);
         }
@@ -119,8 +135,8 @@ public class Food : MonoBehaviour
 
     void AddEffect(FoodEffect fef,FoodEfcSize fes)
     {
-        effectArray.Add(fef);
-        effectSizeArray.Add(fes);
+        FoodEffectInfo addfoodEffectInfo = new FoodEffectInfo {effect = fef,size = fes };
+        EffectInfoArray.Add(addfoodEffectInfo);
         effectNum++;
     }
 
