@@ -30,10 +30,14 @@ public class Card : MonoBehaviour
     public CardState state;     //カードの状況
 
     public FoodKinds type;
+    Food thisFood;
 
     private bool selected = false;
 
-    public SpriteRenderer spriteRenderer; //このカードのスプライトレンダラー
+   
+    public PlayCheckCard checkScripts;
+
+    public SpriteRenderer spriteRenderer;        //このカードのスプライトレンダラー
     public Sprite[] cardSprite = new Sprite[12];
     public Transform poolPos;             //画面外のカード待機場所の座標
     CardBoardManager cbMa;                //カードボードマネージャーのインスタンス
@@ -41,24 +45,21 @@ public class Card : MonoBehaviour
     public bool isCookCard  = false;                  //料理カードか素材カードか
     public EffectManager effectManager;
     EventTrigger GetTrigger;
+    public GameObject playcheck;
 
     // Start is called before the first frame update
     void Start()
     {
-
-      
-        ////ゲームが始まった時は山札
-        //if(!isCookCard)
-        //    state = CardState.Mountain;
-        //else
-        //    state = CardState.Pool;
+        setCardDesing();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        thisFood = this.GetComponent<Food>();
     }
 
     // Update is called once per frame
     void Update()
     {
         CardPosition();
-        setCardDesing();
+        //setCardDesing();
     }
 
     //状況が手札でない場合、待機場所に
@@ -105,14 +106,31 @@ public class Card : MonoBehaviour
 
     void OnMouseDown()
     {
-        if (selected == true && state == CardState.Hand)
+        if (selected == true && state == CardState.Hand && FazeManager.NowCardFaze == CardFaze.Selsect)
         {
             Debug.Log("使用");
-            this.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
-            this.transform.localPosition = playPos.localPosition;
-            selected = false;
-            effectManager.EffectHub(type);
-            FazeManager.NowCardFaze = CardFaze.Throw;
+            playcheck.SetActive(true);
+            checkScripts.setCard(this.gameObject);
+            FazeManager.NowCardFaze = CardFaze.Play;
         }
+    }
+
+    public void UsethisCard()
+    {
+        selected = false;
+        for(int i = 0;i< thisFood.getEffectNum(); i++){
+            effectManager.EffectHub(thisFood.getInfo(i));
+        } 
+        playcheck.SetActive(false);
+        FazeManager.NowCardFaze = CardFaze.Throw;
+        state = CardState.Gabage;
+    }
+
+    public void CanceleUseing()
+    {
+        selected = false;
+        playcheck.SetActive(false);
+        FazeManager.NowCardFaze = CardFaze.Selsect;
+
     }
 }

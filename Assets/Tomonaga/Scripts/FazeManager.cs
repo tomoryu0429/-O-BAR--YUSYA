@@ -42,4 +42,6 @@ public class FazeManager : MonoBehaviour
     {
         FazeText.text = "現在のフェイズ: " + NowCardFaze.ToString();
     }
+
+
 }
