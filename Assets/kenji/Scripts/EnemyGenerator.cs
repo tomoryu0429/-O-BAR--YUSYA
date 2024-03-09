@@ -1,9 +1,6 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-
+//https://note.com/midorigamegame/n/nf6f8ef51cdf7
 public class EnemyGenerator : MonoBehaviour
 {
     [SerializeField] GameObject _player = default;

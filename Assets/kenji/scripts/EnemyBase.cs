@@ -1,18 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBase : MonoBehaviour
+[System.Serializable] // このアトリビュートの追加必要
+public class MonsterDataEntity //  : MonoBehaviourは付けない
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    // publicでExcelデータの1行目と同じパラメータ
+    public string monster;
+    public int HP;
+    public int AT;
+    public string drop;
+    public string drop2;
 }
