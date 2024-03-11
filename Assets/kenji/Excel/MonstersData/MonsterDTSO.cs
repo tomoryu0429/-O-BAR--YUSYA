@@ -1,10 +1,8 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [ExcelAsset(AssetPath = "Resources/Excel")]
-public class Upgrades : ScriptableObject
+public class MonsterDTSO : ScriptableObject
 {
-    public List<UpgradesEntity> Entities;
+    public List<MonsterEntity> Entities;
 }
