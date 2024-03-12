@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Yusya.Enum;
-using UnityEngine.SocialPlatforms.Impl;
 
 
 //ScriptableObject‚ğg‚¤‚æ‚¤‚É‚·‚é@https://kurokumasoft.com/2022/01/04/unity-scriptableobject/
