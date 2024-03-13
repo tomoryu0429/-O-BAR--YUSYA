@@ -13,3 +13,4 @@ public class TextTest : MonoBehaviour
     }
 }
 
+//多分このスクリプトは使わん
