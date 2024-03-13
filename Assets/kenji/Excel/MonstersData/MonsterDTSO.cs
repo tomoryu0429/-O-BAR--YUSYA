@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[ExcelAsset(AssetPath = "Resources/Excel")]
+[ExcelAsset]
 public class MonsterDTSO : ScriptableObject
 {
+    //public List<EntityType> ÉeÅ[ÉuÉã1; // Replace 'EntityType' to an actual type that is serializable.
+    //public List<EntityType> Sheet1; // Replace 'EntityType' to an actual type that is serializable.
     public List<MonsterEntity> Entities;
 }

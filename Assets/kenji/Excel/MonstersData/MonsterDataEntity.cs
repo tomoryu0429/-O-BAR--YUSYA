@@ -1,9 +1,10 @@
 using System;
+using Yusya.Enum;
 
 [Serializable]
 public class MonsterEntity
 {
-    public string R1;
-    public int R2;
+    public MonsterKey key;
     public string Name;
+    public int R2;
 }
