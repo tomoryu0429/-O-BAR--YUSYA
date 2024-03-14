@@ -3,24 +3,20 @@ using UnityEngine;
 //https://note.com/midorigamegame/n/nf6f8ef51cdf7
 public class EnemyGenerator : MonoBehaviour
 {
-    [SerializeField] GameObject _player = default;
-    [Tooltip("効果音")]
-    [SerializeField] AudioClip _sound = default;
-    /// <summary>生成する敵のプレハブ</summary>
-    [SerializeField] GameObject[] _enemyPrefabs = default;
+
     // 敵の出現ポイント.
     [SerializeField] List<Transform> enemySpawnPoints = new List<Transform>();
-    //生成する敵のプレハブをリストに入れる
-    List<int> enemyList = new List<int>();
-    //List<string> enemyNames = new List<string>();
     private float time = 0f;
+    [SerializeField] GameObject[] _enemyPrefabs;
 
     void Start()
     {
-        _enemyPrefabs = GameObject.FindGameObjectsWithTag("Enemy");
-        _player = GameObject.FindGameObjectWithTag("Player");
-        //enemyをインスタンス化する(生成する)
-        //GameObject enemy = Instantiate(_enemyPrefabs);
+        foreach(var point  in enemySpawnPoints)
+        {
+            int number = Random.Range(0, _enemyPrefabs.Length);
+            //enemyをインスタンス化する(ランダム生成する)
+            Instantiate(_enemyPrefabs[number],point.position,Quaternion.identity);
+        }
 
     }
     // Update is called once per frame
