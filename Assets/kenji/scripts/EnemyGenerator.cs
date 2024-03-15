@@ -1,13 +1,14 @@
 using System.Collections.Generic;
+using Yusya.Enum;
 using UnityEngine;
-//https://note.com/midorigamegame/n/nf6f8ef51cdf7
 public class EnemyGenerator : MonoBehaviour
 {
 
     // ìGÇÃèoåªÉ|ÉCÉìÉg.
     [SerializeField] List<Transform> enemySpawnPoints = new List<Transform>();
-    private float time = 0f;
     [SerializeField] GameObject[] _enemyPrefabs;
+    [SerializeField] int _enemyAttack = 0;
+    [SerializeField] HPStatus _hpStatus = 0;
 
     void Start()
     {
@@ -19,10 +20,17 @@ public class EnemyGenerator : MonoBehaviour
         }
 
     }
-    // Update is called once per frame
-    void Update()
+    public void eAttack()
     {
-
+        T_Player._currentHP -= _enemyAttack - T_Player._currentDif;
+        TurnManager.turnState = TurnState.End;
     }
-
+    public void Update()
+    {
+         if (_hpStatus < 0)
+        {
+            Debug.Log("ìGéÄñS");
+            this.gameObject.SetActive(false);
+        }
+    }
 }

@@ -220,7 +220,7 @@ GameObject:
   m_Layer: 0
   m_Name: enemy (1)
   m_TagString: Enemy
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -415,7 +415,7 @@ GameObject:
   m_Layer: 0
   m_Name: enemy
   m_TagString: Enemy
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -705,7 +705,7 @@ GameObject:
   m_Layer: 0
   m_Name: enemy (2)
   m_TagString: Enemy
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -926,7 +926,8 @@ MonoBehaviour:
   - {fileID: 74116151}
   - {fileID: 1484350449}
   _enemyPrefabs:
-  - {fileID: 0}
+  - {fileID: 795623810929396383, guid: f188441741490c54c92d569bc23d6bad, type: 3}
+  _enemyAttack: 0
 --- !u!4 &2085054685
 Transform:
   m_ObjectHideFlags: 0
@@ -936,7 +937,7 @@ Transform:
   m_GameObject: {fileID: 2085054683}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.1334146, y: 7.642724, z: -0.02996552}
+  m_LocalPosition: {x: 0.17, y: 7.68, z: -0.02996552}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

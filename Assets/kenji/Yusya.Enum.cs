@@ -3,10 +3,11 @@ namespace Yusya.Enum
 {
     public enum MonsterKey
     {
+        ID,
         Name,
         HP,
-        Drop,
-        Drop2
+        DropM,
+        DropC
     }
 
     public enum HPStatus

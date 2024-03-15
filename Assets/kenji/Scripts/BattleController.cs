@@ -3,7 +3,6 @@ using UnityEngine.UI;
 
 public class BattleController : MonoBehaviour
 {
-    
     public bool playerTurn; //trueのときプレイヤーのターン
     public bool enemyalive; //敵が生きているか
     public bool playeralive; //プレイヤーが生きているか
