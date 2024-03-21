@@ -20,6 +20,7 @@ public class EnemyGenerator : MonoBehaviour
         }
 
     }
+    //“G‚ÌUŒ‚ˆ—
     public void eAttack()
     {
         T_Player._currentHP -= _enemyAttack - T_Player._currentDif;
@@ -31,6 +32,6 @@ public class EnemyGenerator : MonoBehaviour
         {
             Debug.Log("“G€–S");
             this.gameObject.SetActive(false);
-        }
+        }//“G‚Ì€–Sˆ—
     }
 }
