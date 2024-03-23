@@ -4,7 +4,11 @@ using Yusya.Enum;
 [Serializable]
 public class MonsterEntity
 {
-    public MonsterKey key;
+    public int ID;
     public string Name;
-    public int R2;
+    public int HP;
+    public int AT;
+    public string DropM;
+    public string DropC;
+    public MonsterKey key;
 }

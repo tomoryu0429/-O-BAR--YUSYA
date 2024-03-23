@@ -18,7 +18,6 @@ public class EnemyGenerator : MonoBehaviour
             //enemy‚ğƒCƒ“ƒXƒ^ƒ“ƒX‰»‚·‚é(ƒ‰ƒ“ƒ_ƒ€¶¬‚·‚é)
             Instantiate(_enemyPrefabs[number],point.position,Quaternion.identity);
         }
-
     }
     //“G‚ÌUŒ‚ˆ—
     public void eAttack()
@@ -33,5 +32,9 @@ public class EnemyGenerator : MonoBehaviour
             Debug.Log("“G€–S");
             this.gameObject.SetActive(false);
         }//“G‚Ì€–Sˆ—
+    }
+    public void eTurn()
+    {
+
     }
 }

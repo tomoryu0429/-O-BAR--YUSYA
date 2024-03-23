@@ -20,7 +20,7 @@ namespace Yusya.Enum
         Pramater = 1,
     }
 
-    public enum DropItem
+    public enum DropC
     {
         [InspectorName("ƒ[ƒŠ[")] Gelatin,
         [InspectorName("ƒLƒmƒR")] Mushroom

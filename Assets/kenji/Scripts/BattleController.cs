@@ -25,10 +25,10 @@ public class BattleController : MonoBehaviour
     E1dmgTween scriptE1dmg; //敵ダメージ表記を動かすスクリプト
     P1dmgTween scriptP1dmg; //プレイヤーダメージ表記を動かすオブジェクト
 
-    int Php = 100; //プレイヤーHP
-    int Ehp = 100; //敵HP
-    int Patk = 40; //プレイヤー攻撃力
-    int Eatk = 30; //敵攻撃力
+    T_Player _maxHP; //プレイヤーHP
+    T_Player at; //プレイヤー攻撃力
+    MonsterEntity AT; //敵攻撃力
+    MonsterEntity HP; //敵HP
 
     void Start()
     {
@@ -45,8 +45,8 @@ public class BattleController : MonoBehaviour
         e1dmgtxt.SetActive(false);
 
         Debug.Log("バトルスタート");
-        Debug.Log("敵HP" + Ehp);
-        Debug.Log("プレイヤーHP" + Php);
+        Debug.Log("敵HP" + HP);
+        Debug.Log("プレイヤーHP" + _maxHP);
     }
 
     void Update()
@@ -85,8 +85,8 @@ public class BattleController : MonoBehaviour
                 Debug.Log("敵ターン");
 
                 Invoke("Enemy1Move", 1.5f); //敵動かす
-                Php -= Eatk; //プレイヤーのHPを減らす
-                Debug.Log("プレイヤーHP" + Php);
+                _maxHP -= Eatk; //プレイヤーのHPを減らす
+                Debug.Log("プレイヤーHP" + _maxHP);
 
                 P1DamageText = p1dmgtxt.GetComponent<Text>();
                 //プレイヤーダメージ表記オブジェクトからテキストを取得
@@ -95,7 +95,7 @@ public class BattleController : MonoBehaviour
                 //P1Damageにアタッチされているスクリプトを取得
                 scriptP1dmg.P1dmg();　//ダメージを動かしながら表示
 
-                if (Php <= 0)　//プレイヤーHPが0以下のとき
+                if (_maxHP <= 0)　//プレイヤーHPが0以下のとき
                 {
                     playeralive = false;
                     Invoke("Player1Dead", 1f); //プレイヤーを非アクティブにする
@@ -103,7 +103,7 @@ public class BattleController : MonoBehaviour
                 }
 
                 playerTurn = true;
-            }
+            }//https://feynman.co.jp/unityforest/game-create-lesson/2drpg-game/enemy-pattern-ai/
         }
     }
 
