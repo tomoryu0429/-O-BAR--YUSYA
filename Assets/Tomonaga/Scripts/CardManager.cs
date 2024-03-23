@@ -16,6 +16,8 @@ public class CardManager : MonoBehaviour
     
     public Dictionary<int, GameObject> deckDictionary = new Dictionary<int, GameObject>();
 
+    List<FoodKinds> nowHandCardFoodKinds = new List<FoodKinds>();
+
     public GameObject _handPos1;
     public GameObject _handPos2;
     public GameObject _handPos3;
@@ -186,7 +188,26 @@ public class CardManager : MonoBehaviour
 
     }
 
+    //手札三枚のカードタイプを渡す
+    public List<FoodKinds> getNowHandCardFoodKinds()
+    {
+        nowHandCardFoodKinds.Clear();
 
+        for (int i = 0; i < _deckNum; i++)
+        {
+            GameObject _cardObject;
+            if (deckDictionary.TryGetValue(i, out _cardObject))
+            {
+                Card _card = _cardObject.GetComponent<Card>();
+                if (_card.state == CardState.Hand)
+                {
+                    nowHandCardFoodKinds.Add(_card.type);
+                }
+            }
+        }
+
+        return nowHandCardFoodKinds;
+    }
 
 
 }
