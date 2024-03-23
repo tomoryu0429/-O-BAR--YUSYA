@@ -32,6 +32,8 @@ public enum FoodKinds
     FruitJelly,
     ShortCake,
     ChocolateCake,
+
+    NULL,
 }
 
 public enum FoodEffect

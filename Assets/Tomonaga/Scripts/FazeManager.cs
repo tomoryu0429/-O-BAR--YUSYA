@@ -29,6 +29,7 @@ public class FazeManager : MonoBehaviour
 {
 
     public static CardFaze NowCardFaze;
+    public GameObject CookBotton;
     public Text FazeText;
 
     // Start is called before the first frame update
@@ -42,6 +43,8 @@ public class FazeManager : MonoBehaviour
     {
         FazeText.text = "現在のフェイズ: " + NowCardFaze.ToString();
     }
+
+
 
 
 }
