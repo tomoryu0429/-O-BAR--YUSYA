@@ -13,8 +13,6 @@ public enum CardFaze
     Draw,
     Selsect,
     Play,
-    Throw,
-    ELSE,
     Cook,
 }
 

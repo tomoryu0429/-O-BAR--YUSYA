@@ -44,6 +44,7 @@ public class Card : MonoBehaviour
     public Transform playPos;
     public bool isCookCard  = false;                  //料理カードか素材カードか
     public EffectManager effectManager;
+    public CardManager cardManager;
     EventTrigger GetTrigger;
     public GameObject playcheck;
 
@@ -59,7 +60,6 @@ public class Card : MonoBehaviour
     void Update()
     {
         CardPosition();
-        //setCardDesing();
     }
 
     //状況が手札でない場合、待機場所に
@@ -104,6 +104,7 @@ public class Card : MonoBehaviour
         }
     }
 
+    //カード選択時の処理
     void OnMouseDown()
     {
         if (selected == true && state == CardState.Hand && FazeManager.NowCardFaze == CardFaze.Selsect)
@@ -115,17 +116,21 @@ public class Card : MonoBehaviour
         }
     }
 
+    //カード使用
     public void UsethisCard()
-    {
+    {   
+
         selected = false;
         for(int i = 0;i< thisFood.getEffectNum(); i++){
             effectManager.EffectHub(thisFood.getInfo(i));
         } 
         playcheck.SetActive(false);
-        FazeManager.NowCardFaze = CardFaze.Throw;
         state = CardState.Gabage;
+        cardManager.ThrowCard();
+
     }
 
+    //カード使用キャンセル
     public void CanceleUseing()
     {
         selected = false;

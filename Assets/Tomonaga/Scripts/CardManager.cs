@@ -7,6 +7,14 @@ using UnityEngine;
 /// <summary>
 /// カード全体の挙動
 /// </summary>
+public struct CardNumEachState
+{
+   public int MountainNum, HandNum, GabageNum;
+
+}
+
+
+
 
 
 public class CardManager : MonoBehaviour
@@ -27,7 +35,7 @@ public class CardManager : MonoBehaviour
     
     public FoodKinds[] _foodKinds = new FoodKinds[12];
 
-
+    CardNumEachState _CNEstate;
 
 
     //選ばれた数字
@@ -65,30 +73,26 @@ public class CardManager : MonoBehaviour
     //カードを捨てる
     public void ThrowCard()
     {
+        //山札のカードを全て確認
+        for (int i = 0; i < _deckNum; i++)
+        {
         
-         if (FazeManager.NowCardFaze == CardFaze.Throw)
-         {
-             //山札のカードを全て確認
-             for (int i = 0; i < _deckNum; i++)
-             {
-         
              GameObject _cardObject;
-                  if (deckDictionary.TryGetValue(i, out _cardObject))
-                  {
-                      Card _card = _cardObject.GetComponent<Card>();
-                      if (_card.state == CardState.Hand)
-                      {
-                          _card.state = CardState.Gabage;
-                      }
-                  
-                  }
+             if (deckDictionary.TryGetValue(i, out _cardObject))
+             {
+                 Card _card = _cardObject.GetComponent<Card>();
+                 if (_card.state == CardState.Hand)
+                 {
+                     _card.state = CardState.Gabage;
+                 }
+             
              }
+        }
          
          FazeManager.NowCardFaze = CardFaze.Draw;
          TurnManager.turnState = TurnState.HeroAttack;
-         }
-        
-      
+        GabageBackToMountain();
+          
     }
 
     public void DrawCard()
@@ -132,44 +136,24 @@ public class CardManager : MonoBehaviour
 
     void GabageBackToMountain()
     {
-        if(TurnManager.turnState == TurnState.End)
+       
+        if(getNowCardNum().MountainNum == 0)
         {
-            int MountainNum = 0;
             //カードを全て確認
             for (int i = 0; i < _deckNum; i++)
             {
-
                 GameObject _cardObject;
                 if (deckDictionary.TryGetValue(i, out _cardObject))
                 {
                     Card _card = _cardObject.GetComponent<Card>();
-                    if (_card.state == CardState.Mountain)
+                    if (_card.state == CardState.Gabage)
                     {
-                        MountainNum++;
-                    }
-
-                }
-            }
-
-            Debug.Log(MountainNum);
-            if(MountainNum == 0)
-            {
-                //カードを全て確認
-                for (int i = 0; i < _deckNum; i++)
-                {
-
-                    GameObject _cardObject;
-                    if (deckDictionary.TryGetValue(i, out _cardObject))
-                    {
-                        Card _card = _cardObject.GetComponent<Card>();
-                        if (_card.state == CardState.Gabage)
-                        {
-                            _card.state = CardState.Mountain;
-                        }
+                        _card.state = CardState.Mountain;
                     }
                 }
             }
         }
+        
     }
 
 
@@ -208,6 +192,37 @@ public class CardManager : MonoBehaviour
 
         return nowHandCardFoodKinds;
     }
+
+    //現在のカード枚数の確認
+    public CardNumEachState getNowCardNum()
+    {
+        _CNEstate.MountainNum =0;
+        _CNEstate.HandNum = 0;
+        _CNEstate.GabageNum = 0;
+
+        for (int i = 0; i < _deckNum; i++)
+        {
+            GameObject _cardObject;
+            if (deckDictionary.TryGetValue(i, out _cardObject))
+            {
+                Card _card = _cardObject.GetComponent<Card>();
+                if (_card.state == CardState.Hand)
+                {
+                    _CNEstate.HandNum++;
+                }
+                else if(_card.state == CardState.Mountain)
+                {
+                    _CNEstate.MountainNum++;
+                }
+                else if (_card.state == CardState.Gabage)
+                {
+                    _CNEstate.GabageNum++;
+                }
+            }
+        }
+        return _CNEstate;
+    }
+
 
 
 }

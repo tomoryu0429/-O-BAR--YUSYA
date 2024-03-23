@@ -42,6 +42,7 @@ public class TurnManager : MonoBehaviour
         TurnText.text = "現在のターンの状況: " + turnState.ToString();
         TurnNumText.text = "現在のターン数: " + TurnNum.ToString();
 
+        //テスト用ボタンの表示
         if (turnState == TurnState.Card && CardButton.activeSelf == false)
         {
             CardButton.SetActive(true);
@@ -69,13 +70,13 @@ public class TurnManager : MonoBehaviour
 
     }
 
-    public　void ProgressTurn()
+    //ターンが進む
+    public void ProgressTurn()
     {
         if(turnState == TurnState.End)
         {
             turnState = TurnState.Card;
             AddTurnNum();
-            
         }
         else
         {
@@ -84,12 +85,13 @@ public class TurnManager : MonoBehaviour
       
     }
 
+    //ターンが進む
     public void AddTurnState()
     {
         turnState++;
     }
 
-
+    //ターン数カウント（テスト用）
     void AddTurnNum()
     {
         TurnNum++;
