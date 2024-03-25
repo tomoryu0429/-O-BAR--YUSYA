@@ -24,7 +24,7 @@ public class EffectManager : MonoBehaviour
     
 
 
-    public void EffectHub(FoodEffectInfo foodinfo)
+    public void EffectHub(FoodEffectInfo foodinfo,float bufvalue = 1)
     {
 
         switch (foodinfo.effect)
@@ -33,15 +33,13 @@ public class EffectManager : MonoBehaviour
                 switch (foodinfo.size)
                 {
                     case FoodEfcSize.S:
-                        playerControll.PlayerYarukiValueChange(10);
+                        playerControll.PlayerYarukiValueChange((int)(10f * bufvalue));
                         break;
                     case FoodEfcSize.M:
-                        playerControll.PlayerYarukiValueChange(25);
+                        playerControll.PlayerYarukiValueChange((int)(25f * bufvalue));
                         break;
                     case FoodEfcSize.L:
-                        playerControll.PlayerYarukiValueChange(40);
-                        break;
-                    case FoodEfcSize.LL:
+                        playerControll.PlayerYarukiValueChange((int)(40f * bufvalue));
                         break;
                 }
                 break;
@@ -49,15 +47,13 @@ public class EffectManager : MonoBehaviour
                 switch (foodinfo.size)
                 {
                     case FoodEfcSize.S:
-                        playerControll.PlayerDefenceValueChange(10);
+                        playerControll.PlayerDefenceValueChange((int)(10f * bufvalue));
                         break;
                     case FoodEfcSize.M:
-                        playerControll.PlayerDefenceValueChange(25);
+                        playerControll.PlayerDefenceValueChange((int)(25f * bufvalue));
                         break;
                     case FoodEfcSize.L:
-                        playerControll.PlayerDefenceValueChange(40);
-                        break;
-                    case FoodEfcSize.LL:
+                        playerControll.PlayerDefenceValueChange((int)(40f * bufvalue));
                         break;
                 }
                 break;
@@ -66,6 +62,28 @@ public class EffectManager : MonoBehaviour
             case FoodEffect.UsableCardAdd: 
                 break;
         }
+
+    }
+
+    public void BufEffect(FoodEffectInfo foodinfo,FoodEfcSize foodsize)
+    {
+
+        switch (foodsize)
+        {
+            case FoodEfcSize.S:
+                EffectHub(foodinfo, 0.25f);
+                break;
+            case FoodEfcSize.M:
+                EffectHub(foodinfo, 0.50f);
+                break;
+            case FoodEfcSize.L:
+                EffectHub(foodinfo, 0.75f);
+                break;
+        }
+
+
+
+     
 
     }
 }

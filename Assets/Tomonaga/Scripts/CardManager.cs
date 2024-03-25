@@ -37,6 +37,8 @@ public class CardManager : MonoBehaviour
 
     CardNumEachState _CNEstate;
 
+    bool isUsableCardNumIncreasing = false;
+
 
     //選ばれた数字
     private int _choiseNum;
@@ -69,6 +71,17 @@ public class CardManager : MonoBehaviour
         GabageBackToMountain();
     }
 
+    public bool getisUsableCardNumIncreasing()
+    {
+        return isUsableCardNumIncreasing;
+    }
+
+    public void setisUsableCardNumIncreasing(bool which)
+    {
+        isUsableCardNumIncreasing = which;
+    }
+
+
 
     //カードを捨てる
     public void ThrowCard()
@@ -91,7 +104,7 @@ public class CardManager : MonoBehaviour
          
          FazeManager.NowCardFaze = CardFaze.Draw;
          TurnManager.turnState = TurnState.HeroAttack;
-        GabageBackToMountain();
+         GabageBackToMountain();
           
     }
 

@@ -119,15 +119,27 @@ public class Card : MonoBehaviour
     //カード使用
     public void UsethisCard()
     {   
-
         selected = false;
         for(int i = 0;i< thisFood.getEffectNum(); i++){
-            effectManager.EffectHub(thisFood.getInfo(i));
+            if(thisFood.getInfo(i).effect == FoodEffect.CardEfcUp){
+                effectManager.BufEffect(thisFood.getInfo(i-1),thisFood.getInfo(i).size);
+            }
+            else if(thisFood.getInfo(i).effect == FoodEffect.UsableCardAdd){
+                cardManager.setisUsableCardNumIncreasing(true);
+            }
+            else{
+                effectManager.EffectHub(thisFood.getInfo(i));
+            }
         } 
         playcheck.SetActive(false);
         state = CardState.Gabage;
-        cardManager.ThrowCard();
 
+        if (!cardManager.getisUsableCardNumIncreasing()){
+            cardManager.ThrowCard();
+        }
+        else{
+            cardManager.setisUsableCardNumIncreasing(false);
+        }
     }
 
     //カード使用キャンセル
