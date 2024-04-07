@@ -9,7 +9,7 @@ public class CookMenu : MonoBehaviour
 
     public int MaterialNum ;
 
-    List<bool> ishavingMaterial = new List<bool>();
+    bool[] ishavingMaterial = new bool[3] { false, false, false };
     
     public FoodKinds[] MaterialFood = new FoodKinds[3];
 
@@ -19,6 +19,7 @@ public class CookMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+       
         resetishavingMaterial();
 
     }
@@ -35,8 +36,6 @@ public class CookMenu : MonoBehaviour
 
         List<FoodKinds> foodKinds = cardManager.getNowHandCardFoodKinds();
 
-        
-
         for(int i = 0; i < MaterialNum; i++)
         {
             for(int j = 0;j< foodKinds.Count; j++)
@@ -48,9 +47,7 @@ public class CookMenu : MonoBehaviour
                 }
             }
         }
-
         Brind.SetActive(!isAllhavingTrue());
-
     }
 
     void resetishavingMaterial()
@@ -65,12 +62,26 @@ public class CookMenu : MonoBehaviour
     {
         for (int i = 0; i < MaterialNum;i++)
         {
-            if (ishavingMaterial[i]== false)
+            if (ishavingMaterial[i] == false)
             {
                 return false;
             }
         }
         return true;
+    }
+
+    public void CookFunc()
+    {
+        for (int i = 0; i < MaterialNum; i++)
+        {
+            cardManager.WhenCookedCardThrow(MaterialFood[i]);
+        }
+
+        int foodNum = (int)thisFood;
+
+        //Debug.Log(foodNum);
+
+        cardManager.CreateNewCard(foodNum,CardState.Hand);
     }
 
 }
