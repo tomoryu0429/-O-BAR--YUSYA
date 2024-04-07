@@ -36,8 +36,6 @@ public class CookMenu : MonoBehaviour
 
         List<FoodKinds> foodKinds = cardManager.getNowHandCardFoodKinds();
 
-        
-
         for(int i = 0; i < MaterialNum; i++)
         {
             for(int j = 0;j< foodKinds.Count; j++)
@@ -49,9 +47,7 @@ public class CookMenu : MonoBehaviour
                 }
             }
         }
-
         Brind.SetActive(!isAllhavingTrue());
-
     }
 
     void resetishavingMaterial()
@@ -72,6 +68,20 @@ public class CookMenu : MonoBehaviour
             }
         }
         return true;
+    }
+
+    public void CookFunc()
+    {
+        for (int i = 0; i < MaterialNum; i++)
+        {
+            cardManager.WhenCookedCardThrow(MaterialFood[i]);
+        }
+
+        int foodNum = (int)thisFood;
+
+        //Debug.Log(foodNum);
+
+        cardManager.CreateNewCard(foodNum,CardState.Hand);
     }
 
 }
