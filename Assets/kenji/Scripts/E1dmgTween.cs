@@ -3,6 +3,7 @@ using DG.Tweening;
 
 public class E1dmgTween : MonoBehaviour
 {
+    //Player‚ğUŒ‚‚·‚é‚Æ‚«‚Ìƒ‚[ƒVƒ‡ƒ“
     public void E1dmg()
     {
         Invoke("E1dmgjump", 0.5f);

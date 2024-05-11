@@ -1,8 +1,15 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BattleController : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
+    [SerializeField] HPBar _objectHPBar;
+    [SerializeField] private int _pHP = 100;
+    [SerializeField] private int _pYP = 100;
+    public  int _currentYP = 100;
+
+    //アタッチに問題があるのでPlayerとEnemyで差別化できるようにする
+
     public bool playerTurn; //trueのときプレイヤーのターン
     public bool enemyalive; //敵が生きているか
     public bool playeralive; //プレイヤーが生きているか
@@ -29,9 +36,14 @@ public class BattleController : MonoBehaviour
     T_Player at; //プレイヤー攻撃力
     MonsterEntity AT; //敵攻撃力
     MonsterEntity HP; //敵HP
+    //この上のやつを消して書き換える
 
     void Start()
     {
+
+        //Sliderを満タンにする。
+        slider.value = 1;
+
         playerTurn = true;
         enemyalive = true;
         playeralive = true;

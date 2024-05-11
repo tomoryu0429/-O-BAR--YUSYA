@@ -1,24 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class T_Player : MonoBehaviour
 {
-    [SerializeField] public static int _maxHP = 100;
-    [SerializeField] public static int  _maxYP = 100;
+
     [SerializeField] int _hpUpDown = 0;
     [Tooltip("減らしたい場合は数値をマイナスにしてください")]
     [SerializeField] int _ypDown = 15;
-    public static int _currentHP = 100;
-    public static int _currentYP = 100;
+    //public static int _currentHP = 100;
+    //public static int _currentYP = 100;Gamemanagerで修正予定
     public static int _currentDif = 0;
    // public GameObject _hpTextobj;
    // public GameObject _ypTextobj;
     public void Start()
     {
-        _currentHP = _maxHP;
-        _currentYP = _maxYP;
+
     }
 
     public void Update()

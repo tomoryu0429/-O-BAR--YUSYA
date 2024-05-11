@@ -7,11 +7,13 @@ using System;
 public class MstItemEntity
 {
 	public int id;
-	public string name;
-	public int price;
-	public bool isNotForSale;
-	public float rate;
+	public string Name;
+	public int HP;
+	public int AT;
+	public int DF;
+	public int DropM;
 	public MstItemCategory category;
+
 }
 
 public enum MstItemCategory

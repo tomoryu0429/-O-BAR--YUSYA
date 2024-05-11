@@ -3,6 +3,7 @@ using DG.Tweening;
 
 public class P1dmgTween : MonoBehaviour
 {
+    //“G‚ğUŒ‚‚·‚é‚Æ‚«‚Ìƒ‚[ƒVƒ‡ƒ“
     public void P1dmg()
     {
         Invoke("E1dmgjump", 1.5f);
