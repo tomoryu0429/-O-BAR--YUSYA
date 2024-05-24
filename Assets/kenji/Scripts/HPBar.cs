@@ -18,6 +18,11 @@ public class HPBar : MonoBehaviour
     [SerializeField] int maxHP;
     [SerializeField] int maxYP = 80;
 
+    //やる気ゲージの減少
+    [SerializeField] float ypdamage = 0.05f;
+    //ターン数
+    public TurnManager addTurnState;
+
     //HPは0～最大値の間
     int hp;
     int yp;
@@ -29,11 +34,14 @@ public class HPBar : MonoBehaviour
     int YP
     {
         get => yp;
-        set => yp = Mathf.Clamp(value,0, maxHP);
+        set => yp = Mathf.Clamp(value,0, maxYP);
     }
 
     void Start()
     {
+        //ターン数の確認
+        int TurnNum = 0;
+
         //HPを最大値にする
         HP = maxHP;
 
@@ -82,10 +90,15 @@ public class HPBar : MonoBehaviour
             .SetEase(Ease.Linear)
             .OnUpdate(() => UpdateUI(animHP));
     }
-
     public IEnumerator YPDegreeced(int ypdamage)
     {
         yield return new WaitForSeconds(1);
         YP -= ypdamage;
-    }
+        int addTurnState = (int)TurnManager.turnState;
+        if (addTurnState > 0)
+        {
+            TurnManager.AddTurnState();
+        }
+        //v = YP == addTurnState * 0.05;
+    }//ターンが進むごとに５％やる気ゲージが減少させる
 }

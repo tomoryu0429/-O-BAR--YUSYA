@@ -41,9 +41,6 @@ public class GameManager : MonoBehaviour
     void Start()
     {
 
-        //Slider‚ğ–ƒ^ƒ“‚É‚·‚éB
-        slider.value = 1;
-
         playerTurn = true;
         enemyalive = true;
         playeralive = true;

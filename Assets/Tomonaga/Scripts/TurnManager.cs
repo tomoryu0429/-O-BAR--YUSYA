@@ -86,7 +86,7 @@ public class TurnManager : MonoBehaviour
     }
 
     //ƒ^[ƒ“‚ªi‚Ş
-    public void AddTurnState()
+     public static void AddTurnState()
     {
         turnState++;
     }
