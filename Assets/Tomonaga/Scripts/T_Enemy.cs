@@ -25,11 +25,11 @@ public class T_Enemy : MonoBehaviour
         }
     }
 
-    public void eAttack()
-    {
-        T_Player._currentHP -= atk - T_Player._currentDif;
-        TurnManager.turnState = TurnState.End;
-    }
+    //public void eAttack()
+    //{
+    //    T_Player._currentHP -= atk - T_Player._currentDif;
+    //    TurnManager.turnState = TurnState.End;
+    //}HPberéQè∆
 
     public void receiveDamage()
     {

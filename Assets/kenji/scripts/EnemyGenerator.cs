@@ -3,6 +3,7 @@ using Yusya.Enum;
 using UnityEngine;
 public class EnemyGenerator : MonoBehaviour
 {
+    HPBar HPBar;
 
     // “G‚ÌoŒ»ƒ|ƒCƒ“ƒg.
     [SerializeField] List<Transform> enemySpawnPoints = new List<Transform>();
@@ -20,11 +21,7 @@ public class EnemyGenerator : MonoBehaviour
         }
     }
     //“G‚ÌUŒ‚ˆ—
-    public void eAttack()
-    {
-        T_Player._currentHP -= _enemyAttack - T_Player._currentDif;
-        TurnManager.turnState = TurnState.End;
-    }
+
     public void Update()
     {
          if (_hpStatus < 0)

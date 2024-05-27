@@ -28,7 +28,7 @@ public class TurnManager : MonoBehaviour
     public GameObject EnemyAttackButton;
 
 
-    int TurnNum = 1;
+    protected int TurnNum = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -86,7 +86,7 @@ public class TurnManager : MonoBehaviour
     }
 
     //ƒ^[ƒ“‚ªi‚Ş
-     public static void AddTurnState()
+     public void AddTurnState()
     {
         turnState++;
     }

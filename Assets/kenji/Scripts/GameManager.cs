@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameManager : MonoBehaviour
+public class GameManager : HPBar
 {
     [SerializeField] HPBar _objectHPBar;
     [SerializeField] private int _pHP = 100;
@@ -34,12 +34,11 @@ public class GameManager : MonoBehaviour
 
     T_Player _maxHP; //プレイヤーHP
     T_Player at; //プレイヤー攻撃力
-    MonsterEntity AT; //敵攻撃力
-    MonsterEntity HP; //敵HP
     //この上のやつを消して書き換える
 
     void Start()
     {
+
 
         playerTurn = true;
         enemyalive = true;
@@ -66,12 +65,12 @@ public class GameManager : MonoBehaviour
             {
                 Debug.Log("プレイヤーターン");
                 Invoke("Player1Move", 0.5f); //プレイヤー動かす
-                HP -= at; //敵のHPを減らす
-                Debug.Log("敵HP" + Ehp);
+                Attacked(1); //敵のHPを減らす、後々ここの引数にデータがちゃんと入るようにする
+                Debug.Log("敵HP");
 
                 E1DamageText = e1dmgtxt.GetComponent<Text>();
                 //敵ダメージ表記オブジェクトからテキストを取得
-                E1DamageText.text = "-" + Patk; //テキストにダメージを入れる
+                E1DamageText.text = "-" + damage; //テキストにダメージを入れる
                 scriptE1dmg = e1dmgtxt.GetComponent<E1dmgTween>();
                 //E1Damageにアタッチされているスクリプトを取得
                 scriptE1dmg.E1dmg(); //ダメージを動かしながら表示
@@ -94,17 +93,17 @@ public class GameManager : MonoBehaviour
                 Debug.Log("敵ターン");
 
                 Invoke("Enemy1Move", 1.5f); //敵動かす
-                _maxHP -= Eatk; //プレイヤーのHPを減らす
+                Attacked(1); //プレイヤーのHPを減らす
                 Debug.Log("プレイヤーHP" + _maxHP);
 
                 P1DamageText = p1dmgtxt.GetComponent<Text>();
                 //プレイヤーダメージ表記オブジェクトからテキストを取得
-                P1DamageText.text = "-" + Eatk; //テキストにダメージを入れる
+                P1DamageText.text = "-" + damage; //テキストにダメージを入れる
                 scriptP1dmg = p1dmgtxt.GetComponent<P1dmgTween>();
                 //P1Damageにアタッチされているスクリプトを取得
                 scriptP1dmg.P1dmg();　//ダメージを動かしながら表示
 
-                if (_maxHP <= 0)　//プレイヤーHPが0以下のとき
+                if (HP <= 0)　//プレイヤーHPが0以下のとき
                 {
                     playeralive = false;
                     Invoke("Player1Dead", 1f); //プレイヤーを非アクティブにする
@@ -113,7 +112,7 @@ public class GameManager : MonoBehaviour
 
                 playerTurn = true;
             }//https://feynman.co.jp/unityforest/game-create-lesson/2drpg-game/enemy-pattern-ai/
-        }
+        } //TurnState.Endをここらへんで呼び出す
     }
 
     void Player1Move()

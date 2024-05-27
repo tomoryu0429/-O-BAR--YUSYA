@@ -2,9 +2,8 @@ using System.Collections;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
-using System.Linq.Expressions;
 
-public class HPBar : MonoBehaviour
+public class HPBar : TurnManager
 {
     //UI
     [SerializeField] Text text;
@@ -20,18 +19,22 @@ public class HPBar : MonoBehaviour
 
     //やる気ゲージの減少
     [SerializeField] float ypdamage = 0.05f;
-    //ターン数
-    public TurnManager addTurnState;
+    protected int damage = 1;
 
     //HPは0～最大値の間
     int hp;
     int yp;
-    int HP
+
+    public enum pState
+    {
+        Yaruki0, Yaruki26, Yaruki51, Yaruki70, Yaruki90,
+    }//PlayerManagerから
+    protected int HP
     {
         get => hp;
         set => hp = Mathf.Clamp(value, 0, maxHP);
     }
-    int YP
+    protected int YP
     {
         get => yp;
         set => yp = Mathf.Clamp(value,0, maxYP);
@@ -39,8 +42,6 @@ public class HPBar : MonoBehaviour
 
     void Start()
     {
-        //ターン数の確認
-        int TurnNum = 0;
 
         //HPを最大値にする
         HP = maxHP;
@@ -53,6 +54,10 @@ public class HPBar : MonoBehaviour
 
         //UIの更新
         UpdateUI(YP);//バグらないのを祈る
+    }
+    private void Update()
+    {
+        setpState();//PlayerManagerから
     }
 
     //UI(スライダーとテキスト)
@@ -76,6 +81,29 @@ public class HPBar : MonoBehaviour
             sliderFill.color = Color.green;
         }
     }
+        public void setpState()
+    {
+        if (YP < 90)
+        {
+            PlayerChenge.NowpState = pState.Yaruki70;
+        }
+        if (YP < 70)
+        {
+            PlayerChenge.NowpState = pState.Yaruki51;
+        }
+        if (YP < 51)
+        {
+            PlayerChenge.NowpState = pState.Yaruki26;
+        }
+        if (YP < 26)
+        {
+            PlayerChenge.NowpState = pState.Yaruki0;
+        }
+        if (YP >= 90)
+        {
+            PlayerChenge.NowpState = pState.Yaruki90;
+        }
+    }//PlayerManagerから
 
     public IEnumerator Attacked(int damage)
     {
@@ -93,12 +121,16 @@ public class HPBar : MonoBehaviour
     public IEnumerator YPDegreeced(int ypdamage)
     {
         yield return new WaitForSeconds(1);
-        YP -= ypdamage;
-        int addTurnState = (int)TurnManager.turnState;
-        if (addTurnState > 0)
+        if (turnState == TurnState.HeroAttack)
         {
-            TurnManager.AddTurnState();
+            YP -= ypdamage;
         }
-        //v = YP == addTurnState * 0.05;
     }//ターンが進むごとに５％やる気ゲージが減少させる
+    protected void Die()
+    {
+        if (HP <= 0)
+        {
+            Debug.Log("ちんだ");
+        }
+    }
 }

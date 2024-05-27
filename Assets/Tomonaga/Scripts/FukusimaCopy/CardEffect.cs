@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CardEffect : MonoBehaviour
+public class CardEffect : HPBar
 {
     [SerializeField] int _ypUpSmall = 10;
     [SerializeField] int _ypUpMiddle = 25;
@@ -12,18 +12,18 @@ public class CardEffect : MonoBehaviour
     [SerializeField] int _difUpLarge = 40;
     public void YPUp1()
     {
-        T_Player._currentYP += _ypUpSmall;
+        YP += _ypUpSmall;
         Debug.Log($"YP +{_ypUpSmall}");
     }
 
     public void YPUp2()
     {
-        T_Player._currentYP += _ypUpMiddle;
+        YP += _ypUpMiddle;
         Debug.Log($"YP + {_ypUpMiddle}");
     }
     public void YPUp3()
     {
-        T_Player._currentYP += _ypUpLarge;
+        YP += _ypUpLarge;
         Debug.Log($"YP +{_ypUpLarge}");
     }
     public void DifUp1()

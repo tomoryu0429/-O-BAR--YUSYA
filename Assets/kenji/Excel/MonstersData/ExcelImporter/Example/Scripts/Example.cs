@@ -18,23 +18,24 @@ public class Example : MonoBehaviour
 	{
 		string str = "";
 
-		mstItems.Entities
-			.ForEach(entity => str += DescribeMstItemEntity(entity) + "\n");
+		//mstItems.Entities
+			//.ForEach(entity => str += DescribeMstItemEntity(entity) + "\n");
 
 		text.text = str;
 	}
 
-	string DescribeMstItemEntity(MstItemEntity entity)
-	{
-		return string.Format(
-			"{0} : {1}, {2}, {3}, {4}, {5}",
-			entity.id,
-			entity.name,
-			entity.price,
-			entity.isNotForSale,
-			entity.rate,
-			entity.category
-		);
-	}
+
 }
 
+	//string DescribeMstItemEntity(MstItemEntity entity)
+	//{
+	//	return string.Format(
+	//		"{0} : {1}, {2}, {3}, {4}, {5}",
+	//		entity.id,
+	//		entity.name,
+	//		entity.price,
+	//		entity.isNotForSale,
+	//		entity.rate,
+	//		entity.category
+	//	);
+	//}
