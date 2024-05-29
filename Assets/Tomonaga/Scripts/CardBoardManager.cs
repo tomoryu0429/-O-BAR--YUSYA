@@ -12,10 +12,10 @@ public class CardBoardManager : MonoBehaviour
 {
     public GameObject _MountainCard;            //山札
     public GameObject _GabageCard;              //捨て札
-    public Text valueM;
-    public Text valueH;
-    public Text valueG;
-    public CardManager cardManager;
+    public Text valueM;                         //山札枚数表示用のテキスト
+    public Text valueH;                         //手札枚数表示用のテキスト
+    public Text valueG;                         //捨て札の枚数表示用のテキスト
+    public CardManager cardManager;             //カードマネージャー（スクリプト）
 
     // Start is called before the first frame update
     void Start()
@@ -37,12 +37,8 @@ public class CardBoardManager : MonoBehaviour
     //デバッグ用リセット
     public void Reset()
     {
-        //_MountainCardNum = cardManager.getNowCardNum().MountainNum;
-        //_HandCardNum = cardManager.getNowCardNum().HandNum;
-        //_GabageCardNum = cardManager.getNowCardNum().GabageNum;
+     
     }
-
-
 
     //山札表示の制御
     void MountainZoneCtrl()

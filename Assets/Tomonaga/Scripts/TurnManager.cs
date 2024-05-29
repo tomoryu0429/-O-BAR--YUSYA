@@ -18,14 +18,14 @@ public enum TurnState
 
 public class TurnManager : MonoBehaviour
 {
-    public static TurnState turnState;
+    public static TurnState turnState;          //現在のターン状況
 
-    public Text TurnText;
-    public Text TurnNumText;
+    public Text TurnText;                       //現在のターン状況を表示するテキスト
+    public Text TurnNumText;                    //現在のターン数を表示するテキスト
 
-    public GameObject CardButton;
-    public GameObject HeroAttackButton;
-    public GameObject EnemyAttackButton;
+    public GameObject CardButton;               //カードボタンのオブジェクト
+    public GameObject HeroAttackButton;         //勇者の攻撃ボタンのオブジェクト
+    public GameObject EnemyAttackButton;        //敵の攻撃ボタンのオブジェクト
 
 
     protected int TurnNum = 1;

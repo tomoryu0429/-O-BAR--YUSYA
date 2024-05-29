@@ -15,33 +15,31 @@ public struct CardNumEachState
 
 
 
-
-
 public class CardManager : MonoBehaviour
 {
     //カードの情報を格納
     public GameObject _Cardprefab;  //カードプレハブ
     
-    public List<GameObject> deckList = new List<GameObject>();
+    public List<GameObject> deckList = new List<GameObject>();          //デッキの内容（リスト）
 
-    List<FoodKinds> nowHandCardFoodKinds = new List<FoodKinds>();
+    List<FoodKinds> nowHandCardFoodKinds = new List<FoodKinds>();       //今の手札の食材内容（リスト）
 
-    public GameObject _handPos1;
+    //手札の位置
+    public GameObject _handPos1;            
     public GameObject _handPos2;
     public GameObject _handPos3;
+
+    //料理後のカードが表示される手札位置
     public GameObject _handPosCooked;
 
-
-
-    private const int _deckMax = 30;
-    private int _deckNum = 9;
+    private const int _deckMax = 30;                        //デッキの上限枚数
+    private int _deckNum = 9;                               //現在のデッキの枚数（初期値は9）
     
-    public FoodKinds[] _foodKinds = new FoodKinds[23];
+    public FoodKinds[] _foodKinds = new FoodKinds[23];      //食材の種類（リスト）
 
-    CardNumEachState _CNEstate;
+    CardNumEachState _CNEstate;                             //enum CardNumEachState
 
-    bool isUsableCardNumIncreasing = false;
-
+    bool isUsableCardNumIncreasing = false;                 //カードの使用可能枚数が増えている状態かどうか
 
     //選ばれた数字
     private int _choiseNum;
@@ -63,16 +61,19 @@ public class CardManager : MonoBehaviour
         GabageBackToMountain();
     }
 
+    //カードの使用可能枚数が増えている状態かどうかを渡す
     public bool getisUsableCardNumIncreasing()
     {
         return isUsableCardNumIncreasing;
     }
 
+    //カードの使用可能枚数が増えている状態かどうかを設定
     public void setisUsableCardNumIncreasing(bool which)
     {
         isUsableCardNumIncreasing = which;
     }
 
+    //新しいカードを作成して、リストに入れる
     public void CreateNewCard(int foodkindsNum,CardState cs = CardState.Mountain)
     {
         //プレハブからオブジェクトを複製
@@ -84,8 +85,9 @@ public class CardManager : MonoBehaviour
 
         Debug.Log(foodkindsNum);
 
+        //引数で決められた食材のタイプを割り当てる
         _card.type = _foodKinds[foodkindsNum];
-
+        //調理されたカードを調理済み手札の位置に。調理以外の追加の場合は山札にいく
         _card.transform.position = _handPosCooked.transform.position;
 
         //生成したオブジェクトをリストに追加していく
@@ -95,22 +97,26 @@ public class CardManager : MonoBehaviour
     //カードを捨てる
     public void ThrowCard()
     {
-       foreach(GameObject obj in deckList)
-       {
+        //手札の全てのカードを捨てる
+        foreach(GameObject obj in deckList)
+        {
           Card _card = obj.GetComponent<Card>();
           if (_card.state == CardState.Hand)
           {
               _card.state = CardState.Gabage;
           }
-       }
+        }
         
-         
+         //フェイズ・ターンの進行
          FazeManager.NowCardFaze = CardFaze.Draw;
          TurnManager.turnState = TurnState.HeroAttack;
-        if (getNowCardNum().MountainNum == 0) GabageBackToMountain();
+
+        //山札のカードが0の場合は捨て札を全て山札に戻す
+         if (getNowCardNum().MountainNum == 0) GabageBackToMountain();
           
     }
 
+    //カードのドロー処理
     public void DrawCard()
     {
         if (TurnManager.turnState == TurnState.Card)
@@ -148,6 +154,7 @@ public class CardManager : MonoBehaviour
 
     }   
 
+    //捨て札の全てのカードを山札に
     void GabageBackToMountain()
     {
         //カードを全て確認
@@ -161,6 +168,7 @@ public class CardManager : MonoBehaviour
         }
     }
 
+    //調理の材料カードを捨てる
     public void WhenCookedCardThrow(FoodKinds fk)
     {
         foreach (GameObject obj in deckList)
@@ -170,6 +178,7 @@ public class CardManager : MonoBehaviour
             {
                 if(_card.type == fk)
                 {
+                    //カードを墓地に
                     _card.state = CardState.Death;
                     break;
                 }
@@ -194,8 +203,10 @@ public class CardManager : MonoBehaviour
     //手札三枚のカードタイプを渡す
     public List<FoodKinds> getNowHandCardFoodKinds()
     {
+        //残っているカードタイプのデータをクリア
         nowHandCardFoodKinds.Clear();
 
+        //全てのカードの中から手札のカードを取得して、その食材の種類をリストに保存する
         foreach (GameObject obj in deckList)
         {
             Card _card = obj.GetComponent<Card>();
@@ -206,16 +217,19 @@ public class CardManager : MonoBehaviour
             
         }
 
+        //リストの内容を渡す
         return nowHandCardFoodKinds;
     }
 
     //現在のカード枚数の確認
     public CardNumEachState getNowCardNum()
     {
+        //枚数の数値をリセット
         _CNEstate.MountainNum =0;
         _CNEstate.HandNum = 0;
         _CNEstate.GabageNum = 0;
 
+        //全てのカードを確認し、それぞれの枚数をカウント
         foreach (GameObject obj in deckList)
         {
           
@@ -234,6 +248,7 @@ public class CardManager : MonoBehaviour
               }
             
         }
+        //Ｅｎｕｍを返す
         return _CNEstate;
     }
 

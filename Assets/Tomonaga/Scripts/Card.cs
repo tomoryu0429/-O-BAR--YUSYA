@@ -29,24 +29,24 @@ public class Card : MonoBehaviour
 {
     public CardState state;     //カードの状況
 
-    public FoodKinds type;
-    Food thisFood;
+    public FoodKinds type;      //カードの食材タイプ
+    Food thisFood;              //このカードのFoodコンポーネント（スクリプト）
 
-    private bool selected = false;
+    private bool selected = false;  //選択されている状態か
 
    
-    public PlayCheckCard checkScripts;
+    public PlayCheckCard checkScripts;  //PlayerCheckCardスクリプト
 
-    public SpriteRenderer spriteRenderer;        //このカードのスプライトレンダラー
-    public Sprite[] cardSprite = new Sprite[12];
-    public Transform poolPos;             //画面外のカード待機場所の座標
-    CardBoardManager cbMa;                //カードボードマネージャーのインスタンス
-    public Transform playPos;
-    public bool isCookCard  = false;                  //料理カードか素材カードか
-    public EffectManager effectManager;
-    public CardManager cardManager;
+    public SpriteRenderer spriteRenderer;           //このカードのスプライトレンダラー
+    public Sprite[] cardSprite = new Sprite[12];    //各食材に対応したスプライト
+    public Transform poolPos;                       //画面外のカード待機場所の座標
+    CardBoardManager cbMa;                          //カードボードマネージャーのインスタンス
+    public Transform playPos;                       //カードを出す場の位置
+    public bool isCookCard  = false;                //料理カードか素材カードか
+    public EffectManager effectManager;             //effectManager（スクリプト）
+    public CardManager cardManager;                 //cardManager(スクリプト)
     EventTrigger GetTrigger;
-    public GameObject playcheck;
+    public GameObject playcheck;                    //Playcheckオブジェクト
 
     // Start is called before the first frame update
     void Start()
@@ -78,11 +78,13 @@ public class Card : MonoBehaviour
         FazeManager.NowCardFaze = CardFaze.Draw;
     }
 
+    //自身の食材タイプに合わせて、カードのデザインを変える
     private void setCardDesing()
     {
         spriteRenderer.sprite = cardSprite[(int)type];
     }
 
+    //手札からカードを選ぶフェイズの時にカーソルを合わせると大きくなる
     void OnMouseEnter()
     {
         if (state == CardState.Hand && FazeManager.NowCardFaze == CardFaze.Selsect)
@@ -93,6 +95,8 @@ public class Card : MonoBehaviour
         }
     }
 
+
+    //カーソルが離れると元に戻る
     void OnMouseExit()
     {
         if (state == CardState.Hand && FazeManager.NowCardFaze == CardFaze.Selsect)
@@ -110,7 +114,9 @@ public class Card : MonoBehaviour
         if (selected == true && state == CardState.Hand && FazeManager.NowCardFaze == CardFaze.Selsect)
         {
             Debug.Log("使用");
+            //使用するかどうかの確認ウィンドウ表示
             playcheck.SetActive(true);
+            //確認されるカードを渡す
             checkScripts.setCard(this.gameObject);
             FazeManager.NowCardFaze = CardFaze.Play;
         }
@@ -120,20 +126,29 @@ public class Card : MonoBehaviour
     public void UsethisCard()
     {   
         selected = false;
+        //カードの効果発動
         for(int i = 0;i< thisFood.getEffectNum(); i++){
+            //カード効果上昇の場合
             if(thisFood.getInfo(i).effect == FoodEffect.CardEfcUp){
                 effectManager.BufEffect(thisFood.getInfo(i-1),thisFood.getInfo(i).size);
             }
+            //カード使用枚数の増加の場合
             else if(thisFood.getInfo(i).effect == FoodEffect.UsableCardAdd){
                 cardManager.setisUsableCardNumIncreasing(true);
             }
+            //それ以外の効果の場合
             else{
                 effectManager.EffectHub(thisFood.getInfo(i));
             }
-        } 
+        }
+        
+        //PlayerCheckオブジェクトの非表示
         playcheck.SetActive(false);
+
+        //捨て札に
         state = CardState.Gabage;
 
+        //カードの使用可能枚数が増加中なら、増加中を解除。増加中でないなら次の処理へ
         if (!cardManager.getisUsableCardNumIncreasing()){
             cardManager.ThrowCard();
         }

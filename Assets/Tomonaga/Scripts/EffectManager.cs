@@ -6,8 +6,8 @@ using UnityEngine;
 public class EffectManager : MonoBehaviour
 {
 
-    CardEffect cardScript;
-    public PlayerControll playerControll;
+    CardEffect cardScript;                  //カード（スクリプト）
+    public PlayerControll playerControll;   //プレイヤーコントロール（スクリプト）
 
     // Start is called before the first frame update
     void Start()
@@ -21,14 +21,13 @@ public class EffectManager : MonoBehaviour
         
     }
 
-    
-
-
+    //カード効果の分岐
     public void EffectHub(FoodEffectInfo foodinfo,float bufvalue = 1)
     {
 
         switch (foodinfo.effect)
         {
+            //やる気アップ
             case FoodEffect.YarukiUp:
                 switch (foodinfo.size)
                 {
@@ -43,6 +42,8 @@ public class EffectManager : MonoBehaviour
                         break;
                 }
                 break;
+
+            //防御力のアップ
             case FoodEffect.DefenceUp:
                 switch (foodinfo.size)
                 {
@@ -65,9 +66,11 @@ public class EffectManager : MonoBehaviour
 
     }
 
+
+    //カード効果のバフ
     public void BufEffect(FoodEffectInfo foodinfo,FoodEfcSize foodsize)
     {
-
+        //与えられた効果を再度発動する。その倍率は与えられた効果のサイズに依存する
         switch (foodsize)
         {
             case FoodEfcSize.S:
@@ -80,10 +83,5 @@ public class EffectManager : MonoBehaviour
                 EffectHub(foodinfo, 0.75f);
                 break;
         }
-
-
-
-     
-
     }
 }

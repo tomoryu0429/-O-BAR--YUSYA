@@ -2,11 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// α用の敵のスクリプト。マスターでは使わない
+/// </summary>
+
+
+
 public class T_Enemy : MonoBehaviour
 {
     public int maxHp;
     public int Hp;
     public int atk;
+
+    
 
 
     // Start is called before the first frame update

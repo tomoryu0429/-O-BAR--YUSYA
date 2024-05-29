@@ -26,9 +26,8 @@ public enum CookFaze
 public class FazeManager : MonoBehaviour
 {
 
-    public static CardFaze NowCardFaze;
-    public GameObject CookBotton;
-    public Text FazeText;
+    public static CardFaze NowCardFaze;     //今のフェイズ
+    public Text FazeText;                   //現在のフェイズを表示するテキスト
 
     // Start is called before the first frame update
     void Start()
@@ -41,7 +40,5 @@ public class FazeManager : MonoBehaviour
     {
         FazeText.text = "現在のフェイズ: " + NowCardFaze.ToString();
     }
-
-   
 
 }

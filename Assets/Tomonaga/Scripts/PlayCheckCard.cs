@@ -7,14 +7,11 @@ public class PlayCheckCard : MonoBehaviour
 {
     public GameObject checkCard = null; 
     Card attachedCardScripts = null;
-    //SpriteRenderer CardSprite = null;
-
-    //private Image imageComponent;
-
+   
     // Start is called before the first frame update
     void Start()
     {
-        //imageComponent = GetComponent<Image>();
+       
     }
 
     // Update is called once per frame
@@ -23,18 +20,22 @@ public class PlayCheckCard : MonoBehaviour
         
     }
 
+    //カード使用確認のカード
     public void setCard(GameObject selectObject)
     {
-        checkCard = selectObject;
-        attachedCardScripts = checkCard.GetComponent<Card>();
-        //imageComponent.sprite = attachedCardScripts.GetComponent<SpriteRenderer>().sprite;
+        
+        checkCard = selectObject;　　　　　　　　　　　　　　　　　//渡されたカードを格納
+        attachedCardScripts = checkCard.GetComponent<Card>();   //格納したカードのスクリプトを取得
+       
     }
 
+    //カードの使用の獲得
     public void Use()
     {
         attachedCardScripts.UsethisCard();
     }
 
+    //カードの仕様のキャンセル
     public void Cancele()
     {
         attachedCardScripts.CanceleUseing();

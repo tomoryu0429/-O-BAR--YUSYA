@@ -6,6 +6,8 @@ using UnityEngine;
 /// <summary>
 /// 食材カードの設定
 /// </summary>
+
+//食材の種類
 public enum FoodKinds
 {
     Meat,
@@ -36,6 +38,7 @@ public enum FoodKinds
     NULL,
 }
 
+//料理の効果
 public enum FoodEffect
 {
     YarukiUp,
@@ -44,6 +47,7 @@ public enum FoodEffect
     CardEfcUp,
 }
 
+//効果のサイズ
 public enum FoodEfcSize
 {
     S,
@@ -52,6 +56,7 @@ public enum FoodEfcSize
     LL,
 }
 
+//料理の効果がもつ情報
 public struct FoodEffectInfo
 {
     public FoodEffect effect;
@@ -67,20 +72,24 @@ public class Food : MonoBehaviour
     int effectNum = 0;
     Card thisCardScripts;
 
+    //食材の情報を渡す
     public FoodEffectInfo getInfo(int arrayNum)
     {
         return EffectInfoArray[arrayNum];
     }
 
+    //効果の番号を取得
     public int getEffectNum() { return effectNum; }
+
 
     private void Start()
     {
+
         thisCardScripts = this.GetComponent<Card>();
 
         fkinds = thisCardScripts.type;
 
-
+        //各食材への効果と効果サイズの割り振り
         if (fkinds == FoodKinds.Meat || fkinds == FoodKinds.Fish || fkinds == FoodKinds.Mushroom || fkinds == FoodKinds.Tomato || fkinds == FoodKinds.Onion || fkinds == FoodKinds.Rice) {
             AddEffect(FoodEffect.YarukiUp, FoodEfcSize.S);
         }
@@ -130,11 +139,9 @@ public class Food : MonoBehaviour
         else if (fkinds == FoodKinds.ChocolateCake) {
             AddEffect(FoodEffect.DefenceUp, FoodEfcSize.L);
         }
-                                                                 
-
     }
 
-
+    //効果の追加
     void AddEffect(FoodEffect fef,FoodEfcSize fes)
     {
         FoodEffectInfo addfoodEffectInfo = new FoodEffectInfo {effect = fef,size = fes };
