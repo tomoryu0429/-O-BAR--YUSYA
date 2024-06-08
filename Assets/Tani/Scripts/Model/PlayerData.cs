@@ -30,13 +30,12 @@ public class PlayerData : SingletonMonoBehavior<PlayerData>
     public ReadOnlyReactiveProperty<int> ReactiveProperty_YP => yp.ToReadOnlyReactiveProperty();
 
     //private
-    ReactiveProperty<int> hp = new ReactiveProperty<int>();
-    ReactiveProperty<int> yp = new ReactiveProperty<int>();
+    ReactiveProperty<int> hp = new ReactiveProperty<int>(MAX_HP);
+    ReactiveProperty<int> yp = new ReactiveProperty<int>(MAX_YP);
 
     private void Start()
     {
-        hp.Value = MAX_HP;
-        yp.Value = MAX_YP;
+
     }
 
 }
