@@ -215,6 +215,38 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2078832200845712903, guid: f7dd8bb7a5d236549b24bf78f7c15f7c, type: 3}
+      propertyPath: increase_S
+      value: 7993744419309486080
+      objectReference: {fileID: 0}
+    - target: {fileID: 2078832200845712903, guid: f7dd8bb7a5d236549b24bf78f7c15f7c, type: 3}
+      propertyPath: cardEffects
+      value: 7993744419309486085
+      objectReference: {fileID: 0}
+    - target: {fileID: 2078832200845712903, guid: f7dd8bb7a5d236549b24bf78f7c15f7c, type: 3}
+      propertyPath: managedReferences[7993744419309486080]
+      value: Assembly-CSharp Tani.YP_Increase_S
+      objectReference: {fileID: 0}
+    - target: {fileID: 2078832200845712903, guid: f7dd8bb7a5d236549b24bf78f7c15f7c, type: 3}
+      propertyPath: managedReferences[7993744419309486081]
+      value: Assembly-CSharp Tani.YP_Increase_L
+      objectReference: {fileID: 0}
+    - target: {fileID: 2078832200845712903, guid: f7dd8bb7a5d236549b24bf78f7c15f7c, type: 3}
+      propertyPath: managedReferences[7993744419309486082]
+      value: Assembly-CSharp Tani.YP_Increase_M
+      objectReference: {fileID: 0}
+    - target: {fileID: 2078832200845712903, guid: f7dd8bb7a5d236549b24bf78f7c15f7c, type: 3}
+      propertyPath: managedReferences[7993744419309486083]
+      value: Assembly-CSharp Tani.YP_Increase_S
+      objectReference: {fileID: 0}
+    - target: {fileID: 2078832200845712903, guid: f7dd8bb7a5d236549b24bf78f7c15f7c, type: 3}
+      propertyPath: managedReferences[7993744419309486084]
+      value: Assembly-CSharp Tani.YP_Increase_M
+      objectReference: {fileID: 0}
+    - target: {fileID: 2078832200845712903, guid: f7dd8bb7a5d236549b24bf78f7c15f7c, type: 3}
+      propertyPath: managedReferences[7993744419309486085]
+      value: Assembly-CSharp Tani.YP_Increase_S
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
