@@ -12,6 +12,7 @@ namespace Tani
         [SerializeField]
         HpBarView hpBar;
 
+        ReactiveProperty<PlayerData> playerData;
         private void Awake()
         {
             //HPに応じてHPBarのゲージを設定
@@ -25,13 +26,9 @@ namespace Tani
                 .Where(x => x == 0)
                 .Subscribe(_ => print("PlayerDeath"))
                 .AddTo(this);
+
+                
         }
-
-        private void Start()
-        {
-
-        }
-
         private void Update()
         {
             //デバッグ用

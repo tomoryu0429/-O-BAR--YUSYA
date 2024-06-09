@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using R3;
+using R3.Triggers;
 
 namespace Tani
 {
@@ -18,6 +20,11 @@ namespace Tani
         {
             value = Mathf.Clamp01(value);
             hp_bar_green.fillAmount = value;
+        }
+
+        private void Start()
+        {
+
         }
     }
 }
