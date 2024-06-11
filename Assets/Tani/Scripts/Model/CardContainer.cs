@@ -15,11 +15,11 @@ public abstract class CardContainer
     /// 引数はリストのインデックス
     /// </summary>
     public event UnityAction<int> OnCardRemoved;
-    public CardManager CardManager { get; }
+    public Tani.CardManager CardManager { get; }
 
     protected List<CardData.ECardID> cards = new();
 
-    public CardContainer(CardManager cardManager)
+    public CardContainer(Tani.CardManager cardManager)
     {
         CardManager = cardManager;
     }
@@ -29,15 +29,29 @@ public abstract class CardContainer
         cards.Add(id);
         OnCardAdded.Invoke(Count);
     }
-    public void Remove(int listIndex)
+    public bool Remove(int listIndex)
     {
         if(listIndex >= Count)
         {
             Debug.LogError("indexOutOfRange");
-            return;
+            return false;
         }
         cards.RemoveAt(listIndex);
         OnCardRemoved.Invoke(listIndex);
+        return true;
+    }
+    public bool Remove(CardData.ECardID id)
+    {
+        if (cards.Contains(id))
+        {
+            cards.Remove(id);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+        
     }
     public bool Contains(CardData.ECardID id)
     {
@@ -53,31 +67,14 @@ public abstract class CardContainer
         return cards[index];
     }
 
-   
-
-}
-
-public class DrawPile : CardContainer
-{
-    public DrawPile(CardManager cardManager) : base(cardManager)
-    {
-
-    }
-}
-
-public class HandPile : CardContainer
-{
-    public HandPile(CardManager cardManager) : base(cardManager)
-    {
-
-    }
+    public IEnumerable<CardData.ECardID> GetAllCards => cards;
 
     public void Shuffle()
     {
         if (Count <= 1) return;
         System.Random random = new System.Random();
         int n = Count;
-        while(n > 1)
+        while (n > 1)
         {
             n--;
             int k = random.Next(n + 1);
@@ -86,11 +83,32 @@ public class HandPile : CardContainer
             cards[n] = tmp;
         }
     }
+
+
+
+}
+
+public class DrawPile : CardContainer
+{
+    public DrawPile(Tani.CardManager cardManager) : base(cardManager)
+    {
+
+    }
+}
+
+public class HandPile : CardContainer
+{
+    public HandPile(Tani.CardManager cardManager) : base(cardManager)
+    {
+
+    }
+
+
 }
 
 public class DiscardPile : CardContainer
 {
-    public DiscardPile(CardManager cardManager) : base(cardManager)
+    public DiscardPile(Tani.CardManager cardManager) : base(cardManager)
     {
 
     }
