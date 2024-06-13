@@ -12,6 +12,7 @@ namespace Tani
         [SerializeField]
         Image hp_bar_green;
 
+
         /// <summary>
         /// HpŠ„‡‚ğ0 - 1‚Ì”ÍˆÍ‚Åw’è
         /// </summary>

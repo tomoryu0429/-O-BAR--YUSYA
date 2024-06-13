@@ -2,7 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using R3;
+using Tani;
 
+
+[RequireComponent(typeof(Tani.CardManager))]
 public class PlayerData : SingletonMonoBehavior<PlayerData>
 {
     //public
@@ -20,22 +23,25 @@ public class PlayerData : SingletonMonoBehavior<PlayerData>
     /// <summary>
     /// 勇者のやる気ポイントの取得と設定、値は0 - MAX_YPにクランプされる
     /// </summary>
-     public int YP
-     {
+    public int YP
+    {
         get => yp.Value;
         set => yp.Value = Mathf.Clamp(value, 0, MAX_YP);
-     }
+    }
+    public Tani.CardManager CardManager => cardManager ?? GetComponent<Tani.CardManager>();
+
 
     public ReadOnlyReactiveProperty<int> ReactiveProperty_HP => hp.ToReadOnlyReactiveProperty();
     public ReadOnlyReactiveProperty<int> ReactiveProperty_YP => yp.ToReadOnlyReactiveProperty();
 
+
     //private
     ReactiveProperty<int> hp = new ReactiveProperty<int>(MAX_HP);
     ReactiveProperty<int> yp = new ReactiveProperty<int>(MAX_YP);
-
+    Tani.CardManager cardManager = null;
     private void Start()
     {
-
+        cardManager = GetComponent<Tani.CardManager>();
     }
 
 }
