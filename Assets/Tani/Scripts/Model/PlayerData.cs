@@ -28,20 +28,28 @@ public class PlayerData : SingletonMonoBehavior<PlayerData>
         get => yp.Value;
         set => yp.Value = Mathf.Clamp(value, 0, MAX_YP);
     }
-    public Tani.CardManager CardManager => cardManager ?? GetComponent<Tani.CardManager>();
+
+    public int Money
+    {
+        get => money.Value;
+        set => money.Value = value;
+    }
+    public CardManager CardManager => cardManager ?? GetComponent<CardManager>();
 
 
     public ReadOnlyReactiveProperty<int> ReactiveProperty_HP => hp.ToReadOnlyReactiveProperty();
     public ReadOnlyReactiveProperty<int> ReactiveProperty_YP => yp.ToReadOnlyReactiveProperty();
+    public ReadOnlyReactiveProperty<int> ReactiveProperty_Money => money.ToReadOnlyReactiveProperty();
 
 
     //private
     ReactiveProperty<int> hp = new ReactiveProperty<int>(MAX_HP);
     ReactiveProperty<int> yp = new ReactiveProperty<int>(MAX_YP);
-    Tani.CardManager cardManager = null;
+    ReactiveProperty<int> money = new ReactiveProperty<int>(0);
+    CardManager cardManager = null;
     private void Start()
     {
-        cardManager = GetComponent<Tani.CardManager>();
+        cardManager = GetComponent<CardManager>();
     }
 
 }
