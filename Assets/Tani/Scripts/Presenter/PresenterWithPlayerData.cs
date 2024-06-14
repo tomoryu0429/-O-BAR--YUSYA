@@ -18,9 +18,10 @@ namespace Tani
         private void Awake()
         {
             //HPに応じてHPBarのゲージを設定
-            PlayerData.Instance.ReactiveProperty_HP
-            .Subscribe(x => hpBar.SetHpPercent(x / 100.0f))
-             .AddTo(this);
+            PlayerData.Instance
+                .ReactiveProperty_HP
+                .Subscribe(x => hpBar.SetHpPercent(x / 100.0f))
+                .AddTo(this);
 
             //Hpが0になったとき「PlayerDeath」と表示
             PlayerData.Instance

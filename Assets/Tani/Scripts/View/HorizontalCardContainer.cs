@@ -16,12 +16,6 @@ namespace Tani
 
         public void AddCard(Tani.CardData cardData)
         {
-            print("kokokara");
-            foreach(var n in cardImagesDatas)
-            {
-                print(n.CurrentID);
-            }
-            print("kokomade");
             var obj = Instantiate<GameObject>(CardImageObj_Prefab, transform);
             obj.gameObject.name = cardData.name;
             Tani.CardImage cardImage = obj.GetComponent<Tani.CardImage>();
@@ -35,7 +29,7 @@ namespace Tani
                     break;
                 }
             }
-            print($"index : {index}");
+
             if(index == -1)
                 cardImagesDatas.Add(cardImage);
             else
