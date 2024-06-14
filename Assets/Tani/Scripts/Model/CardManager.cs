@@ -34,6 +34,11 @@ namespace Tani
             drawPile = new DrawPile(this);
             handPile = new HandPile(this);
             discardPile = new DiscardPile(this);
+            if(AllCards == null)
+            {
+                Debug.LogError("CardDataÇ™ë∂ç›ÇµÇ‹ÇπÇÒ");
+                return;
+            }
             foreach(var n in AllCards)
             {
                 cardDatas.Add(n.CardID, n);

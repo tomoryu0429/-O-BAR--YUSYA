@@ -5,7 +5,7 @@ using R3;
 using Tani;
 
 
-[RequireComponent(typeof(Tani.CardManager))]
+
 public class PlayerData : SingletonMonoBehavior<PlayerData>
 {
     //public
@@ -28,7 +28,9 @@ public class PlayerData : SingletonMonoBehavior<PlayerData>
         get => yp.Value;
         set => yp.Value = Mathf.Clamp(value, 0, MAX_YP);
     }
-
+    /// <summary>
+    ///óEé“ÇÃèäéùã‡
+    /// </summary>
     public int Money
     {
         get => money.Value;
@@ -47,10 +49,17 @@ public class PlayerData : SingletonMonoBehavior<PlayerData>
     ReactiveProperty<int> yp = new ReactiveProperty<int>(MAX_YP);
     ReactiveProperty<int> money = new ReactiveProperty<int>(0);
     CardManager cardManager = null;
-    private void Start()
+
+    protected override void Awake()
     {
-        cardManager = GetComponent<CardManager>();
+        base.Awake();
+        if(!gameObject.TryGetComponent<CardManager>(out cardManager))
+        {
+            cardManager = gameObject.AddComponent<CardManager>();
+        }
+
     }
+
 
 }
 

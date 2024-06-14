@@ -11,6 +11,8 @@ namespace Tani
     {
         [SerializeField]
         HpBarView hpBar;
+        [SerializeField]
+        HorizontalCardContainer container;
 
         ReactiveProperty<PlayerData> playerData;
         private void Awake()
@@ -29,6 +31,16 @@ namespace Tani
 
                 
         }
+        private void Start()
+        {
+
+
+            container.AddCard(PlayerData.Instance.CardManager.GetCardData(CardData.ECardID.Meet));
+            container.AddCard(PlayerData.Instance.CardManager.GetCardData(CardData.ECardID.Fish));
+            container.AddCard(PlayerData.Instance.CardManager.GetCardData(CardData.ECardID.Mash));
+            container.AddCard(PlayerData.Instance.CardManager.GetCardData(CardData.ECardID.Meet));
+        }
+
         private void Update()
         {
             //デバッグ用
