@@ -41,6 +41,39 @@ namespace Tani
             {
                 cardDatas.Add(n.CardID, n);
             }
+            handPile.OnCardUsed += HandPileCardOnUsed;
+        }
+
+        public void DrawCard()
+        {
+            var getData = drawPile.GetRandom();
+            if (getData.HasValue)
+            {
+                drawPile.Remove(getData.Value.Item2);
+                handPile.AddCard(getData.Value.Item1);
+            }
+            else
+            {
+                int count = discardPile.Count;
+                for(int i = 0; i < count; i++)
+                {
+                    var id = discardPile.GetAt(0);
+                    discardPile.Remove(0);
+                    drawPile.AddCard(id);
+                }
+                getData = drawPile.GetRandom();
+                if (getData.HasValue)
+                {
+                    drawPile.Remove(getData.Value.Item2);
+                    handPile.AddCard(getData.Value.Item1);
+                }
+
+            }
+        }
+
+        private void HandPileCardOnUsed (int index, CardData.ECardID id)
+        {
+            discardPile.AddCard(id);
         }
 
         public CardData GetCardData(CardData.ECardID id) => cardDatas[id]; 

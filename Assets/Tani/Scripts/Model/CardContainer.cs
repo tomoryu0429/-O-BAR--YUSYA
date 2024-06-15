@@ -12,9 +12,13 @@ public abstract class CardContainer
     /// </summary>
     public event UnityAction<int,CardData.ECardID> OnCardAdded;
     /// <summary>
-    /// 引数はリストの要素がaddされた要素のindex,id
+    /// 引数はリストの要素がRemoveされた要素のindex,id
     /// </summary>
     public event UnityAction<int, CardData.ECardID> OnCardRemoved;
+    /// <summary>
+    /// 引数はリストの要素がRemoveされた要素のindex,id
+    /// </summary>
+    public event UnityAction<int, CardData.ECardID> OnCardUsed;
 
     protected List<CardData.ECardID> cards = new();
 
@@ -26,12 +30,12 @@ public abstract class CardContainer
         if (index.HasValue)
         {
             cards.Insert(index.Value, id);
-            OnCardAdded(index.Value, id);
+            OnCardAdded?.Invoke(index.Value, id);
         }
         else
         {
             cards.Add(id);
-            OnCardAdded.Invoke(Count,id);
+            OnCardAdded?.Invoke(Count,id);
         }
         
         
@@ -40,12 +44,12 @@ public abstract class CardContainer
     {
         if(listIndex >= Count)
         {
-            Debug.LogError("indexOutOfRange");
+            Debug.LogError($"indexOutOfRange : {Count}");
             return false;
         }
         var removed_id = cards[listIndex];
         cards.RemoveAt(listIndex);
-        OnCardRemoved.Invoke(listIndex,removed_id);
+        OnCardRemoved?.Invoke(listIndex,removed_id);
         return true;
     }
     public bool Remove(CardData.ECardID id)
@@ -54,7 +58,7 @@ public abstract class CardContainer
         {
             int index = cards.IndexOf(id);
             cards.RemoveAt(index);
-            OnCardRemoved.Invoke(index, id);
+            OnCardRemoved?.Invoke(index, id);
 
             return true;
         }
@@ -63,6 +67,13 @@ public abstract class CardContainer
             return false;
         }
         
+    }
+
+    public void UseCard(int index)
+    {
+        var id = cards[index];
+        Remove(index);
+        OnCardUsed?.Invoke(index, id);
     }
     public bool Contains(CardData.ECardID id)
     {
@@ -77,23 +88,30 @@ public abstract class CardContainer
         }
         return cards[index];
     }
+    public (CardData.ECardID,int)? GetRandom()
+    {
+        if (Count == 0) return null;
+        int index = Random.Range(0, cards.Count);
+        CardData.ECardID id = cards[index];
+        return (id, index);
+    }
 
     public IEnumerable<CardData.ECardID> GetAllCards => cards;
 
-    public void Shuffle()
-    {
-        if (Count <= 1) return;
-        System.Random random = new System.Random();
-        int n = Count;
-        while (n > 1)
-        {
-            n--;
-            int k = random.Next(n + 1);
-            var tmp = cards[k];
-            cards[k] = cards[n];
-            cards[n] = tmp;
-        }
-    }
+    //public void Shuffle()
+    //{
+    //    if (Count <= 1) return;
+    //    System.Random random = new System.Random();
+    //    int n = Count;
+    //    while (n > 1)
+    //    {
+    //        n--;
+    //        int k = random.Next(n + 1);
+    //        var tmp = cards[k];
+    //        cards[k] = cards[n];
+    //        cards[n] = tmp;
+    //    }
+    //}
     int? GetContainerSibiling(CardData.ECardID id)
     {
         int? index = null;
