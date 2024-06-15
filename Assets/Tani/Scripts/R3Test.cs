@@ -23,8 +23,6 @@ namespace Tani
                 .Subscribe(_ => print("click"))
                 .AddTo(this);
 
-            PlayerData.Instance.CardManager.Hand.OnCardAdded += (id) => print(id.ToString());
-            PlayerData.Instance.CardManager.Hand.AddCard(CardData.ECardID.Meet);
         }
     }
 }

@@ -31,13 +31,49 @@ namespace Tani
 
         private void Awake()
         {
-            drawPile = new DrawPile(this);
-            handPile = new HandPile(this);
-            discardPile = new DiscardPile(this);
+
+            if(AllCards == null)
+            {
+                Debug.LogError("CardDataÇ™ë∂ç›ÇµÇ‹ÇπÇÒ");
+                return;
+            }
             foreach(var n in AllCards)
             {
                 cardDatas.Add(n.CardID, n);
             }
+            handPile.OnCardUsed += HandPileCardOnUsed;
+        }
+
+        public void DrawCard()
+        {
+            var getData = drawPile.GetRandom();
+            if (getData.HasValue)
+            {
+                drawPile.Remove(getData.Value.Item2);
+                handPile.AddCard(getData.Value.Item1);
+            }
+            else
+            {
+                int count = discardPile.Count;
+                for(int i = 0; i < count; i++)
+                {
+                    var id = discardPile.GetAt(0);
+                    discardPile.Remove(0);
+                    drawPile.AddCard(id);
+                }
+                getData = drawPile.GetRandom();
+                if (getData.HasValue)
+                {
+                    drawPile.Remove(getData.Value.Item2);
+                    handPile.AddCard(getData.Value.Item1);
+                }
+
+            }
+        }
+
+        private void HandPileCardOnUsed (int index, CardData.ECardID id)
+        {
+            discardPile.AddCard(id);
         }
 
         public CardData GetCardData(CardData.ECardID id) => cardDatas[id]; 
@@ -45,9 +81,10 @@ namespace Tani
         Dictionary<CardData.ECardID, CardData> cardDatas = new();
 
         PlayerData owner = null;
-        DrawPile drawPile;
-        HandPile handPile;
-        DiscardPile discardPile;
+        DrawPile drawPile = new DrawPile();
+        HandPile handPile = new();
+        DiscardPile discardPile = new DiscardPile();
+
 
     }
 }
