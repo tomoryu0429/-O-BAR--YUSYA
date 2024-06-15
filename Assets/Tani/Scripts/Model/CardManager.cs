@@ -31,9 +31,7 @@ namespace Tani
 
         private void Awake()
         {
-            drawPile = new DrawPile(this);
-            handPile = new HandPile(this);
-            discardPile = new DiscardPile(this);
+
             if(AllCards == null)
             {
                 Debug.LogError("CardDataÇ™ë∂ç›ÇµÇ‹ÇπÇÒ");
@@ -50,9 +48,9 @@ namespace Tani
         Dictionary<CardData.ECardID, CardData> cardDatas = new();
 
         PlayerData owner = null;
-        DrawPile drawPile;
-        HandPile handPile;
-        DiscardPile discardPile;
+        DrawPile drawPile = new DrawPile();
+        HandPile handPile = new();
+        DiscardPile discardPile = new DiscardPile();
 
 
     }

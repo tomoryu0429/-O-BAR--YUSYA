@@ -22,5 +22,9 @@ namespace Tani
 
             obj.transform.SetSiblingIndex(siblingIndex);
         }
+        public void RemoveCard(int sibilingIndex)
+        {
+            Destroy(transform.GetChild(sibilingIndex).gameObject);
+        }
     }
 }

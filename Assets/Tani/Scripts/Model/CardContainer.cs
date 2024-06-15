@@ -15,14 +15,10 @@ public abstract class CardContainer
     /// ˆø”‚ÍƒŠƒXƒg‚Ì—v‘f‚ªadd‚³‚ê‚½—v‘f‚Ìindex,id
     /// </summary>
     public event UnityAction<int, CardData.ECardID> OnCardRemoved;
-    public Tani.CardManager CardManager { get; }
 
     protected List<CardData.ECardID> cards = new();
 
-    public CardContainer(Tani.CardManager cardManager)
-    {
-        CardManager = cardManager;
-    }
+
 
     public void AddCard(CardData.ECardID id)
     {
@@ -117,26 +113,17 @@ public abstract class CardContainer
 
 public class DrawPile : CardContainer
 {
-    public DrawPile(Tani.CardManager cardManager) : base(cardManager)
-    {
 
-    }
 }
 
 public class HandPile : CardContainer
 {
-    public HandPile(Tani.CardManager cardManager) : base(cardManager)
-    {
 
-    }
 
 
 }
 
 public class DiscardPile : CardContainer
 {
-    public DiscardPile(Tani.CardManager cardManager) : base(cardManager)
-    {
 
-    }
 }

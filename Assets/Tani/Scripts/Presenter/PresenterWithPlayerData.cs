@@ -6,6 +6,8 @@ using System;
 using R3;
 using R3.Triggers;
 using System.Linq;
+using Cysharp.Threading.Tasks;
+using Cysharp.Threading.Tasks.Triggers;
 
 namespace Tani 
 {
@@ -31,12 +33,17 @@ namespace Tani
                 .Subscribe(_ => print("PlayerDeath"))
                 .AddTo(this);
 
-            print(PlayerData.Instance.CardManager.Hand);
+
 
             PlayerData.Instance
-                .CardManager
-                .Hand
-                .OnCardAdded += HandContainerOnCardAdded;
+            .CardManager
+            .Hand
+            .OnCardAdded += HandContainerOnCardAdded;
+            PlayerData.Instance
+             .CardManager
+             .Hand
+             .OnCardRemoved += HandContainerOnCardRemoved;
+
         }
 
         private void OnDestroy()
@@ -47,6 +54,10 @@ namespace Tani
                 .CardManager
                 .Hand
                 .OnCardAdded -= HandContainerOnCardAdded;
+                PlayerData.Instance
+                 .CardManager
+                 .Hand
+                 .OnCardRemoved += HandContainerOnCardRemoved;
             }
             
         }
@@ -55,16 +66,26 @@ namespace Tani
             hand_container
                 .AddCard(index, PlayerData.Instance.CardManager.GetCardData(id));
         }
-
-       
-        private void Start()
+        void HandContainerOnCardRemoved(int index, CardData.ECardID id)
         {
+            hand_container.RemoveCard(index);
+        }
 
 
+        async void Start()
+        {
+            await UniTask.Delay(1000);
             PlayerData.Instance.CardManager.Hand.AddCard(CardData.ECardID.Meet);
+            await UniTask.Delay(1000);
             PlayerData.Instance.CardManager.Hand.AddCard(CardData.ECardID.Fish);
+            await UniTask.Delay(1000);
             PlayerData.Instance.CardManager.Hand.AddCard(CardData.ECardID.Mash);
+            await UniTask.Delay(1000);
             PlayerData.Instance.CardManager.Hand.AddCard(CardData.ECardID.Meet);
+            await UniTask.Delay(1000);
+            PlayerData.Instance.CardManager.Hand.Remove(1);
+            await UniTask.Delay(1000);
+            PlayerData.Instance.CardManager.Hand.Remove(CardData.ECardID.Mash);
         }
 
         private void Update()
