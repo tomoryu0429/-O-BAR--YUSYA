@@ -8,13 +8,13 @@ public abstract class CardContainer
 {
     public int Count => cards.Count;
     /// <summary>
-    /// 引数はリストのインデックス
+    /// 引数はリストの要素がaddされた要素のindex,id
     /// </summary>
-    public event UnityAction<int> OnCardAdded;
+    public event UnityAction<int,CardData.ECardID> OnCardAdded;
     /// <summary>
-    /// 引数はリストのインデックス
+    /// 引数はリストの要素がaddされた要素のindex,id
     /// </summary>
-    public event UnityAction<int> OnCardRemoved;
+    public event UnityAction<int, CardData.ECardID> OnCardRemoved;
     public Tani.CardManager CardManager { get; }
 
     protected List<CardData.ECardID> cards = new();
@@ -26,8 +26,19 @@ public abstract class CardContainer
 
     public void AddCard(CardData.ECardID id)
     {
-        cards.Add(id);
-        OnCardAdded.Invoke(Count);
+        var index = GetContainerSibiling(id);
+        if (index.HasValue)
+        {
+            cards.Insert(index.Value, id);
+            OnCardAdded(index.Value, id);
+        }
+        else
+        {
+            cards.Add(id);
+            OnCardAdded.Invoke(Count,id);
+        }
+        
+        
     }
     public bool Remove(int listIndex)
     {
@@ -36,15 +47,19 @@ public abstract class CardContainer
             Debug.LogError("indexOutOfRange");
             return false;
         }
+        var removed_id = cards[listIndex];
         cards.RemoveAt(listIndex);
-        OnCardRemoved.Invoke(listIndex);
+        OnCardRemoved.Invoke(listIndex,removed_id);
         return true;
     }
     public bool Remove(CardData.ECardID id)
     {
         if (cards.Contains(id))
         {
-            cards.Remove(id);
+            int index = cards.IndexOf(id);
+            cards.RemoveAt(index);
+            OnCardRemoved.Invoke(index, id);
+
             return true;
         }
         else
@@ -83,7 +98,19 @@ public abstract class CardContainer
             cards[n] = tmp;
         }
     }
-
+    int? GetContainerSibiling(CardData.ECardID id)
+    {
+        int? index = null;
+        for (int i = 0; i < cards.Count; i++)
+        {
+            if ((int)id < (int)cards[i])
+            {
+                index = i;
+                break;
+            }
+        }
+        return index;
+    }
 
 
 }

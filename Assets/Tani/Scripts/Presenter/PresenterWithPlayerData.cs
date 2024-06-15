@@ -4,6 +4,8 @@ using UnityEngine;
 using Tani;
 using System;
 using R3;
+using R3.Triggers;
+using System.Linq;
 
 namespace Tani 
 {
@@ -12,9 +14,8 @@ namespace Tani
         [SerializeField]
         HpBarView hpBar;
         [SerializeField]
-        HorizontalCardContainer container;
+        CardContainerView hand_container;
 
-        ReactiveProperty<PlayerData> playerData;
         private void Awake()
         {
             //HP‚É‰ž‚¶‚ÄHPBar‚ÌƒQ[ƒW‚ðÝ’è
@@ -30,16 +31,40 @@ namespace Tani
                 .Subscribe(_ => print("PlayerDeath"))
                 .AddTo(this);
 
-                
+            print(PlayerData.Instance.CardManager.Hand);
+
+            PlayerData.Instance
+                .CardManager
+                .Hand
+                .OnCardAdded += HandContainerOnCardAdded;
         }
+
+        private void OnDestroy()
+        {
+            if (PlayerData.InstanceNullable)
+            {
+                PlayerData.Instance
+                .CardManager
+                .Hand
+                .OnCardAdded -= HandContainerOnCardAdded;
+            }
+            
+        }
+        void HandContainerOnCardAdded(int index,CardData.ECardID id)
+        {
+            hand_container
+                .AddCard(index, PlayerData.Instance.CardManager.GetCardData(id));
+        }
+
+       
         private void Start()
         {
 
 
-            container.AddCard(PlayerData.Instance.CardManager.GetCardData(CardData.ECardID.Meet));
-            container.AddCard(PlayerData.Instance.CardManager.GetCardData(CardData.ECardID.Fish));
-            container.AddCard(PlayerData.Instance.CardManager.GetCardData(CardData.ECardID.Mash));
-            container.AddCard(PlayerData.Instance.CardManager.GetCardData(CardData.ECardID.Meet));
+            PlayerData.Instance.CardManager.Hand.AddCard(CardData.ECardID.Meet);
+            PlayerData.Instance.CardManager.Hand.AddCard(CardData.ECardID.Fish);
+            PlayerData.Instance.CardManager.Hand.AddCard(CardData.ECardID.Mash);
+            PlayerData.Instance.CardManager.Hand.AddCard(CardData.ECardID.Meet);
         }
 
         private void Update()
