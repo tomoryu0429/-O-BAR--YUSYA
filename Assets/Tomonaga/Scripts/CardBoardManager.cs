@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using old;
 /// <summary>
 /// ƒJ[ƒhŠÖŒW‚ÌŒ©‚½–Ú‚ÌŠÇ—
 /// </summary>

@@ -8,43 +8,58 @@ public abstract class CardContainer
 {
     public int Count => cards.Count;
     /// <summary>
-    /// 引数はリストのインデックス
+    /// 引数はリストの要素がaddされた要素のindex,id
     /// </summary>
-    public event UnityAction<int> OnCardAdded;
+    public event UnityAction<int,CardData.ECardID> OnCardAdded;
     /// <summary>
-    /// 引数はリストのインデックス
+    /// 引数はリストの要素がRemoveされた要素のindex,id
     /// </summary>
-    public event UnityAction<int> OnCardRemoved;
-    public Tani.CardManager CardManager { get; }
+    public event UnityAction<int, CardData.ECardID> OnCardRemoved;
+    /// <summary>
+    /// 引数はリストの要素がRemoveされた要素のindex,id
+    /// </summary>
+    public event UnityAction<int, CardData.ECardID> OnCardUsed;
 
     protected List<CardData.ECardID> cards = new();
 
-    public CardContainer(Tani.CardManager cardManager)
-    {
-        CardManager = cardManager;
-    }
+
 
     public void AddCard(CardData.ECardID id)
     {
-        cards.Add(id);
-        OnCardAdded.Invoke(Count);
+        var index = GetContainerSibiling(id);
+        if (index.HasValue)
+        {
+            cards.Insert(index.Value, id);
+            OnCardAdded?.Invoke(index.Value, id);
+        }
+        else
+        {
+            cards.Add(id);
+            OnCardAdded?.Invoke(Count,id);
+        }
+        
+        
     }
     public bool Remove(int listIndex)
     {
         if(listIndex >= Count)
         {
-            Debug.LogError("indexOutOfRange");
+            Debug.LogError($"indexOutOfRange : {Count}");
             return false;
         }
+        var removed_id = cards[listIndex];
         cards.RemoveAt(listIndex);
-        OnCardRemoved.Invoke(listIndex);
+        OnCardRemoved?.Invoke(listIndex,removed_id);
         return true;
     }
     public bool Remove(CardData.ECardID id)
     {
         if (cards.Contains(id))
         {
-            cards.Remove(id);
+            int index = cards.IndexOf(id);
+            cards.RemoveAt(index);
+            OnCardRemoved?.Invoke(index, id);
+
             return true;
         }
         else
@@ -52,6 +67,13 @@ public abstract class CardContainer
             return false;
         }
         
+    }
+
+    public void UseCard(int index)
+    {
+        var id = cards[index];
+        Remove(index);
+        OnCardUsed?.Invoke(index, id);
     }
     public bool Contains(CardData.ECardID id)
     {
@@ -66,50 +88,60 @@ public abstract class CardContainer
         }
         return cards[index];
     }
+    public (CardData.ECardID,int)? GetRandom()
+    {
+        if (Count == 0) return null;
+        int index = Random.Range(0, cards.Count);
+        CardData.ECardID id = cards[index];
+        return (id, index);
+    }
 
     public IEnumerable<CardData.ECardID> GetAllCards => cards;
 
-    public void Shuffle()
+    //public void Shuffle()
+    //{
+    //    if (Count <= 1) return;
+    //    System.Random random = new System.Random();
+    //    int n = Count;
+    //    while (n > 1)
+    //    {
+    //        n--;
+    //        int k = random.Next(n + 1);
+    //        var tmp = cards[k];
+    //        cards[k] = cards[n];
+    //        cards[n] = tmp;
+    //    }
+    //}
+    int? GetContainerSibiling(CardData.ECardID id)
     {
-        if (Count <= 1) return;
-        System.Random random = new System.Random();
-        int n = Count;
-        while (n > 1)
+        int? index = null;
+        for (int i = 0; i < cards.Count; i++)
         {
-            n--;
-            int k = random.Next(n + 1);
-            var tmp = cards[k];
-            cards[k] = cards[n];
-            cards[n] = tmp;
+            if ((int)id < (int)cards[i])
+            {
+                index = i;
+                break;
+            }
         }
+        return index;
     }
-
 
 
 }
 
 public class DrawPile : CardContainer
 {
-    public DrawPile(Tani.CardManager cardManager) : base(cardManager)
-    {
 
-    }
 }
 
 public class HandPile : CardContainer
 {
-    public HandPile(Tani.CardManager cardManager) : base(cardManager)
-    {
 
-    }
 
 
 }
 
 public class DiscardPile : CardContainer
 {
-    public DiscardPile(Tani.CardManager cardManager) : base(cardManager)
-    {
 
-    }
 }
