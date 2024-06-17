@@ -70,3 +70,7 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+Assets/Tani/ja-jp.ttf.meta
+Assets/Tani/ja-jp.ttf
+Assets/Tani/ja-jp SDF.asset.meta
+Assets/Tani/ja-jp SDF.asset
