@@ -4,9 +4,10 @@ using Tani;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using R3;
 using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
-public class Syounin : MonoBehaviour
+public class BuySyounin : MonoBehaviour
 {
     [SerializeField] List<int> BuyGold = new List<int>();//買値
     [SerializeField] List<int> BuyGoldF = new List<int>();//料理買値
@@ -14,11 +15,15 @@ public class Syounin : MonoBehaviour
     [SerializeField] List<int> Percent = new List<int>();//料理確率
     [SerializeField] int rnd;//確率計算用
 
-    [SerializeField] int Money;//持っているお金（仮変数）
-
-    string aa;
+    //string aa;
     int AAid;
     int BBid;
+    int Number;
+
+    bool SozaiA = true;
+    bool SozaiB = true;
+    bool Food = true;
+
     [SerializeField] Text Nametext;
     [SerializeField] Text Nametext2;
     [SerializeField] Text NametextF;
@@ -28,7 +33,7 @@ public class Syounin : MonoBehaviour
     [SerializeField] Text MoneyText;
     //[SerializeField] Text SellText;
     //[SerializeField] Image image;
-    /*
+
     public enum FoodName
     {
         GrilledFish,
@@ -43,7 +48,7 @@ public class Syounin : MonoBehaviour
         ShortCake,
         ChocolateCake,
     }
-    */
+    
     void Start()
     {
         CardData.ECardID Aid = EnumSystem.GetRandom<CardData.ECardID>();
@@ -53,66 +58,86 @@ public class Syounin : MonoBehaviour
         CardData.ECardID Bid = EnumSystem.GetRandom<CardData.ECardID>();
         BBid = (int)Bid;
 
-        MoneyText.text = Money + " 円";
+        //所持金の取得
+        PlayerData.Instance
+                  .ReactiveProperty_Money
+                  .Subscribe((money) => { MoneyText.text = money.ToString(); })
+                  .AddTo(this);
+
         //料理カードの確率
         rnd = Random.Range(1, 100);
+
         if(rnd <= Percent[0])
         {
+            Number = 0;
             NametextF.text = "魚の塩焼き";
             BuyTextF.text = "買値 " + BuyGoldF[0] + " 円";
         }
         else if (rnd <= Percent[1])
         {
+            Number = 1;
             NametextF.text = "海鮮丼";
             BuyTextF.text = "買値 " + BuyGoldF[1] + " 円";
         }
         else if (rnd <= Percent[2])
         {
+            Number = 2;
             NametextF.text = "とんかつ";
             BuyTextF.text = "買値 " + BuyGoldF[2] + " 円";
         }
         else if (rnd <= Percent[3])
         {
+            Number = 3;
             NametextF.text = "カレー";
             BuyTextF.text = "買値 " + BuyGoldF[3] + " 円";
         }
         else if (rnd <= Percent[4])
         {
+            Number = 4;
             NametextF.text = "野菜炒め";
             BuyTextF.text = "買値 " + BuyGoldF[4] + " 円";
         }
         else if (rnd <= Percent[5])
         {
+            Number = 5;
             NametextF.text = "パンケーキ";
             BuyTextF.text = "買値 " + BuyGoldF[5] + " 円";
         }
         else if (rnd <= Percent[6])
         {
+            Number = 6;
             NametextF.text = "いちごパフェ";
             BuyTextF.text = "買値 " + BuyGoldF[6] + " 円";
         }
         else if (rnd <= Percent[7])
         {
+            Number = 7;
             NametextF.text = "チョコレートクレープ";
             BuyTextF.text = "買値 " + BuyGoldF[7] + " 円";
         }
         else if (rnd <= Percent[8])
         {
+            Number = 8;
             NametextF.text = "果物ゼリー";
             BuyTextF.text = "買値 " + BuyGoldF[8] + " 円";
         }
         else if (rnd <= Percent[9])
         {
+            Number = 9;
             NametextF.text = "ショートケーキ";
             BuyTextF.text = "買値 " + BuyGoldF[9] + " 円";
         }
         else if (rnd <= Percent[10])
         {
+            Number = 10;
             NametextF.text = "チョコレートケーキ";
             BuyTextF.text = "買値 " + BuyGoldF[10] + " 円";
         }
+
         //Debug.Log(b);
         //Debug.Log(BuyGold[0]);
+
+
         switch (AAid)
         {
             case 0:
@@ -164,6 +189,7 @@ public class Syounin : MonoBehaviour
                 BuyText.text = "買値 " + BuyGold[11] + " 円";
                 break;
         }
+        
         switch (BBid)
         {
             case 0:
@@ -219,7 +245,39 @@ public class Syounin : MonoBehaviour
 
     void Update()
     {
-        
+
+        for (int i = 0; i < 12; i++)
+        {
+            //var data = PlayerData.Instance.CardManager.GetCardData(CardData.ECardID.Meet);
+
+            if (Input.GetKeyDown(KeyCode.Alpha1) && AAid == i && SozaiA)
+            {
+                PlayerData.Instance.Money -= BuyGold[i];
+                Nametext.text = "";
+                BuyText.text = "";
+                SozaiA = false;
+                
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha2) && BBid == i && SozaiB)
+            {
+                PlayerData.Instance.Money -= BuyGold[i];
+                Nametext2.text = "";
+                BuyText2.text = "";
+                SozaiB = false;
+            }
+        }
+
+        for(int i = 0; i < 11; i++)
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha3) && Number == i && Food)
+            {
+                PlayerData.Instance.Money -= BuyGoldF[i];
+                NametextF.text = "";
+                BuyTextF.text = "";
+                Food = false;
+            }
+        }
     }
     
 }
