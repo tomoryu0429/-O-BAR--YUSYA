@@ -14,62 +14,72 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Entities:
   - id: 1
-    name: item1
-    price: 3
-    isNotForSale: 0
-    rate: 2.3
+    Name: 
+    HP: 0
+    AT: 0
+    DF: 0
+    DropM: 0
     category: 0
   - id: 2
-    name: item2
-    price: 10
-    isNotForSale: 0
-    rate: 3.22
+    Name: 
+    HP: 0
+    AT: 0
+    DF: 0
+    DropM: 0
     category: 0
   - id: 3
-    name: item3
-    price: 25
-    isNotForSale: 0
-    rate: 3.68
+    Name: 
+    HP: 0
+    AT: 0
+    DF: 0
+    DropM: 0
     category: 0
   - id: 4
-    name: item4
-    price: 60
-    isNotForSale: 1
-    rate: 4.14
+    Name: 
+    HP: 0
+    AT: 0
+    DF: 0
+    DropM: 0
     category: 1
   - id: 5
-    name: item5
-    price: 180
-    isNotForSale: 1
-    rate: 4.83
+    Name: 
+    HP: 0
+    AT: 0
+    DF: 0
+    DropM: 0
     category: 1
   - id: 6
-    name: item6
-    price: 230
-    isNotForSale: 1
-    rate: 5.06
+    Name: 
+    HP: 0
+    AT: 0
+    DF: 0
+    DropM: 0
     category: 1
   - id: 7
-    name: item7
-    price: 310
-    isNotForSale: 0
-    rate: 5.52
+    Name: 
+    HP: 0
+    AT: 0
+    DF: 0
+    DropM: 0
     category: 2
   - id: 8
-    name: item8
-    price: 560
-    isNotForSale: 1
-    rate: 5.98
+    Name: 
+    HP: 0
+    AT: 0
+    DF: 0
+    DropM: 0
     category: 2
   - id: 9
-    name: item9
-    price: 820
-    isNotForSale: 0
-    rate: 6.44
+    Name: 
+    HP: 0
+    AT: 0
+    DF: 0
+    DropM: 0
     category: 2
   - id: 10
-    name: item10
-    price: 1010
-    isNotForSale: 1
-    rate: 8.05
+    Name: 
+    HP: 0
+    AT: 0
+    DF: 0
+    DropM: 0
     category: 2
