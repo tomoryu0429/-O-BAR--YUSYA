@@ -150,16 +150,18 @@ namespace Tani
             PlayerData.Instance.CardManager.Draw.AddCard(CardData.ECardID.Onion);
             PlayerData.Instance.CardManager.Draw.AddCard(CardData.ECardID.Onion);
 
-
+            Tani.TurnController.ChangeTurn(TurnController.ETurn.CardTurn);
 
         }
-
+        int count = 0;
         private void Update()
         {
             //デバッグ用
             if (Input.GetKeyDown(KeyCode.Return))
             {
+                count++;
                 PlayerData.Instance.HP -= 10;
+                Tani.TurnController.ChangeTurn((Tani.TurnController.ETurn)(count % (int)Tani.TurnController.ETurn.TurnMax));
             }
         }
     }
