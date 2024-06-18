@@ -10,9 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d9eeae571918e4242b5f481c0943fd5a, type: 3}
-  m_Name: newEnemy
+  m_Name: enemy_slimeC
   m_EditorClassIdentifier: 
-  EnemyNeme: 
-  health: 0
-  description: 
-  power: 0
+  EnemyNeme: slimeC
+  type: 1
+  ID: 3
+  health: 10
+  power: 10
+  defense: 10
+  money: 75
