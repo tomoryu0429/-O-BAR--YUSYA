@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Alchemy.Inspector;
+using System.Linq;
 namespace Tani
 {
     public class CardManager : MonoBehaviour
@@ -69,6 +70,23 @@ namespace Tani
                 }
 
             }
+        }
+
+        public List<CardData.ECardID> GetSortedAllCardList()
+        {
+            
+            var hand = Hand.GetAllCards;
+            var draw = Draw.GetAllCards;
+            var discard = Discard.GetAllCards;
+
+            var all = hand.Concat(draw).Concat(discard);
+
+            List<CardData.ECardID> sortedList = new List<CardData.ECardID>();
+            for(int i = 0;i < (int)CardData.ECardID.Max; i++)
+            {
+                sortedList.AddRange(all.Where(id => id == (CardData.ECardID)i));
+            }
+            return sortedList;
         }
 
         private void HandPileCardOnUsed (int index, CardData.ECardID id)

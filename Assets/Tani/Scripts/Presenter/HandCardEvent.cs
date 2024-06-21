@@ -69,86 +69,21 @@ public class HandCardEvent : MonoBehaviour
             .Where(_=>type == EPileType.Hand)
             .Subscribe(_ =>
             {
-                switch (type)
+                if (data.CardManager.Hand.UseCardEnable)
                 {
-                    case EPileType.Hand:
-                        data.CardManager.Hand.UseCard(transform.GetSiblingIndex());
-                        break;
-                    case EPileType.Draw:
-                        data.CardManager.Draw.UseCard(transform.GetSiblingIndex());
-                        break;
-                    case EPileType.Discard:
-                        data.CardManager.Discard.UseCard(transform.GetSiblingIndex());
-                        break;
+                    data.CardManager.Hand.UseCard(transform.GetSiblingIndex());
+
                 }
             }).AddTo(this);
-        Tani.TurnController.OnTurnStart += this.OnTurnStart;
-        Tani.TurnController.OnTurnEnd += this.OnTurnEnd;
+
+
         
     }
 
     private void OnDestroy()
     {
-        Tani.TurnController.OnTurnStart -= this.OnTurnStart;
-        Tani.TurnController.OnTurnEnd -= this.OnTurnEnd;
-    }
-
-    void OnTurnStart(Tani.TurnController.ETurn eTurn)
-    {
-        switch (type)
-        {
-            case EPileType.Hand:
-                switch (eTurn)
-                {
-                    case Tani.TurnController.ETurn.Invalid:
-                        break;
-                    case Tani.TurnController.ETurn.CardTurn:
-
-                        this.ObservableEvent.enabled = true;
-                        break;
-                    case Tani.TurnController.ETurn.YusyaTurn:
-                        break;
-                    case Tani.TurnController.ETurn.EnemyTurn:
-                        break;
-                }
-
-                break;
-            case EPileType.Draw:
-                break;
-            case EPileType.Discard:
-                break;
-        }
 
     }
-    void OnTurnEnd(Tani.TurnController.ETurn eTurn)
-    {
-        switch (type)
-        {
-            case EPileType.Hand:
-                switch (eTurn)
-                {
-                    case Tani.TurnController.ETurn.Invalid:
-                        break;
-                    case Tani.TurnController.ETurn.CardTurn:
-                        this.ObservableEvent.enabled = false;
-                        transform.localScale = Vector3.one;
-                        if (discriptionInstance)
-                        {
-                            Destroy(discriptionInstance);
-                            discriptionInstance = null;
-                        }
-                        break;
-                    case Tani.TurnController.ETurn.YusyaTurn:
-                        break;
-                    case Tani.TurnController.ETurn.EnemyTurn:
-                        break;
-                }
-                break;
-            case EPileType.Draw:
-                break;
-            case EPileType.Discard:
-                break;
-        }
 
-    }
+  
 }

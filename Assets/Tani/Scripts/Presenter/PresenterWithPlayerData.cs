@@ -17,10 +17,10 @@ namespace Tani
         HpBarView hpBar;
         [SerializeField]
         CardContainerView hand_container;
-        [SerializeField]
-        CardContainerView draw_container;
-        [SerializeField]
-        CardContainerView discard_container;
+        //[SerializeField]
+        //CardContainerView draw_container;
+        //[SerializeField]
+        //CardContainerView discard_container;
 
         private void Awake()
         {
@@ -48,23 +48,23 @@ namespace Tani
              .Hand
              .OnCardRemoved += HandContainerOnCardRemoved;
 
-            PlayerData.Instance
-            .CardManager
-            .Draw
-            .OnCardAdded += DrawContainerOnCardAdded;
-            PlayerData.Instance
-             .CardManager
-             .Draw
-             .OnCardRemoved += DrawContainerOnCardRemoved;
+            //PlayerData.Instance
+            //.CardManager
+            //.Draw
+            //.OnCardAdded += DrawContainerOnCardAdded;
+            //PlayerData.Instance
+            // .CardManager
+            // .Draw
+            // .OnCardRemoved += DrawContainerOnCardRemoved;
 
-            PlayerData.Instance
-                .CardManager
-                .Discard
-                .OnCardAdded += DiscardContainerOnCardAdded;
-            PlayerData.Instance
-             .CardManager
-             .Discard
-             .OnCardRemoved += DiscardContainerOnCardRemoved;
+            //PlayerData.Instance
+            //    .CardManager
+            //    .Discard
+            //    .OnCardAdded += DiscardContainerOnCardAdded;
+            //PlayerData.Instance
+            // .CardManager
+            // .Discard
+            // .OnCardRemoved += DiscardContainerOnCardRemoved;
 
         }
 
@@ -81,23 +81,23 @@ namespace Tani
                  .Hand
                  .OnCardRemoved -= HandContainerOnCardRemoved;
 
-                PlayerData.Instance
-                   .CardManager
-                .Draw
-                .OnCardAdded -= DrawContainerOnCardAdded;
-                PlayerData.Instance
-                 .CardManager
-                 .Draw
-                 .OnCardRemoved -= DrawContainerOnCardRemoved;
+                //PlayerData.Instance
+                //   .CardManager
+                //.Draw
+                //.OnCardAdded -= DrawContainerOnCardAdded;
+                //PlayerData.Instance
+                // .CardManager
+                // .Draw
+                // .OnCardRemoved -= DrawContainerOnCardRemoved;
 
-                PlayerData.Instance
-                    .CardManager
-                    .Discard
-                    .OnCardAdded -= DiscardContainerOnCardAdded;
-                PlayerData.Instance
-                 .CardManager
-                 .Discard
-                 .OnCardRemoved -= DiscardContainerOnCardRemoved;
+                //PlayerData.Instance
+                //    .CardManager
+                //    .Discard
+                //    .OnCardAdded -= DiscardContainerOnCardAdded;
+                //PlayerData.Instance
+                // .CardManager
+                // .Discard
+                // .OnCardRemoved -= DiscardContainerOnCardRemoved;
             }
             
         }
@@ -111,24 +111,24 @@ namespace Tani
             hand_container.RemoveCard(index);
         }
 
-        void DrawContainerOnCardAdded(int index, CardData.ECardID id)
-        {
-            draw_container
-               .AddCard(index, PlayerData.Instance.CardManager.GetCardData(id));
-        }
-        void DrawContainerOnCardRemoved(int index, CardData.ECardID id)
-        {
-            draw_container.RemoveCard(index);
-        }
-        void DiscardContainerOnCardAdded(int index, CardData.ECardID id)
-        {
-            discard_container
-               .AddCard(index, PlayerData.Instance.CardManager.GetCardData(id));
-        }
-        void DiscardContainerOnCardRemoved(int index, CardData.ECardID id)
-        {
-            discard_container.RemoveCard(index);
-        }
+        //void DrawContainerOnCardAdded(int index, CardData.ECardID id)
+        //{
+        //    draw_container
+        //       .AddCard(index, PlayerData.Instance.CardManager.GetCardData(id));
+        //}
+        //void DrawContainerOnCardRemoved(int index, CardData.ECardID id)
+        //{
+        //    draw_container.RemoveCard(index);
+        //}
+        //void DiscardContainerOnCardAdded(int index, CardData.ECardID id)
+        //{
+        //    discard_container
+        //       .AddCard(index, PlayerData.Instance.CardManager.GetCardData(id));
+        //}
+        //void DiscardContainerOnCardRemoved(int index, CardData.ECardID id)
+        //{
+        //    discard_container.RemoveCard(index);
+        //}
 
 
         async void Start()
@@ -150,7 +150,9 @@ namespace Tani
             PlayerData.Instance.CardManager.Draw.AddCard(CardData.ECardID.Onion);
             PlayerData.Instance.CardManager.Draw.AddCard(CardData.ECardID.Onion);
 
-            Tani.TurnController.ChangeTurn(TurnController.ETurn.CardTurn);
+            //Tani.TurnController.ChangeTurn(TurnController.ETurn.CardTurn);
+
+
 
         }
         int count = 0;

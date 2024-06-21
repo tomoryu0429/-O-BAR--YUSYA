@@ -9,6 +9,7 @@ namespace Tani
     public class TurnController 
     {
         static public ETurn CurrentTurn => currentTurn;
+
         static public event UnityAction<ETurn> OnTurnEnd;
         static public event UnityAction<ETurn> OnTurnStart;
 
