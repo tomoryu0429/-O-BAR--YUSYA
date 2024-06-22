@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1241788695860842248}
   - component: {fileID: 2078832200845712903}
+  - component: {fileID: 7264408337634982588}
   m_Layer: 5
   m_Name: HpBar
   m_TagString: Untagged
@@ -33,7 +34,6 @@ RectTransform:
   - {fileID: 1326222961389162941}
   - {fileID: 6034308318418032718}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -53,6 +53,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp_bar_green: {fileID: 8364250134582187429}
+--- !u!114 &7264408337634982588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 185202140397259185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df0604d41e8eacb4ca278193444620b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hpBar: {fileID: 2078832200845712903}
 --- !u!1 &2252399673689813050
 GameObject:
   m_ObjectHideFlags: 0
@@ -84,7 +97,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1241788695860842248}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -160,7 +172,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1241788695860842248}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -236,7 +247,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1241788695860842248}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}

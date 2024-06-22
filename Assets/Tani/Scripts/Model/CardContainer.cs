@@ -4,6 +4,11 @@ using UnityEngine;
 using Tani;
 using UnityEngine.Events;
 
+
+/// <summary>
+/// Card(CardId)をリストとして格納するためのWrapperクラス
+/// リストに要素が追加されたときなどのコールバッグが存在
+/// </summary>
 public abstract class CardContainer 
 {
     public int Count => cards.Count;
@@ -104,22 +109,8 @@ public abstract class CardContainer
         cards.Clear();
     }
 
-    public IEnumerable<CardData.ECardID> GetAllCards => cards;
+    public IEnumerable<CardData.ECardID> GetAllCards() => cards;
 
-    //public void Shuffle()
-    //{
-    //    if (Count <= 1) return;
-    //    System.Random random = new System.Random();
-    //    int n = Count;
-    //    while (n > 1)
-    //    {
-    //        n--;
-    //        int k = random.Next(n + 1);
-    //        var tmp = cards[k];
-    //        cards[k] = cards[n];
-    //        cards[n] = tmp;
-    //    }
-    //}
     int? GetContainerSibiling(CardData.ECardID id)
     {
         int? index = null;
@@ -134,6 +125,13 @@ public abstract class CardContainer
         return index;
     }
 
+    //このコンテナに存在するcardIndexのカードを他のコンテナに移動する
+    public void MoveCardToAnotherContainer(int cardIndex,CardContainer anotherContainer)
+    {
+        var card = GetAt(cardIndex);
+        Remove(cardIndex);
+        anotherContainer.AddCard(card);
+    }
 
 }
 

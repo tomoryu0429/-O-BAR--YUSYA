@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using R3;
 using Tani;
-
-
+using Cysharp.Threading.Tasks;
 
 public class PlayerData : SingletonMonoBehavior<PlayerData>
 {
@@ -58,8 +57,21 @@ public class PlayerData : SingletonMonoBehavior<PlayerData>
             cardManager = gameObject.AddComponent<CardManager>();
         }
 
+
+
     }
 
+    private async void Start()
+    {
+        await UniTask.Delay(1000);
+        CardManager.containers[(int)CardManager.EPileType.Hand].AddCard(CardData.ECardID.Meet);
+        await UniTask.Delay(1000);
+        CardManager.containers[(int)CardManager.EPileType.Hand].AddCard(CardData.ECardID.Meet);
+        await UniTask.Delay(1000);
+        CardManager.containers[(int)CardManager.EPileType.Hand].AddCard(CardData.ECardID.Meet);
+        await UniTask.Delay(1000);
+        CardManager.containers[(int)CardManager.EPileType.Hand].AddCard(CardData.ECardID.Meet);
+    }
 
 }
 

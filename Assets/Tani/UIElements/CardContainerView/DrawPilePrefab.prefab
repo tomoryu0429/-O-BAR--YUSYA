@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 821489239153109612}
   - component: {fileID: 9013418924976884335}
-  - component: {fileID: 7817952598590402590}
   m_Layer: 0
   m_Name: Group
   m_TagString: Untagged
@@ -61,20 +60,6 @@ MonoBehaviour:
   m_Spacing: {x: 100, y: 50}
   m_Constraint: 0
   m_ConstraintCount: 2
---- !u!114 &7817952598590402590
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 335219815594066686}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f33d143d5bf7940419522242ee2e8823, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CardImageObj_Prefab: {fileID: 3276275665459262116, guid: 4c3b8a1a69922bc4489f6cfaffa27a8b, type: 3}
-  type: 1
 --- !u!1 &1820384210852294162
 GameObject:
   m_ObjectHideFlags: 0
@@ -327,7 +312,6 @@ GameObject:
   - component: {fileID: 985649266119096138}
   - component: {fileID: 2592360082584452040}
   - component: {fileID: 8989925344184784077}
-  - component: {fileID: 2679945088622394318}
   m_Layer: 0
   m_Name: CloseButton
   m_TagString: Untagged
@@ -439,7 +423,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8872366035697115592}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: 
+        m_MethodName: SetActive
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -449,19 +433,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &2679945088622394318
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6363413054053851041}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6b5dcd0229cfcd4ca5bd1e7098da360, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  destroy_target: {fileID: 8872366035697115592}
 --- !u!1 &7368477795852822996
 GameObject:
   m_ObjectHideFlags: 0
@@ -680,8 +651,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3334494094691844756}
+  - component: {fileID: 7264532739611409829}
   m_Layer: 0
-  m_Name: Inst_DiscardCardContainer
+  m_Name: DrawPilePrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -703,6 +675,21 @@ Transform:
   - {fileID: 6512918169620667179}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7264532739611409829
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8872366035697115592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd3e683cbe3a286428dba72603d063e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  card_parent: {fileID: 821489239153109612}
+  card_prefab: {fileID: 7282455087063911953, guid: 2cb69a76f3d7b5a4d816b33a29970c16, type: 3}
+  type: 1
 --- !u!1 &9187653315445413688
 GameObject:
   m_ObjectHideFlags: 0

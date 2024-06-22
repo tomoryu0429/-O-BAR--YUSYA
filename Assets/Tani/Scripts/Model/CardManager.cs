@@ -5,6 +5,9 @@ using Alchemy.Inspector;
 using System.Linq;
 namespace Tani
 {
+    /// <summary>
+    /// プレイヤー用のカードコンテイナーを管理するWrapperクラス
+    /// </summary>
     public class CardManager : MonoBehaviour
     {
         [DisableInPlayMode]
@@ -12,23 +15,11 @@ namespace Tani
         [SerializeField]
         List<CardData> AllCards;
 
-        public DrawPile Draw => drawPile;
-        public HandPile Hand => handPile;
-        public DiscardPile Discard => discardPile;
-        PlayerData Owner {
-            get => owner;
-            set
-            {
-                if (!owner)
-                {
-                    owner = value;
-                }
-                else
-                {
-                    print("owner Player data already defined");
-                }
-            }
+        public enum EPileType
+        {
+            Invalid = -1,Hand,Draw,Discard,Max
         }
+        public CardContainer[] containers = new CardContainer[(int)EPileType.Max];
 
         private void Awake()
         {
@@ -42,11 +33,16 @@ namespace Tani
             {
                 cardDatas.Add(n.CardID, n);
             }
-            handPile.OnCardUsed += HandPileCardOnUsed;
+            containers[(int)EPileType.Hand].OnCardUsed += HandPileCardOnUsed;
         }
 
         public void DrawCard()
         {
+            var drawPile = containers[(int)EPileType.Draw];
+            var handPile = containers[(int)EPileType.Hand];
+            var discardPile = containers[(int)EPileType.Discard];
+
+
             var getData = drawPile.GetRandom();
             if (getData.HasValue)
             {
@@ -74,12 +70,7 @@ namespace Tani
 
         public List<CardData.ECardID> GetSortedAllCardList()
         {
-            
-            var hand = Hand.GetAllCards;
-            var draw = Draw.GetAllCards;
-            var discard = Discard.GetAllCards;
-
-            var all = hand.Concat(draw).Concat(discard);
+            var all = containers.SelectMany((container) => container.GetAllCards());
 
             List<CardData.ECardID> sortedList = new List<CardData.ECardID>();
             for(int i = 0;i < (int)CardData.ECardID.Max; i++)
@@ -91,7 +82,7 @@ namespace Tani
 
         private void HandPileCardOnUsed (int index, CardData.ECardID id)
         {
-            discardPile.AddCard(id);
+            containers[(int)EPileType.Discard].AddCard(id);
         }
 
         public CardData GetCardData(CardData.ECardID id) => cardDatas[id]; 
@@ -99,9 +90,6 @@ namespace Tani
         Dictionary<CardData.ECardID, CardData> cardDatas = new();
 
         PlayerData owner = null;
-        DrawPile drawPile = new DrawPile();
-        HandPile handPile = new();
-        DiscardPile discardPile = new DiscardPile();
 
 
     }
