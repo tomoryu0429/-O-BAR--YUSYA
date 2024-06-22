@@ -1,41 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-public  class StateMachine <T>
+public  class StateMachine <T> where T : struct
 {
-    public StateMachine(T owner)
+    public event UnityAction<T> Event_Enter = null;
+    public event UnityAction<T,float> Event_Tick = null;
+    public event UnityAction<T> Event_Exit = null;
+
+
+
+    T currentState = (T)System.Enum.ToObject(typeof(T),-1);
+
+    public void ChangeState(T state)
     {
-        Owner = owner;
-    }
+        bool current_isDefined = System.Enum.IsDefined(typeof(T), currentState);
+        bool next_isDefined = System.Enum.IsDefined(typeof(T), state);
 
-    public T Owner { get; }
-
-    public abstract class State 
-    {
-        public State(T owner)
-        {
-            Owner = owner;
-        }
-        private T Owner { get; }
-        public abstract void Enter();
-        public abstract void Tick(float deltaTime);
-        public abstract void Exit();
-    }
-
-    State currentState = null;
-
-    public void ChangeState(State state)
-    {
-        currentState?.Exit();
+        if (current_isDefined) Event_Exit.Invoke(currentState);
         currentState = state;
-        currentState?.Enter();
+        if (next_isDefined) Event_Enter.Invoke(state);
     }
 
-    public void SM_Update(float deltaTime)
+    public void Update(float deltaTime)
     {
-        currentState?.Tick(deltaTime);
+        if (System.Enum.IsDefined(typeof(T), currentState))
+        {
+            Event_Tick.Invoke(currentState, deltaTime);
+        }
     }
+
 
 
 }
