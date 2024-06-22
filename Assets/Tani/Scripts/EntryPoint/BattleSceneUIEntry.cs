@@ -19,7 +19,7 @@ namespace Tani
         private void Awake()
         {
             Instantiate(HpBar, this.transform);
-            Instantiate(PrefabManager.Instance.GetPrefabData(PrefabManager.PrefabKey.HandContainerView), this.transform);
+            Instantiate(PrefabManager.Instance.GetPrefabData(PrefabManager.PrefabKey.HandContainerView));
 
 
             GameObject DrawPileButton = Instantiate<GameObject>(DebugButton, this.transform);
@@ -42,6 +42,7 @@ namespace Tani
                 .SetActive(true)
                 );
             DiscardPileButton.GetComponentInChildren<TextMeshProUGUI>().text = "�̂ĎD";
+            DrawPileButton.transform.localPosition += new Vector3(300, 0, 0);
 
         }
     }

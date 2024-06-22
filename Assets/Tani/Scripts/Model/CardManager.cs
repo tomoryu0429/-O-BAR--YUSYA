@@ -33,6 +33,10 @@ namespace Tani
             {
                 cardDatas.Add(n.CardID, n);
             }
+
+            containers[0] = new CardContainer();
+            containers[1] = new CardContainer();
+            containers[2] = new CardContainer();
             containers[(int)EPileType.Hand].OnCardUsed += HandPileCardOnUsed;
         }
 

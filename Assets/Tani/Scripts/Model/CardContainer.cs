@@ -9,7 +9,7 @@ using UnityEngine.Events;
 /// Card(CardId)をリストとして格納するためのWrapperクラス
 /// リストに要素が追加されたときなどのコールバッグが存在
 /// </summary>
-public abstract class CardContainer 
+public  class CardContainer 
 {
     public int Count => cards.Count;
     /// <summary>
