@@ -163,7 +163,7 @@ namespace Tani
             {
                 count++;
                 PlayerData.Instance.HP -= 10;
-                Tani.TurnController.ChangeTurn((Tani.TurnController.ETurn)(count % (int)Tani.TurnController.ETurn.TurnMax));
+              
             }
         }
     }

@@ -24,6 +24,7 @@ namespace Tani
         }
         public void RemoveCard(int sibilingIndex)
         {
+          
             DestroyImmediate(transform.GetChild(sibilingIndex).gameObject);
         }
     }

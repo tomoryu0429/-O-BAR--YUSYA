@@ -9,12 +9,13 @@ namespace ButtonExtension
     public class ButtonEx_CreatePrefab : MonoBehaviour
     {
         [SerializeField]
-        PrefabManager.PrefabKey key;
+        protected PrefabManager.PrefabKey key;
 
-        private void Awake()
+        protected GameObject createdObject;
+        protected virtual void Awake()
         {
             Button button = GetComponent<Button>();
-            button.onClick.AddListener(() => Instantiate(PrefabManager.Instance.GetPrefabData(key)));
+            button.onClick.AddListener(() => createdObject=  Instantiate<GameObject>(PrefabManager.Instance.GetPrefabData(key)));
         }
     }
 }

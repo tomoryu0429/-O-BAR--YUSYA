@@ -69,10 +69,10 @@ public class HandCardEvent : MonoBehaviour
             .Where(_=>type == EPileType.Hand)
             .Subscribe(_ =>
             {
-                if (data.CardManager.Hand.UseCardEnable)
+                if( Tani.TurnController.Instance.StateMahcine.CurrentState == Tani.TurnController.ETurn.CardTurn)
                 {
+      
                     data.CardManager.Hand.UseCard(transform.GetSiblingIndex());
-
                 }
             }).AddTo(this);
 

@@ -52,6 +52,18 @@ PrefabInstance:
       propertyPath: m_text
       value: "\u5C71\u672D\u30EA\u30B9\u30C8"
       objectReference: {fileID: 0}
+    - target: {fileID: 5132209063649093701, guid: 5d00ed4190f17bb4c843a9e56503dac8, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 548010ff3d571c546a49afbb2bb54622, type: 2}
+    - target: {fileID: 5132209063649093701, guid: 5d00ed4190f17bb4c843a9e56503dac8, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -813236989145424027, guid: 548010ff3d571c546a49afbb2bb54622, type: 2}
+    - target: {fileID: 5132209063649093701, guid: 5d00ed4190f17bb4c843a9e56503dac8, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7817952598590402590, guid: 5d00ed4190f17bb4c843a9e56503dac8, type: 3}
       propertyPath: type
       value: 0
@@ -63,6 +75,18 @@ PrefabInstance:
     - target: {fileID: 8872366035697115592, guid: 5d00ed4190f17bb4c843a9e56503dac8, type: 3}
       propertyPath: m_Name
       value: Inst_DrawCardContainer Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 9039861276793953399, guid: 5d00ed4190f17bb4c843a9e56503dac8, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 548010ff3d571c546a49afbb2bb54622, type: 2}
+    - target: {fileID: 9039861276793953399, guid: 5d00ed4190f17bb4c843a9e56503dac8, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -813236989145424027, guid: 548010ff3d571c546a49afbb2bb54622, type: 2}
+    - target: {fileID: 9039861276793953399, guid: 5d00ed4190f17bb4c843a9e56503dac8, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -6,21 +6,29 @@ using R3;
 using UnityEngine.Events;
 namespace Tani
 {
-    public class TurnController 
+    public class TurnController : SingletonMonoBehavior<TurnController>
     {
-        static public ETurn CurrentTurn => currentTurn;
+        StateMachine<TurnController.ETurn> stateMachine;
 
-        static public event UnityAction<ETurn> OnTurnEnd;
-        static public event UnityAction<ETurn> OnTurnStart;
+        public StateMachine<TurnController.ETurn> StateMahcine => stateMachine;
 
-        static private ETurn currentTurn = ETurn.Invalid;
-
-
-        static public void ChangeTurn(ETurn eTurn)
+        protected override void Awake()
         {
-            OnTurnEnd(currentTurn);
-            currentTurn = eTurn;
-            OnTurnStart(currentTurn);
+            base.Awake();
+            stateMachine = new StateMachine<ETurn>();
+            
+            
+        }
+        private void Start()
+        {
+            stateMachine.ChangeState(ETurn.CardTurn);
+        }
+
+
+
+        private void Update()
+        {
+            stateMachine.Update(Time.deltaTime);
         }
 
         public enum ETurn

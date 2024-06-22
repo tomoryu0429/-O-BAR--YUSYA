@@ -22,7 +22,7 @@ public abstract class CardContainer
 
     protected List<CardData.ECardID> cards = new();
 
-    public bool UseCardEnable { get; set; } = false;
+    
 
     public void AddCard(CardData.ECardID id)
     {
@@ -71,7 +71,6 @@ public abstract class CardContainer
 
     public void UseCard(int index)
     {
-        if (!UseCardEnable) return;
         var id = cards[index];
         Remove(index);
         OnCardUsed?.Invoke(index, id);
