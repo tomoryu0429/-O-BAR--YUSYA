@@ -15,32 +15,38 @@ namespace Tani
     {
         [SerializeField]
         HpBarView hpBar;
+        [SerializeField]
+        PlayerData playerData;
 
-
-        private void Awake()
+        bool isInitialized = false;
+        private async void Start()
         {
+            await playerData.CS_Init.Task;
             //HPに応じてHPBarのゲージを設定
-            PlayerData.Instance
+            playerData
                 .ReactiveProperty_HP
                 .Subscribe(x => hpBar.SetHpPercent(x / 100.0f))
                 .AddTo(this);
 
             //Hpが0になったとき「PlayerDeath」と表示
-            PlayerData.Instance
+            playerData
                 .ReactiveProperty_HP
                 .Where(x => x == 0)
                 .Subscribe(_ => print("PlayerDeath"))
                 .AddTo(this);
+
+            isInitialized = true;
         }
 
 
 
         private void Update()
         {
+            if (!isInitialized) return;
             //デバッグ用
             if (Input.GetKeyDown(KeyCode.Return))
             {
-                PlayerData.Instance.HP -= 10;
+               playerData.HP -= 10;
               
             }
         }

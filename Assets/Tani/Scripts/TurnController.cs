@@ -4,19 +4,21 @@ using UnityEngine;
 using UnityEngine.UI;
 using R3;
 using UnityEngine.Events;
+using Cysharp.Threading.Tasks;
+
+
 namespace Tani
 {
-    public class TurnController : SingletonMonoBehavior<TurnController>
+    public class TurnController :MonoBehaviour
     {
         StateMachine<TurnController.ETurn> stateMachine;
 
         public StateMachine<TurnController.ETurn> StateMahcine => stateMachine;
-
-        protected override void Awake()
+        public UniTaskCompletionSource CS_Init { get; private set; } = new UniTaskCompletionSource();
+       private void Awake()
         {
-            base.Awake();
             stateMachine = new StateMachine<ETurn>();
-            
+            CS_Init.TrySetResult();
             
         }
         private void Start()

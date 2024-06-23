@@ -15,6 +15,8 @@ namespace Tani
         [SerializeField]
         List<CardData> AllCards;
 
+        public bool CanCardUse { get;private set; } = false;
+
         public enum EPileType
         {
             Invalid = -1,Hand,Draw,Discard,Max

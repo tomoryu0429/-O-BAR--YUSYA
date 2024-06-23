@@ -15,10 +15,11 @@ namespace Tani
         [AssetsOnly]
         GameObject DiscriptionPrefab;
 
+
         GameObject discriptionInstance = null;
-        public void Init(CardManager.EPileType type,CardData cardData)
+        public void Init(CardManager.EPileType type,CardData cardData,PlayerData data)
         {
-            var data = PlayerData.Instance;
+            
 
             this.ObservableEvent
                 .OnPointerEnterAsObservable()
@@ -52,10 +53,9 @@ namespace Tani
                 .OnPointerClickAsObservable()
                 .Subscribe(_ =>
                 {
-                    if (Tani.TurnController.Instance.StateMahcine.CurrentState == Tani.TurnController.ETurn.CardTurn
-                    && type == CardManager.EPileType.Hand)
+             
+                    if(type == CardManager.EPileType.Hand)
                     {
-
                         data.CardManager.containers[(int)CardManager.EPileType.Hand].UseCard(transform.GetSiblingIndex());
                     }
                 }).AddTo(this);
