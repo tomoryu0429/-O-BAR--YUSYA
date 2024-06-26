@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9eeae571918e4242b5f481c0943fd5a, type: 3}
   m_Name: enemy_wolfC
   m_EditorClassIdentifier: 
-  EnemyNeme: wolfA
+  EnemyNeme: wolfC
   type: 2
   ID: 6
   health: 15
   power: 10
   defense: 10
   money: 50
+  actions: 000000000200000001000000
