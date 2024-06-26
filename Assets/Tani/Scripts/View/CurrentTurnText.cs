@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+
 namespace Tani 
 {
     
-    public class CurrentTurnText : MonoBehaviour
+    public class CurrentTurnText : MonoBehaviour,TurnController.ITurnContollerNotifyEnterExit
     {
         [SerializeField]
         TextMeshProUGUI text;
@@ -15,28 +16,37 @@ namespace Tani
         int count = 0;
         bool isInitialized = false;
 
-        //private async void Awake()
-        //{
-        //    await turnController.CS_Init.Task;
-        //    turnController.StateMahcine.Event_Enter += UpdateText;
-        //    isInitialized = true;
-        //}
+ 
 
-        //private void Update()
-        //{
-        //    if (!isInitialized) return;
-            
-        //    if (Input.GetKeyDown(KeyCode.E))
-        //    {
-        //        count++;
-        //       turnController.StateMahcine.ChangeState((Tani.TurnController.ETurn)(count % (int)Tani.TurnController.ETurn.TurnMax));
-        //    }
-        //}
+        private async void Awake()
+        {
+            await turnController.CS_Init.Task;
 
-        //void UpdateText(Tani.TurnController.ETurn current)
-        //{
-        //    text.text = $"Turn : {current}";
-        //}
+            isInitialized = true;
+        }
+
+        private void Update()
+        {
+            if (!isInitialized) return;
+
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                count++;
+                turnController.ChangeState((Tani.TurnController.ETurnState)(count % (int)Tani.TurnController.ETurnState.ETurnMax));
+            }
+        }
+
+        public void OnEnter(TurnController.ETurnState state)
+        {
+            text.text = $"Turn : {state.ToString()}";
+        }
+
+        public void OnExit(TurnController.ETurnState state)
+        {
+           // throw new System.NotImplementedException();
+        }
+
+
     }
 }
 

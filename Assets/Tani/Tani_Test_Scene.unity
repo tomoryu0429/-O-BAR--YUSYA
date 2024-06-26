@@ -443,6 +443,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NotifyEnterExitObjs:
   - {fileID: 1417415767}
+  - {fileID: 2805536933091862097}
   NotifyUpdateObjs: []
 --- !u!4 &405576344
 Transform:
@@ -1634,7 +1635,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 1953668196892378135}
-  turnController: {fileID: 0}
+  turnController: {fileID: 405576343}
 --- !u!1 &2805536933091862097
 GameObject:
   m_ObjectHideFlags: 0

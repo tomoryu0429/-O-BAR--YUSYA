@@ -31,7 +31,7 @@ namespace Tani
                         toolTipInstance.GetComponentInChildren<TMPro.TextMeshProUGUI>().text =
                             playerData.CardManager.GetCardData(
                                 playerData.CardManager.containers[(int)type]
-                                .GetAt(toolTipInstance.gameObject.transform.GetSiblingIndex())).CardName;
+                                .GetAt(observableEvent.gameObject.transform.GetSiblingIndex())).CardName;
                     }
                 }).AddTo(this);
 

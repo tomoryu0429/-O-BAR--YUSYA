@@ -17,7 +17,7 @@ namespace Tani
         GameObject visibilityRoot;
 
         [SerializeField]
-        Transform card_parent;
+        protected Transform card_parent;
         [SerializeField,AssetsOnly]
         GameObject card_prefab;
         [SerializeField,LabelText("参照するコンテナのタイプ")]
@@ -90,8 +90,8 @@ namespace Tani
 
         public void RemoveCard(int sibilingIndex,CardData.ECardID iD)
         {
-
-            DestroyImmediate(card_parent.GetChild(sibilingIndex).gameObject);
+            print($"type : {type},index : {sibilingIndex}, id : {iD} ");
+            Destroy(card_parent.GetChild(sibilingIndex).gameObject);
         }
 
         protected virtual void SetCardViewEvent(ObservableEventTrigger observableEvent)
