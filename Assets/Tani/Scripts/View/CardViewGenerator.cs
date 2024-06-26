@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using Alchemy.Inspector;
 using Cysharp.Threading.Tasks;
+using R3;
+using R3.Triggers;
+using System;
 
 namespace Tani
 {
     public class CardViewGenerator : MonoBehaviour
     {
         [SerializeField]
-        PlayerData playerData;
+        protected PlayerData playerData;
 
 
         [SerializeField]
@@ -52,8 +55,7 @@ namespace Tani
                 var go = Instantiate<GameObject>(card_prefab, card_parent);
                 CardView cardView = go.GetComponent<CardView>();
                 cardView.Sprite = playerData.CardManager.GetCardData(n).CardSprite;
-                cardView.Init(type, playerData.CardManager.GetCardData(n),
-                    playerData);
+              
              
 
             }
@@ -77,16 +79,41 @@ namespace Tani
             var go = Instantiate<GameObject>(card_prefab, card_parent);
             CardView cardView = go.GetComponent<CardView>();
             cardView.Sprite = cardData.CardSprite;
-            cardView.Init(type, cardData,playerData);
+            SetCardViewEvent(cardView.ObservableEvent);
 
 
             go.transform.SetSiblingIndex(siblingIndex);
         }
+
+     
+
         public void RemoveCard(int sibilingIndex,CardData.ECardID iD)
         {
 
             DestroyImmediate(card_parent.GetChild(sibilingIndex).gameObject);
         }
+
+        protected virtual void SetCardViewEvent(ObservableEventTrigger observableEvent)
+        {
+            observableEvent
+                .OnPointerEnterAsObservable()
+                .Subscribe(_ =>
+                {
+                    //カードを拡大
+                    observableEvent.gameObject.transform.localScale = new Vector3(1.2f, 1.2f, 0);
+                    //observableEvent.gameObject.transform.localPosition = new Vector3(0, 150, 0);
+                }).AddTo(this);
+
+            observableEvent
+               .OnPointerExitAsObservable()
+               .Subscribe(_ =>
+               {
+                   //カードを拡大
+                   observableEvent.gameObject.transform.localScale = Vector3.one;
+                   //observableEvent.gameObject.transform.localPosition = Vector3.zero;
+               }).AddTo(this);
+        }
+
     }
 }
 

@@ -3,34 +3,36 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public  class StateMachine <T>  
+public  class StateMachine <T>  : MonoBehaviour
 {
-    public event UnityAction<T> Event_Enter = null;
-    public event UnityAction<T,float> Event_Tick = null;
-    public event UnityAction<T> Event_Exit = null;
+     public class State
+     {
+        public StateMachine<T> StateMachine { get; set; }
 
+        public virtual void Enter() { }
+        public virtual void Tick(float deltaTime) { }
+        public virtual void Exit() { }
 
+     }
 
-    protected T currentState = (T)System.Enum.ToObject(typeof(T),-1);
-    public T CurrentState => currentState;
+    protected State current = null;
+    public State CurrentState => current;
 
-    public void ChangeState(T state)
+    public void ChangeState<S>() where S : State,new()
     {
-        bool current_isDefined = System.Enum.IsDefined(typeof(T), currentState);
-        bool next_isDefined = System.Enum.IsDefined(typeof(T), state);
+        CurrentState?.Exit();
+        current = new S();
+        current.StateMachine = this;
+        current?.Enter();
 
-        if (current_isDefined) Event_Exit?.Invoke(currentState);
-        currentState = state;
-        if (next_isDefined) Event_Enter?.Invoke(state);
     }
 
-    public   void Update(float deltaTime)
+    protected virtual void Update()
     {
-        if (System.Enum.IsDefined(typeof(T), currentState))
-        {
-            Event_Tick?.Invoke(currentState, deltaTime);
-        }
+        current?.Tick( Time.deltaTime);
     }
+
+
 
 
 

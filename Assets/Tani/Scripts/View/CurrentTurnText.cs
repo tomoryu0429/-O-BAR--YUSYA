@@ -15,28 +15,28 @@ namespace Tani
         int count = 0;
         bool isInitialized = false;
 
-        private async void Awake()
-        {
-            await turnController.CS_Init.Task;
-            turnController.StateMahcine.Event_Enter += UpdateText;
-            isInitialized = true;
-        }
+        //private async void Awake()
+        //{
+        //    await turnController.CS_Init.Task;
+        //    turnController.StateMahcine.Event_Enter += UpdateText;
+        //    isInitialized = true;
+        //}
 
-        private void Update()
-        {
-            if (!isInitialized) return;
+        //private void Update()
+        //{
+        //    if (!isInitialized) return;
             
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                count++;
-               turnController.StateMahcine.ChangeState((Tani.TurnController.ETurn)(count % (int)Tani.TurnController.ETurn.TurnMax));
-            }
-        }
+        //    if (Input.GetKeyDown(KeyCode.E))
+        //    {
+        //        count++;
+        //       turnController.StateMahcine.ChangeState((Tani.TurnController.ETurn)(count % (int)Tani.TurnController.ETurn.TurnMax));
+        //    }
+        //}
 
-        void UpdateText(Tani.TurnController.ETurn current)
-        {
-            text.text = $"Turn : {current}";
-        }
+        //void UpdateText(Tani.TurnController.ETurn current)
+        //{
+        //    text.text = $"Turn : {current}";
+        //}
     }
 }
 
