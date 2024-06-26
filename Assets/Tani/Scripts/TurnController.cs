@@ -59,8 +59,8 @@ namespace Tani
 
         public interface ITurnContollerNotifyEnterExit
         {
-            public abstract void OnEnter(ETurnState state);
-            public abstract void OnExit(ETurnState state);
+            public virtual void OnEnter(ETurnState state) { }
+            public virtual void OnExit(ETurnState state) { }
         }
         public interface ITurnContollerNotifyUpdate
         {

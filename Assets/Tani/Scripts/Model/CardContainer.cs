@@ -88,7 +88,7 @@ public  class CardContainer
     {
         if (index >= Count)
         {
-            Debug.LogError("indexOutOfRange");
+            Debug.LogError($"indexOutOfRange : {index}");
             return CardData.ECardID.Meet;
         }
         return cards[index];

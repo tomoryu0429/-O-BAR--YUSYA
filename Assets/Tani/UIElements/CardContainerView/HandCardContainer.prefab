@@ -213,7 +213,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3493436055838853821}
-  - component: {fileID: 1313581998594467472}
+  - component: {fileID: 6931099524677749250}
   m_Layer: 0
   m_Name: HandCardContainer
   m_TagString: Untagged
@@ -237,7 +237,7 @@ Transform:
   - {fileID: 7913379984517883047}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1313581998594467472
+--- !u!114 &6931099524677749250
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -246,9 +246,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 7300575867040704617}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd3e683cbe3a286428dba72603d063e1, type: 3}
+  m_Script: {fileID: 11500000, guid: aae7f37f983fde641bb10528125b3e98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerData: {fileID: 0}
   card_parent: {fileID: 677781650744139745}
   card_prefab: {fileID: 7282455087063911953, guid: 2cb69a76f3d7b5a4d816b33a29970c16, type: 3}
   type: 0

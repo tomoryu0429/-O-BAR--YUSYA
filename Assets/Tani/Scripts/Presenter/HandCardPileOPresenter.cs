@@ -6,10 +6,10 @@ using R3;
 
 namespace Tani
 {
-    public class HandCardPileView : Tani.CardViewGenerator,TurnController.ITurnContollerNotifyEnterExit
+    public class HandCardPileOPresenter : Tani.ViewOnlyCardPilePresenter,TurnController.ITurnContollerNotifyEnterExit
     {
         bool CanUseCard = false;
-        public void OnEnter(TurnController.ETurnState state)
+        public  void OnEnter(TurnController.ETurnState state)
         {
             CanUseCard = state == TurnController.ETurnState.Card;
         }

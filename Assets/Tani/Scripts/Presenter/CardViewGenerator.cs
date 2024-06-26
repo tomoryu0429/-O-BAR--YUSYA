@@ -9,18 +9,19 @@ using System;
 
 namespace Tani
 {
-    public class CardViewGenerator : MonoBehaviour
+    public class CardViewGenerator : MonoBehaviour,IVisibilityControllable
     {
         [SerializeField]
         protected PlayerData playerData;
-
+        [SerializeField]
+        GameObject visibilityRoot;
 
         [SerializeField]
         Transform card_parent;
         [SerializeField,AssetsOnly]
         GameObject card_prefab;
         [SerializeField,LabelText("参照するコンテナのタイプ")]
-        CardManager.EPileType type = CardManager.EPileType.Invalid;
+        protected CardManager.EPileType type = CardManager.EPileType.Invalid;
 
         public UniTaskCompletionSource CS_Init { get; private set; } = new UniTaskCompletionSource();
 
@@ -114,6 +115,15 @@ namespace Tani
                }).AddTo(this);
         }
 
+        public void SetVisible(bool visibility)
+        {
+            visibilityRoot.SetActive(visibility);
+        }
+
+        public void SwitchVisibility()
+        {
+            visibilityRoot.SetActive(!visibilityRoot.activeSelf);
+        }
     }
 }
 
