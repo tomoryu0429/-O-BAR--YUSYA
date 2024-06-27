@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using R3;
 using Tani;
+using Cysharp.Threading.Tasks;
+using System.Threading.Tasks;
 
-
-
-public class PlayerData : SingletonMonoBehavior<PlayerData>
+public class PlayerData : MonoBehaviour
 {
     //public
     public static readonly int MAX_HP = 100;
     public static readonly int MAX_YP = 100;
+    public UniTaskCompletionSource CS_Init { get; private set; } = new UniTaskCompletionSource();
+    
 
     /// <summary>
     /// 勇者のHPの取得と設定、値は 0 - MAX_HPにクランプされる
@@ -50,16 +52,44 @@ public class PlayerData : SingletonMonoBehavior<PlayerData>
     ReactiveProperty<int> money = new ReactiveProperty<int>(0);
     CardManager cardManager = null;
 
-    protected override void Awake()
+    //protected override void Awake()
+    //{
+    //    base.Awake();
+    //    if(!gameObject.TryGetComponent<CardManager>(out cardManager))
+    //    {
+    //        cardManager = gameObject.AddComponent<CardManager>();
+    //    }
+
+
+
+    //}
+
+    private  void Awake()
     {
-        base.Awake();
-        if(!gameObject.TryGetComponent<CardManager>(out cardManager))
+        if (!gameObject.TryGetComponent<CardManager>(out cardManager))
         {
             cardManager = gameObject.AddComponent<CardManager>();
         }
+        
+
+        CS_Init.TrySetResult();
+    }
+    private async void Start()
+    {
+        CardManager.containers[(int)CardManager.EPileType.Hand].AddCard(EnumSystem.GetRandom<AutoEnum.ECardID>());
+        CardManager.containers[(int)CardManager.EPileType.Draw].AddCard(EnumSystem.GetRandom<AutoEnum.ECardID>());
+        CardManager.containers[(int)CardManager.EPileType.Draw].AddCard(EnumSystem.GetRandom<AutoEnum.ECardID>());
+        CardManager.containers[(int)CardManager.EPileType.Draw].AddCard(EnumSystem.GetRandom<AutoEnum.ECardID>());
+
+        CardManager.containers[(int)CardManager.EPileType.Hand].AddCard(EnumSystem.GetRandom<AutoEnum.ECardID>());
+        CardManager.containers[(int)CardManager.EPileType.Draw].AddCard(EnumSystem.GetRandom<AutoEnum.ECardID>());
+        CardManager.containers[(int)CardManager.EPileType.Draw].AddCard(EnumSystem.GetRandom<AutoEnum.ECardID>());
+        CardManager.containers[(int)CardManager.EPileType.Draw].AddCard(EnumSystem.GetRandom<AutoEnum.ECardID>());
+
+
+
 
     }
-
 
 }
 

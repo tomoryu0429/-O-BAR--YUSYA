@@ -4,27 +4,32 @@ using UnityEngine;
 using Tani;
 using UnityEngine.Events;
 
-public abstract class CardContainer 
+
+/// <summary>
+/// Card(CardId)をリストとして格納するためのWrapperクラス
+/// リストに要素が追加されたときなどのコールバッグが存在
+/// </summary>
+public  class CardContainer 
 {
     public int Count => cards.Count;
     /// <summary>
     /// 引数はリストの要素がaddされた要素のindex,id
     /// </summary>
-    public event UnityAction<int,CardData.ECardID> OnCardAdded;
+    public event UnityAction<int,AutoEnum.ECardID> OnCardAdded;
     /// <summary>
     /// 引数はリストの要素がRemoveされた要素のindex,id
     /// </summary>
-    public event UnityAction<int, CardData.ECardID> OnCardRemoved;
+    public event UnityAction<int, AutoEnum.ECardID> OnCardRemoved;
     /// <summary>
     /// 引数はリストの要素がRemoveされた要素のindex,id
     /// </summary>
-    public event UnityAction<int, CardData.ECardID> OnCardUsed;
+    public event UnityAction<int, AutoEnum.ECardID> OnCardUsed;
 
-    protected List<CardData.ECardID> cards = new();
+    protected List<AutoEnum.ECardID> cards = new();
 
+    
 
-
-    public void AddCard(CardData.ECardID id)
+    public void AddCard(AutoEnum.ECardID id)
     {
         var index = GetContainerSibiling(id);
         if (index.HasValue)
@@ -52,7 +57,7 @@ public abstract class CardContainer
         OnCardRemoved?.Invoke(listIndex,removed_id);
         return true;
     }
-    public bool Remove(CardData.ECardID id)
+    public bool Remove(AutoEnum.ECardID id)
     {
         if (cards.Contains(id))
         {
@@ -75,44 +80,39 @@ public abstract class CardContainer
         Remove(index);
         OnCardUsed?.Invoke(index, id);
     }
-    public bool Contains(CardData.ECardID id)
+    public bool Contains(AutoEnum.ECardID id)
     {
         return cards.Contains(id);
     }
-    public CardData.ECardID GetAt(int index)
+    public AutoEnum.ECardID GetAt(int index)
     {
         if (index >= Count)
         {
-            Debug.LogError("indexOutOfRange");
-            return CardData.ECardID.Meet;
+            Debug.LogError($"indexOutOfRange : {index}");
+            return AutoEnum.ECardID.Invalid;
         }
         return cards[index];
     }
-    public (CardData.ECardID,int)? GetRandom()
+    public (AutoEnum.ECardID,int)? GetRandom()
     {
         if (Count == 0) return null;
         int index = Random.Range(0, cards.Count);
-        CardData.ECardID id = cards[index];
+        AutoEnum.ECardID id = cards[index];
         return (id, index);
     }
+    public void ClearCards()
+    {
+        int count = cards.Count;
+        for(int i = 0; i < count; i++)
+        {
+            Remove(0);
+        }
+       
+    }
 
-    public IEnumerable<CardData.ECardID> GetAllCards => cards;
+    public IEnumerable<AutoEnum.ECardID> GetAllCards() => cards;
 
-    //public void Shuffle()
-    //{
-    //    if (Count <= 1) return;
-    //    System.Random random = new System.Random();
-    //    int n = Count;
-    //    while (n > 1)
-    //    {
-    //        n--;
-    //        int k = random.Next(n + 1);
-    //        var tmp = cards[k];
-    //        cards[k] = cards[n];
-    //        cards[n] = tmp;
-    //    }
-    //}
-    int? GetContainerSibiling(CardData.ECardID id)
+    int? GetContainerSibiling(AutoEnum.ECardID id)
     {
         int? index = null;
         for (int i = 0; i < cards.Count; i++)
@@ -126,6 +126,13 @@ public abstract class CardContainer
         return index;
     }
 
+    //このコンテナに存在するcardIndexのカードを他のコンテナに移動する
+    public void MoveCardToAnotherContainer(int cardIndex,CardContainer anotherContainer)
+    {
+        var card = GetAt(cardIndex);
+        Remove(cardIndex);
+        anotherContainer.AddCard(card);
+    }
 
 }
 

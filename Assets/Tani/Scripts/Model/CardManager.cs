@@ -2,8 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Alchemy.Inspector;
+using System.Linq;
 namespace Tani
 {
+    /// <summary>
+    /// プレイヤー用のカードコンテイナーを管理するWrapperクラス
+    /// </summary>
     public class CardManager : MonoBehaviour
     {
         [DisableInPlayMode]
@@ -11,23 +15,13 @@ namespace Tani
         [SerializeField]
         List<CardData> AllCards;
 
-        public DrawPile Draw => drawPile;
-        public HandPile Hand => handPile;
-        public DiscardPile Discard => discardPile;
-        PlayerData Owner {
-            get => owner;
-            set
-            {
-                if (!owner)
-                {
-                    owner = value;
-                }
-                else
-                {
-                    print("owner Player data already defined");
-                }
-            }
+        public bool CanCardUse { get;private set; } = false;
+
+        public enum EPileType
+        {
+            Invalid = -1,Hand,Draw,Discard,Max
         }
+        public CardContainer[] containers = new CardContainer[(int)EPileType.Max];
 
         private void Awake()
         {
@@ -41,11 +35,20 @@ namespace Tani
             {
                 cardDatas.Add(n.CardID, n);
             }
-            handPile.OnCardUsed += HandPileCardOnUsed;
+
+            containers[0] = new CardContainer();
+            containers[1] = new CardContainer();
+            containers[2] = new CardContainer();
+            containers[(int)EPileType.Hand].OnCardUsed += HandPileCardOnUsed;
         }
 
         public void DrawCard()
         {
+            var drawPile = containers[(int)EPileType.Draw];
+            var handPile = containers[(int)EPileType.Hand];
+            var discardPile = containers[(int)EPileType.Discard];
+
+
             var getData = drawPile.GetRandom();
             if (getData.HasValue)
             {
@@ -71,19 +74,28 @@ namespace Tani
             }
         }
 
-        private void HandPileCardOnUsed (int index, CardData.ECardID id)
+        public List<AutoEnum.ECardID> GetSortedAllCardList()
         {
-            discardPile.AddCard(id);
+            var all = containers.SelectMany((container) => container.GetAllCards());
+
+            List<AutoEnum.ECardID> sortedList = new List<AutoEnum.ECardID>();
+            for(int i = 0;i < (int)AutoEnum.ECardID.Max; i++)
+            {
+                sortedList.AddRange(all.Where(id => id == (AutoEnum.ECardID)i));
+            }
+            return sortedList;
         }
 
-        public CardData GetCardData(CardData.ECardID id) => cardDatas[id]; 
+        private void HandPileCardOnUsed (int index, AutoEnum.ECardID id)
+        {
+            containers[(int)EPileType.Discard].AddCard(id);
+        }
 
-        Dictionary<CardData.ECardID, CardData> cardDatas = new();
+        public CardData GetCardData(AutoEnum.ECardID id) => cardDatas[id]; 
+
+        Dictionary<AutoEnum.ECardID, CardData> cardDatas = new();
 
         PlayerData owner = null;
-        DrawPile drawPile = new DrawPile();
-        HandPile handPile = new();
-        DiscardPile discardPile = new DiscardPile();
 
 
     }

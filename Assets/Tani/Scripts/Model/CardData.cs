@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using AutoEnum;
 
 
 
@@ -49,10 +50,12 @@ namespace Tani
         {
             None,Syoppai,Amai
         }
-        public enum ECardID
-        {
-            Meet,Fish,Mash,Tomato,Onion,Rice,Zer,Flour,Strawberry,Honey,Milk,Choco
-        }
+        //public enum ECardID
+        //{
+        //    Invalid = -1,
+        //    Meet,Fish,Mash,Tomato,Onion,Rice,Zer,Flour,Strawberry,Honey,Milk,Choco
+        //    ,Max
+        //}
     }
 }
 

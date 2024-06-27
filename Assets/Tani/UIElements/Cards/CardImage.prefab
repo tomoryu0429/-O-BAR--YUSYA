@@ -90,7 +90,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6092733218128357289, guid: 304756425d447b449a3a5e0f5fcf3c5d, type: 3}
       propertyPath: m_Name
-      value: HandCardImage
+      value: CardImage
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -101,8 +101,19 @@ PrefabInstance:
       addedObject: {fileID: 3907575461195558236}
     - targetCorrespondingSourceObject: {fileID: 6092733218128357289, guid: 304756425d447b449a3a5e0f5fcf3c5d, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 484629668171394172}
+      addedObject: {fileID: 3484928448864826439}
   m_SourcePrefab: {fileID: 100100000, guid: 304756425d447b449a3a5e0f5fcf3c5d, type: 3}
+--- !u!114 &4328202679703919871 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 976467077936739655, guid: 304756425d447b449a3a5e0f5fcf3c5d, type: 3}
+  m_PrefabInstance: {fileID: 3575232230843034040}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7282455087063911953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7282455087063911953 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6092733218128357289, guid: 304756425d447b449a3a5e0f5fcf3c5d, type: 3}
@@ -120,7 +131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd253e17d14ec9346b4e8ec0b1ecf277, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &484629668171394172
+--- !u!114 &3484928448864826439
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -129,9 +140,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 7282455087063911953}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2926b2b692428ee4b900d824bc242280, type: 3}
+  m_Script: {fileID: 11500000, guid: f92759a0337da554b8056c84cae73a13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  image: {fileID: 4328202679703919871}
   ObservableEvent: {fileID: 3907575461195558236}
   DiscriptionPrefab: {fileID: 2100459195129703533, guid: ffa99bcee1f1a0f42a3d13b727578cd7, type: 3}
-  type: 0

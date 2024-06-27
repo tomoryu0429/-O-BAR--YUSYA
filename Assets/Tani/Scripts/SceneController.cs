@@ -114,6 +114,18 @@ public class SceneController : SingletonMonoBehavior<SceneController>
         }
         return null;
      }
+    public static IEnumerable<T> GetComponentsInSceneRootObjects<T>() where T : MonoBehaviour
+    {
+        foreach (var root in SceneManager.GetActiveScene().GetRootGameObjects())
+        {
+            T t = root.GetComponentInChildren<T>();
+            if (t)
+            {
+                yield return t;
+            }
+        }
+        
+    }
 
     public static Scene GetCurrentScene()
     {
