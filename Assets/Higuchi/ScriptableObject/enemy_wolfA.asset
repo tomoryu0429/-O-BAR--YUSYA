@@ -19,3 +19,4 @@ MonoBehaviour:
   power: 10
   defense: 10
   money: 50
+  actions: 00000000010000000000000002000000

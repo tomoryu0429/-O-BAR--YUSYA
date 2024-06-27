@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d9eeae571918e4242b5f481c0943fd5a, type: 3}
-  m_Name: enemy_slimeA
+  m_Name: boss_Devil
   m_EditorClassIdentifier: 
-  EnemyNeme: slimeA
-  type: 1
-  ID: 1
-  health: 10
-  power: 10
-  defense: 10
-  money: 75
-  actions: 000000000100000000000000
+  EnemyNeme: 
+  type: 8
+  ID: 17
+  health: 50
+  power: 30
+  defense: 30
+  money: 130
+  actions: 01000000030000000000000002000000
