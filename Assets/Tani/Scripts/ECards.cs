@@ -3,16 +3,17 @@
 namespace AutoEnum
 {
 	[System.Serializable]
-	public enum ECards
+	public enum ECardID
 	{
-		None = -1,
+		Invalid = -1,
 		fish_sozai_card,
-		mash_sozai_card1,
+		mash_sozai_card,
 		meet_sozai_card,
-		onion_sozai_card3,
-		rice_sozai_card4,
-		tomato_sozai_card2,
-		zer_sozai_card5,
+		onion_sozai_card,
+		rice_sozai_card,
+		tomato_sozai_card,
+		zer_sozai_card,
 		Max,
 	};
 }
+

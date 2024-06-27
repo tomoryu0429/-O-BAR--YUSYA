@@ -74,26 +74,26 @@ namespace Tani
             }
         }
 
-        public List<CardData.ECardID> GetSortedAllCardList()
+        public List<AutoEnum.ECardID> GetSortedAllCardList()
         {
             var all = containers.SelectMany((container) => container.GetAllCards());
 
-            List<CardData.ECardID> sortedList = new List<CardData.ECardID>();
-            for(int i = 0;i < (int)CardData.ECardID.Max; i++)
+            List<AutoEnum.ECardID> sortedList = new List<AutoEnum.ECardID>();
+            for(int i = 0;i < (int)AutoEnum.ECardID.Max; i++)
             {
-                sortedList.AddRange(all.Where(id => id == (CardData.ECardID)i));
+                sortedList.AddRange(all.Where(id => id == (AutoEnum.ECardID)i));
             }
             return sortedList;
         }
 
-        private void HandPileCardOnUsed (int index, CardData.ECardID id)
+        private void HandPileCardOnUsed (int index, AutoEnum.ECardID id)
         {
             containers[(int)EPileType.Discard].AddCard(id);
         }
 
-        public CardData GetCardData(CardData.ECardID id) => cardDatas[id]; 
+        public CardData GetCardData(AutoEnum.ECardID id) => cardDatas[id]; 
 
-        Dictionary<CardData.ECardID, CardData> cardDatas = new();
+        Dictionary<AutoEnum.ECardID, CardData> cardDatas = new();
 
         PlayerData owner = null;
 

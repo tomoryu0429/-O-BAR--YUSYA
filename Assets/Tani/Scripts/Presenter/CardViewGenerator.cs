@@ -79,7 +79,7 @@ namespace Tani
             playerData.CardManager.containers[(int)type].OnCardAdded -= AddCard;
             playerData.CardManager.containers[(int)type].OnCardRemoved -= RemoveCard;
         }
-        public void AddCard(int siblingIndex, Tani.CardData.ECardID id)
+        public void AddCard(int siblingIndex, AutoEnum.ECardID id)
         {
             Tani.CardData cardData = playerData.CardManager.GetCardData(id);
 
@@ -103,7 +103,7 @@ namespace Tani
 
      
         
-        public void RemoveCard(int sibilingIndex,CardData.ECardID iD)
+        public void RemoveCard(int sibilingIndex, AutoEnum.ECardID iD)
         {
             print($"type : {type},index : {sibilingIndex}, id : {iD} ");
             print($"list Count : {cardsList.Count}");

@@ -76,16 +76,15 @@ public class PlayerData : MonoBehaviour
     }
     private async void Start()
     {
-        CardManager.containers[(int)CardManager.EPileType.Hand].AddCard(CardData.ECardID.Meet);
-        CardManager.containers[(int)CardManager.EPileType.Draw].AddCard(CardData.ECardID.Meet);
-        CardManager.containers[(int)CardManager.EPileType.Draw].AddCard(CardData.ECardID.Meet);
-        CardManager.containers[(int)CardManager.EPileType.Draw].AddCard(CardData.ECardID.Meet);
+        CardManager.containers[(int)CardManager.EPileType.Hand].AddCard(EnumSystem.GetRandom<AutoEnum.ECardID>());
+        CardManager.containers[(int)CardManager.EPileType.Draw].AddCard(EnumSystem.GetRandom<AutoEnum.ECardID>());
+        CardManager.containers[(int)CardManager.EPileType.Draw].AddCard(EnumSystem.GetRandom<AutoEnum.ECardID>());
+        CardManager.containers[(int)CardManager.EPileType.Draw].AddCard(EnumSystem.GetRandom<AutoEnum.ECardID>());
 
-        CardManager.containers[(int)CardManager.EPileType.Draw].AddCard(CardData.ECardID.Fish);
-        CardManager.containers[(int)CardManager.EPileType.Draw].AddCard(CardData.ECardID.Fish);
-        CardManager.containers[(int)CardManager.EPileType.Draw].AddCard(CardData.ECardID.Onion);
-        CardManager.containers[(int)CardManager.EPileType.Draw].AddCard(CardData.ECardID.Rice);
-        CardManager.containers[(int)CardManager.EPileType.Draw].AddCard(CardData.ECardID.Rice);
+        CardManager.containers[(int)CardManager.EPileType.Hand].AddCard(EnumSystem.GetRandom<AutoEnum.ECardID>());
+        CardManager.containers[(int)CardManager.EPileType.Draw].AddCard(EnumSystem.GetRandom<AutoEnum.ECardID>());
+        CardManager.containers[(int)CardManager.EPileType.Draw].AddCard(EnumSystem.GetRandom<AutoEnum.ECardID>());
+        CardManager.containers[(int)CardManager.EPileType.Draw].AddCard(EnumSystem.GetRandom<AutoEnum.ECardID>());
 
 
 

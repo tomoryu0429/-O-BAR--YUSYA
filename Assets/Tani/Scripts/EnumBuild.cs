@@ -49,7 +49,7 @@ public class EnumBuild : MonoBehaviour
         writeCodes.Add("\t[System.Serializable]");
         writeCodes.Add($"\tpublic enum {enumName}");
         writeCodes.Add("\t{");
-        writeCodes.Add("\t\tNone = -1,");
+        writeCodes.Add("\t\tInvalid = -1,");
         var path = AssetDatabase.GetAssetPath(fileObject);
         var fileList = System.IO.Directory.GetFiles(System.IO.Path.GetDirectoryName(path), "*"); ;
 

@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6c6655add874a7848a361b2756837789, type: 3}
-  m_Name: zer_sozai_card 5
+  m_Name: onion_sozai_card
   m_EditorClassIdentifier: 
-  cardID: 6
-  cardName: "\u30BC\u30E9\u30C1\u30F3"
+  cardID: 3
+  cardName: "\u7389\u306D\u304E"
   kind: 3
   taste: 0
   buyPrice: 100

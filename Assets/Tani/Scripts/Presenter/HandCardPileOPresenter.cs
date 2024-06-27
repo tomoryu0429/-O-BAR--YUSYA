@@ -26,7 +26,7 @@ namespace Tani
                     //ターン開始時手札のカードを墓地に移動
                     int cardNum = playerData.CardManager.containers[(int)CardManager.EPileType.Hand].Count;
 
-                    List<CardData.ECardID> moveDatas = new();
+                    List<AutoEnum.ECardID> moveDatas = new();
                     for(int i =0; i < cardNum; i++)
                     {
                         moveDatas.Add(playerData.CardManager.containers[(int)CardManager.EPileType.Hand].GetAt(i));
