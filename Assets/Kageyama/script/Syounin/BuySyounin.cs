@@ -13,9 +13,10 @@ public class BuySyounin : MonoBehaviour
     [SerializeField] List<int> BuyGoldF = new List<int>();//料理買値
     [SerializeField] List<int> SellGold = new List<int>();//売値
     [SerializeField] List<int> Percent = new List<int>();//料理確率
+    List<CardData> Data = new List<CardData>();//カードの全データを取得するためのもの
     [SerializeField] int rnd;//確率計算用
 
-    //string aa;
+    //for文に使用する専用の変数
     int AAid;
     int BBid;
     int Number;
@@ -53,11 +54,15 @@ public class BuySyounin : MonoBehaviour
     {
         CardData.ECardID Aid = EnumSystem.GetRandom<CardData.ECardID>();
         Debug.Log(Aid);
-        //aa = a.ToString();
         AAid = (int)Aid;
         CardData.ECardID Bid = EnumSystem.GetRandom<CardData.ECardID>();
         BBid = (int)Bid;
-
+        /*
+        for(int i = 0;i < (int)CardData.ECardID.Max; i++)
+        {
+            Data.Add(PlayerData.Instance.CardManager.GetCardData((CardData.ECardID)i));
+        }
+        */
         //所持金の取得
         PlayerData.Instance
                   .ReactiveProperty_Money
@@ -138,105 +143,105 @@ public class BuySyounin : MonoBehaviour
         //Debug.Log(BuyGold[0]);
 
 
-        switch (AAid)
+        switch (Aid)
         {
-            case 0:
+            case CardData.ECardID.Meet:
                 Nametext.text = "肉";
                 BuyText.text = "買値 " + BuyGold[0] + " 円";
                 break;
-            case 1:
+            case CardData.ECardID.Fish:
                 Nametext.text = "魚";
                 BuyText.text = "買値 " + BuyGold[1] + " 円";
                 break;
-            case 2:
+            case CardData.ECardID.Mash:
                 Nametext.text = "キノコ";
                 BuyText.text = "買値 " + BuyGold[2] + " 円";
                 break;
-            case 3:
+            case CardData.ECardID.Tomato:
                 Nametext.text = "トマト";
                 BuyText.text = "買値 " + BuyGold[3] + " 円";
                 break;
-            case 4:
+            case CardData.ECardID.Onion:
                 Nametext.text = "玉ねぎ";
                 BuyText.text = "買値 " + BuyGold[4] + " 円";
                 break;
-            case 5:
+            case CardData.ECardID.Rice:
                 Nametext.text = "お米";
                 BuyText.text = "買値 " + BuyGold[5] + " 円";
                 break;
-            case 6:
+            case CardData.ECardID.Zer:
                 Nametext.text = "ゼラチン";
                 BuyText.text = "買値 " + BuyGold[6] + " 円";
                 break;
-            case 7:
+            case CardData.ECardID.Flour:
                 Nametext.text = "小麦";
                 BuyText.text = "買値 " + BuyGold[7] + " 円";
                 break;
-            case 8:
+            case CardData.ECardID.Strawberry:
                 Nametext.text = "イチゴ";
                 BuyText.text = "買値 " + BuyGold[8] + " 円";
                 break;
-            case 9:
+            case CardData.ECardID.Honey:
                 Nametext.text = "はちみつ";
                 BuyText.text = "買値 " + BuyGold[9] + " 円";
                 break;
-            case 10:
+            case CardData.ECardID.Milk:
                 Nametext.text = "ミルク";
                 BuyText.text = "買値 " + BuyGold[10] + " 円";
                 break;
-            case 11:
+            case CardData.ECardID.Choco:
                 Nametext.text = "チョコ";
                 BuyText.text = "買値 " + BuyGold[11] + " 円";
                 break;
         }
-        
-        switch (BBid)
+
+        switch (Bid)
         {
-            case 0:
+            case CardData.ECardID.Meet:
                 Nametext2.text = "肉";
                 BuyText2.text = "買値 " + BuyGold[0] + " 円";
                 break;
-            case 1:
+            case CardData.ECardID.Fish:
                 Nametext2.text = "魚";
                 BuyText2.text = "買値 " + BuyGold[1] + " 円";
                 break;
-            case 2:
+            case CardData.ECardID.Mash:
                 Nametext2.text = "キノコ";
                 BuyText2.text = "買値 " + BuyGold[2] + " 円";
                 break;
-            case 3:
+            case CardData.ECardID.Tomato:
                 Nametext2.text = "トマト";
                 BuyText2.text = "買値 " + BuyGold[3] + " 円";
                 break;
-            case 4:
+            case CardData.ECardID.Onion:
                 Nametext2.text = "玉ねぎ";
                 BuyText2.text = "買値 " + BuyGold[4] + " 円";
                 break;
-            case 5:
+            case CardData.ECardID.Rice:
                 Nametext2.text = "お米";
                 BuyText2.text = "買値 " + BuyGold[5] + " 円";
                 break;
-            case 6:
+            case CardData.ECardID.Zer:
                 Nametext2.text = "ゼラチン";
                 BuyText2.text = "買値 " + BuyGold[6] + " 円";
                 break;
-            case 7:
+            case CardData.ECardID.Flour:
                 Nametext2.text = "小麦";
                 BuyText2.text = "買値 " + BuyGold[7] + " 円";
                 break;
-            case 8:
+            case CardData.ECardID.Strawberry:
                 Nametext2.text = "イチゴ";
                 BuyText2.text = "買値 " + BuyGold[8] + " 円";
                 break;
-            case 9:
+            case CardData.ECardID.Honey:
                 Nametext2.text = "はちみつ";
                 BuyText2.text = "買値 " + BuyGold[9] + " 円";
                 break;
-            case 10:
+            case CardData.ECardID.Milk:
                 Nametext2.text = "ミルク";
                 BuyText2.text = "買値 " + BuyGold[10] + " 円";
                 break;
-            case 11:
+            case CardData.ECardID.Choco:
                 Nametext2.text = "チョコ";
                 BuyText2.text = "買値 " + BuyGold[11] + " 円";
                 break;
@@ -248,8 +253,7 @@ public class BuySyounin : MonoBehaviour
 
         for (int i = 0; i < 12; i++)
         {
-            //var data = PlayerData.Instance.CardManager.GetCardData(CardData.ECardID.Meet);
-
+            
             if (Input.GetKeyDown(KeyCode.Alpha1) && AAid == i && SozaiA)
             {
                 PlayerData.Instance.Money -= BuyGold[i];
@@ -279,5 +283,5 @@ public class BuySyounin : MonoBehaviour
             }
         }
     }
-    
+
 }

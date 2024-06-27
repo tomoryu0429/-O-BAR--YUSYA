@@ -51,7 +51,7 @@ namespace Tani
         }
         public enum ECardID
         {
-            Meet,Fish,Mash,Tomato,Onion,Rice,Zer,Flour,Strawberry,Honey,Milk,Choco
+            Meet,Fish,Mash,Tomato,Onion,Rice,Zer,Flour,Strawberry,Honey,Milk,Choco,Max
         }
     }
 }

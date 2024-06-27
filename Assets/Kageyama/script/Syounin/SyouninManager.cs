@@ -26,5 +26,13 @@ public class SyouninManager : MonoBehaviour
             SellCanvas.SetActive(false);
             SelectCanvas.GetComponent<SelectSyounin>().buy = false;
         }
+
+        if (SelectCanvas.GetComponent<SelectSyounin>().sell)
+        {
+            SelectCanvas.SetActive(false);
+            BuyCanvas.SetActive(false);
+            SellCanvas.SetActive(true);
+            SelectCanvas.GetComponent<SelectSyounin>().buy = false;
+        }
     }
 }
