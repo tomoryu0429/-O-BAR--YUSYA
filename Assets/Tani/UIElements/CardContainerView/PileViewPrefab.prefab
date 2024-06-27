@@ -127,8 +127,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u9589\u3058\u308B"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 548010ff3d571c546a49afbb2bb54622, type: 2}
-  m_sharedMaterial: {fileID: -813236989145424027, guid: 548010ff3d571c546a49afbb2bb54622, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 03cf51c2da2daec459e79b03905fe12f, type: 2}
+  m_sharedMaterial: {fileID: 5063308404822885516, guid: 03cf51c2da2daec459e79b03905fe12f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -212,7 +212,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6512918169620667179
 RectTransform:
   m_ObjectHideFlags: 0
@@ -421,9 +421,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8872366035697115592}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
+      - m_Target: {fileID: 1294864870936308885}
+        m_TargetAssemblyTypeName: Tani.CardViewGenerator, Assembly-CSharp
+        m_MethodName: SetVisible
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -500,8 +500,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u6368\u3066\u672D\u30EA\u30B9\u30C8"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 548010ff3d571c546a49afbb2bb54622, type: 2}
-  m_sharedMaterial: {fileID: -813236989145424027, guid: 548010ff3d571c546a49afbb2bb54622, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 03cf51c2da2daec459e79b03905fe12f, type: 2}
+  m_sharedMaterial: {fileID: 5063308404822885516, guid: 03cf51c2da2daec459e79b03905fe12f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -564,7 +564,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &8505737426526950174
@@ -651,9 +651,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3334494094691844756}
-  - component: {fileID: 7264532739611409829}
+  - component: {fileID: 1294864870936308885}
   m_Layer: 0
-  m_Name: DiscardPilePrefab
+  m_Name: PileViewPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -675,7 +675,7 @@ Transform:
   - {fileID: 6512918169620667179}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7264532739611409829
+--- !u!114 &1294864870936308885
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -684,12 +684,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 8872366035697115592}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd3e683cbe3a286428dba72603d063e1, type: 3}
+  m_Script: {fileID: 11500000, guid: cf6b9ba10127a4f4e87ccc5fc4edc380, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerData: {fileID: 0}
+  visibilityRoot: {fileID: 3399635854761390848}
   card_parent: {fileID: 821489239153109612}
   card_prefab: {fileID: 7282455087063911953, guid: 2cb69a76f3d7b5a4d816b33a29970c16, type: 3}
   type: 2
+  toolTipPrefab: {fileID: 2100459195129703533, guid: ffa99bcee1f1a0f42a3d13b727578cd7, type: 3}
 --- !u!1 &9187653315445413688
 GameObject:
   m_ObjectHideFlags: 0

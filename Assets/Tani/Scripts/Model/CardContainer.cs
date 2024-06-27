@@ -102,11 +102,12 @@ public  class CardContainer
     }
     public void ClearCards()
     {
-        for(int i = 0; i < cards.Count; i++)
+        int count = cards.Count;
+        for(int i = 0; i < count; i++)
         {
-            OnCardRemoved?.Invoke(i, cards[i]);
+            Remove(0);
         }
-        cards.Clear();
+       
     }
 
     public IEnumerable<CardData.ECardID> GetAllCards() => cards;

@@ -6,6 +6,7 @@ using Cysharp.Threading.Tasks;
 using R3;
 using R3.Triggers;
 using System;
+using System.Linq;
 
 namespace Tani
 {
@@ -24,13 +25,16 @@ namespace Tani
         protected CardManager.EPileType type = CardManager.EPileType.Invalid;
 
         public UniTaskCompletionSource CS_Init { get; private set; } = new UniTaskCompletionSource();
+        private List<GameObject> cardsList = new();
 
         private async void Start()
         {
 
             await playerData.CS_Init.Task;
             Init();
+  
         }
+
 
         public void Init()
         {
@@ -49,11 +53,13 @@ namespace Tani
                 }
             }
 
-           
 
+            cardsList.Clear();
             foreach (var n in playerData.CardManager.containers[(int)type].GetAllCards())
             {
                 var go = Instantiate<GameObject>(card_prefab, card_parent);
+        
+                cardsList.Add(go);
                 CardView cardView = go.GetComponent<CardView>();
                 cardView.Sprite = playerData.CardManager.GetCardData(n).CardSprite;
               
@@ -78,6 +84,15 @@ namespace Tani
             Tani.CardData cardData = playerData.CardManager.GetCardData(id);
 
             var go = Instantiate<GameObject>(card_prefab, card_parent);
+            if(siblingIndex >= cardsList.Count)
+            {
+                cardsList.Add(go);
+            }
+            else
+            {
+                cardsList.Insert(siblingIndex, go);
+
+            }
             CardView cardView = go.GetComponent<CardView>();
             cardView.Sprite = cardData.CardSprite;
             SetCardViewEvent(cardView.ObservableEvent);
@@ -87,11 +102,13 @@ namespace Tani
         }
 
      
-
+        
         public void RemoveCard(int sibilingIndex,CardData.ECardID iD)
         {
             print($"type : {type},index : {sibilingIndex}, id : {iD} ");
-            Destroy(card_parent.GetChild(sibilingIndex).gameObject);
+            print($"list Count : {cardsList.Count}");
+            DestroyImmediate(cardsList[sibilingIndex]);
+            cardsList.RemoveAt(sibilingIndex);
         }
 
         protected virtual void SetCardViewEvent(ObservableEventTrigger observableEvent)
