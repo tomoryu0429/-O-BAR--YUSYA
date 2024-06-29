@@ -36,9 +36,18 @@ namespace Tani
             }
         }
 
-        public void OnEnter(TurnController.ETurnState state)
+         void TurnController.ITurnContollerNotifyEnterExit.OnEnter(TurnController.ETurnState state)
         {
-            text.text = $"Turn : {state.ToString()}";
+            string stateName = state switch
+            {
+                TurnController.ETurnState.Invalid => throw new System.NotImplementedException(),
+                TurnController.ETurnState.Card => "カードターン",
+                TurnController.ETurnState.Yuusya => "勇者ターン",
+                TurnController.ETurnState.Enemy => "エネミーターン",
+                TurnController.ETurnState.ETurnMax => throw new System.NotImplementedException(),
+                _=>throw new System.NotImplementedException()
+            };
+            text.text = stateName;
         }
 
         public void OnExit(TurnController.ETurnState state)

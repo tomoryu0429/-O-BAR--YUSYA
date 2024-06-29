@@ -9,7 +9,7 @@ using Alchemy.Inspector;
 
 namespace Tani
 {
-    public class TurnController :MonoBehaviour
+    public class TurnController :SingletonMonoBehavior<TurnController>
     {
         [SerializeField]
         List<GameObject> NotifyEnterExitObjs;
@@ -21,14 +21,15 @@ namespace Tani
         public ETurnState CurrentState => current;
         private ETurnState current = ETurnState.Invalid;
         
-        private void Awake()
-        { 
+        protected override void  Awake()
+        {
+            base.Awake();
            CS_Init.TrySetResult();
             
         }
-        private async void Start()
+        private  void Start()
         {
-            await CS_Init.Task;
+           
             ChangeState(ETurnState.Card);
          
         }

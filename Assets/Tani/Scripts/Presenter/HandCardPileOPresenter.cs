@@ -63,7 +63,7 @@ namespace Tani
                     playerData.CardManager
                     .containers[(int)CardManager.EPileType.Hand]
                     .UseCard(observableEvent.gameObject.transform.GetSiblingIndex());
-                    ((TurnController)FindAnyObjectByType<TurnController>()).ChangeState(TurnController.ETurnState.Yuusya);
+                    TurnController.Instance.ChangeState(TurnController.ETurnState.Yuusya);
                 }).AddTo(this);
 
         }

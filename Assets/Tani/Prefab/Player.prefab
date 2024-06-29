@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6404797982347107739}
   - component: {fileID: 3885467352156879762}
-  - component: {fileID: 3771572793204313773}
+  - component: {fileID: 8898048795431912105}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -45,7 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d86518b872c12204b9e8d1626fc33561, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3771572793204313773
+  <CardManager>k__BackingField: {fileID: 8898048795431912105}
+--- !u!114 &8898048795431912105
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -57,11 +58,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e1512e9d9937c64893255cbc452e0d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AllCards:
-  - {fileID: 11400000, guid: ac5f4dc7725656945bc86355c5de7166, type: 2}
-  - {fileID: 11400000, guid: 7ed2c5c0c6df8f54382d659374fa8066, type: 2}
-  - {fileID: 11400000, guid: 30c4f759c7976364087498eee49322d4, type: 2}
-  - {fileID: 11400000, guid: fa36696664bbce344bfb566ece6f72d6, type: 2}
-  - {fileID: 11400000, guid: 61db923384200fc43913b03a16c520d3, type: 2}
-  - {fileID: 11400000, guid: bb80ad7eac416d14799c6017d77a28b7, type: 2}
-  - {fileID: 11400000, guid: f47b11f1aaf85ad42badffa0c8705e1a, type: 2}

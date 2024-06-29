@@ -12,6 +12,8 @@ public class PlayerData : MonoBehaviour
     public static readonly int MAX_HP = 100;
     public static readonly int MAX_YP = 100;
     public UniTaskCompletionSource CS_Init { get; private set; } = new UniTaskCompletionSource();
+    [field: SerializeField]
+    public CardManager CardManager { get; set; }
     
 
     /// <summary>
@@ -38,7 +40,7 @@ public class PlayerData : MonoBehaviour
         get => money.Value;
         set => money.Value = value;
     }
-    public CardManager CardManager => cardManager ?? GetComponent<CardManager>();
+   
 
 
     public ReadOnlyReactiveProperty<int> ReactiveProperty_HP => hp.ToReadOnlyReactiveProperty();
@@ -50,41 +52,26 @@ public class PlayerData : MonoBehaviour
     ReactiveProperty<int> hp = new ReactiveProperty<int>(MAX_HP);
     ReactiveProperty<int> yp = new ReactiveProperty<int>(MAX_YP);
     ReactiveProperty<int> money = new ReactiveProperty<int>(0);
-    CardManager cardManager = null;
-
-    //protected override void Awake()
-    //{
-    //    base.Awake();
-    //    if(!gameObject.TryGetComponent<CardManager>(out cardManager))
-    //    {
-    //        cardManager = gameObject.AddComponent<CardManager>();
-    //    }
+ 
 
 
 
-    //}
-
-    private  void Awake()
-    {
-        if (!gameObject.TryGetComponent<CardManager>(out cardManager))
-        {
-            cardManager = gameObject.AddComponent<CardManager>();
-        }
-        
-
-        CS_Init.TrySetResult();
-    }
     private async void Start()
     {
-        CardManager.containers[(int)CardManager.EPileType.Hand].AddCard(EnumSystem.GetRandom<AutoEnum.ECardID>());
-        CardManager.containers[(int)CardManager.EPileType.Draw].AddCard(EnumSystem.GetRandom<AutoEnum.ECardID>());
-        CardManager.containers[(int)CardManager.EPileType.Draw].AddCard(EnumSystem.GetRandom<AutoEnum.ECardID>());
-        CardManager.containers[(int)CardManager.EPileType.Draw].AddCard(EnumSystem.GetRandom<AutoEnum.ECardID>());
+        await CardManager.CS_Init.Task;
 
-        CardManager.containers[(int)CardManager.EPileType.Hand].AddCard(EnumSystem.GetRandom<AutoEnum.ECardID>());
-        CardManager.containers[(int)CardManager.EPileType.Draw].AddCard(EnumSystem.GetRandom<AutoEnum.ECardID>());
-        CardManager.containers[(int)CardManager.EPileType.Draw].AddCard(EnumSystem.GetRandom<AutoEnum.ECardID>());
-        CardManager.containers[(int)CardManager.EPileType.Draw].AddCard(EnumSystem.GetRandom<AutoEnum.ECardID>());
+
+        CS_Init.TrySetResult();
+
+        CardManager.containers[(int)CardManager.EPileType.Hand].AddCard((AutoEnum.ECardID)Mathf.FloorToInt(Random.Range(0,(int)AutoEnum.ECardID.Max)));
+        CardManager.containers[(int)CardManager.EPileType.Draw].AddCard((AutoEnum.ECardID)Mathf.FloorToInt(Random.Range(0, (int)AutoEnum.ECardID.Max)));
+        CardManager.containers[(int)CardManager.EPileType.Draw].AddCard((AutoEnum.ECardID)Mathf.FloorToInt(Random.Range(0, (int)AutoEnum.ECardID.Max)));
+        CardManager.containers[(int)CardManager.EPileType.Hand].AddCard((AutoEnum.ECardID)Mathf.FloorToInt(Random.Range(0, (int)AutoEnum.ECardID.Max)));
+        CardManager.containers[(int)CardManager.EPileType.Draw].AddCard((AutoEnum.ECardID)Mathf.FloorToInt(Random.Range(0, (int)AutoEnum.ECardID.Max)));
+        CardManager.containers[(int)CardManager.EPileType.Draw].AddCard((AutoEnum.ECardID)Mathf.FloorToInt(Random.Range(0, (int)AutoEnum.ECardID.Max)));
+        CardManager.containers[(int)CardManager.EPileType.Hand].AddCard((AutoEnum.ECardID)Mathf.FloorToInt(Random.Range(0, (int)AutoEnum.ECardID.Max)));
+        CardManager.containers[(int)CardManager.EPileType.Draw].AddCard((AutoEnum.ECardID)Mathf.FloorToInt(Random.Range(0, (int)AutoEnum.ECardID.Max)));
+        CardManager.containers[(int)CardManager.EPileType.Draw].AddCard((AutoEnum.ECardID)Mathf.FloorToInt(Random.Range(0, (int)AutoEnum.ECardID.Max)));
 
 
 

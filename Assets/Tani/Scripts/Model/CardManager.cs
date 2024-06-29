@@ -3,43 +3,51 @@ using System.Collections.Generic;
 using UnityEngine;
 using Alchemy.Inspector;
 using System.Linq;
+using Cysharp.Threading.Tasks;
+
 namespace Tani
 {
     /// <summary>
     /// プレイヤー用のカードコンテイナーを管理するWrapperクラス
     /// </summary>
+    
+    
     public class CardManager : MonoBehaviour
     {
-        [DisableInPlayMode]
-        [Header("管理する全種類のカード")]
-        [SerializeField]
-        List<CardData> AllCards;
+     
 
-        public bool CanCardUse { get;private set; } = false;
 
         public enum EPileType
         {
             Invalid = -1,Hand,Draw,Discard,Max
         }
         public CardContainer[] containers = new CardContainer[(int)EPileType.Max];
+        public UniTaskCompletionSource CS_Init = new UniTaskCompletionSource();
+        Dictionary<AutoEnum.ECardID, CardData> cardDatas = new();
 
-        private void Awake()
+
+        private  void Awake()
         {
-
-            if(AllCards == null)
-            {
-                Debug.LogError("CardDataが存在しません");
-                return;
-            }
-            foreach(var n in AllCards)
-            {
-                cardDatas.Add(n.CardID, n);
-            }
+           
 
             containers[0] = new CardContainer();
             containers[1] = new CardContainer();
             containers[2] = new CardContainer();
             containers[(int)EPileType.Hand].OnCardUsed += HandPileCardOnUsed;
+
+            GetData().Forget();
+
+           
+        }
+
+        private async UniTaskVoid GetData()
+        {
+            for (int i = 0; i < (int)AutoEnum.ECardID.Max; i++)
+            {
+                CardData data = (CardData)await Resources.LoadAsync<CardData>($"cards/{(AutoEnum.ECardID)i}");
+                cardDatas.Add((AutoEnum.ECardID)i, data);
+            }
+            CS_Init.TrySetResult();
         }
 
         public void DrawCard()
@@ -91,11 +99,12 @@ namespace Tani
             containers[(int)EPileType.Discard].AddCard(id);
         }
 
-        public CardData GetCardData(AutoEnum.ECardID id) => cardDatas[id]; 
+        public CardData GetCardData(AutoEnum.ECardID id)
+        {
+            return cardDatas[id];
+        }
 
-        Dictionary<AutoEnum.ECardID, CardData> cardDatas = new();
-
-        PlayerData owner = null;
+      
 
 
     }

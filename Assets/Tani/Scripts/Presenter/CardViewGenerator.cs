@@ -105,8 +105,6 @@ namespace Tani
         
         public void RemoveCard(int sibilingIndex, AutoEnum.ECardID iD)
         {
-            print($"type : {type},index : {sibilingIndex}, id : {iD} ");
-            print($"list Count : {cardsList.Count}");
             DestroyImmediate(cardsList[sibilingIndex]);
             cardsList.RemoveAt(sibilingIndex);
         }
