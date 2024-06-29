@@ -9,6 +9,7 @@ using Alchemy.Inspector;
 
 namespace Tani
 {
+    //ターンを制御するクラス(シングルトン)
     public class TurnController :SingletonMonoBehavior<TurnController>
     {
         [SerializeField]

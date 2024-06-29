@@ -40,18 +40,32 @@ public class PlayerData : MonoBehaviour
         get => money.Value;
         set => money.Value = value;
     }
-   
 
+    public int Attack
+    {
+        get => attack.Value;
+        set => attack.Value = value;
+    }
+    public int Diffense
+    {
+        get => diffese.Value;
+        set => diffese.Value = value;
+    }
 
     public ReadOnlyReactiveProperty<int> ReactiveProperty_HP => hp.ToReadOnlyReactiveProperty();
     public ReadOnlyReactiveProperty<int> ReactiveProperty_YP => yp.ToReadOnlyReactiveProperty();
     public ReadOnlyReactiveProperty<int> ReactiveProperty_Money => money.ToReadOnlyReactiveProperty();
+    public ReadOnlyReactiveProperty<int> ReactiveProperty_Attack => attack.ToReadOnlyReactiveProperty();
+    public ReadOnlyReactiveProperty<int> ReactiveProperty_Diffense => diffese.ToReadOnlyReactiveProperty();
+
 
 
     //private
     ReactiveProperty<int> hp = new ReactiveProperty<int>(MAX_HP);
     ReactiveProperty<int> yp = new ReactiveProperty<int>(MAX_YP);
     ReactiveProperty<int> money = new ReactiveProperty<int>(0);
+    ReactiveProperty<int> attack = new ReactiveProperty<int>(0);
+    ReactiveProperty<int> diffese = new ReactiveProperty<int>(0);
  
 
 

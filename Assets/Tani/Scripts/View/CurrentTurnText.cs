@@ -16,8 +16,6 @@ namespace Tani
         int count = 0;
         bool isInitialized = false;
 
- 
-
         private async void Awake()
         {
             await turnController.CS_Init.Task;
@@ -36,7 +34,7 @@ namespace Tani
             }
         }
 
-         void TurnController.ITurnContollerNotifyEnterExit.OnEnter(TurnController.ETurnState state)
+        void TurnController.ITurnContollerNotifyEnterExit.OnEnter(TurnController.ETurnState state)
         {
             string stateName = state switch
             {
@@ -45,14 +43,14 @@ namespace Tani
                 TurnController.ETurnState.Yuusya => "勇者ターン",
                 TurnController.ETurnState.Enemy => "エネミーターン",
                 TurnController.ETurnState.ETurnMax => throw new System.NotImplementedException(),
-                _=>throw new System.NotImplementedException()
+                _ => throw new System.NotImplementedException()
             };
             text.text = stateName;
         }
 
         public void OnExit(TurnController.ETurnState state)
         {
-           // throw new System.NotImplementedException();
+            // throw new System.NotImplementedException();
         }
 
 
