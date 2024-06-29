@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using R3;
 using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
+using System.Security.Cryptography;
 
 public class BuySyounin : MonoBehaviour
 {
@@ -15,10 +16,11 @@ public class BuySyounin : MonoBehaviour
     [SerializeField] List<int> Percent = new List<int>();//料理確率
     List<CardData> Data = new List<CardData>();//カードの全データを取得するためのもの
     [SerializeField] int rnd;//確率計算用
+    [SerializeField] PlayerData pd;
 
     //for文に使用する専用の変数
-    int AAid;
-    int BBid;
+    AutoEnum.ECardID Aid;
+    AutoEnum.ECardID Bid;
     int Number;
 
     bool SozaiA = true;
@@ -52,11 +54,9 @@ public class BuySyounin : MonoBehaviour
     
     void Start()
     {
-        CardData.ECardID Aid = EnumSystem.GetRandom<CardData.ECardID>();
+        Aid = EnumSystem.GetRandom<AutoEnum.ECardID>();
         Debug.Log(Aid);
-        AAid = (int)Aid;
-        CardData.ECardID Bid = EnumSystem.GetRandom<CardData.ECardID>();
-        BBid = (int)Bid;
+        Bid = EnumSystem.GetRandom<AutoEnum.ECardID>();
         /*
         for(int i = 0;i < (int)CardData.ECardID.Max; i++)
         {
@@ -64,8 +64,7 @@ public class BuySyounin : MonoBehaviour
         }
         */
         //所持金の取得
-        PlayerData.Instance
-                  .ReactiveProperty_Money
+                  pd.ReactiveProperty_Money
                   .Subscribe((money) => { MoneyText.text = money.ToString(); })
                   .AddTo(this);
 
@@ -139,10 +138,13 @@ public class BuySyounin : MonoBehaviour
             BuyTextF.text = "買値 " + BuyGoldF[10] + " 円";
         }
 
-        //Debug.Log(b);
-        //Debug.Log(BuyGold[0]);
 
+        Nametext.text = pd.CardManager.GetCardData(Aid).CardName;
+        BuyText.text = "買値 " + pd.CardManager.GetCardData(Aid).BuyPrice + " 円";
 
+        Nametext2.text = pd.CardManager.GetCardData(Bid).CardName;
+        BuyText2.text = "買値 " + pd.CardManager.GetCardData(Bid).BuyPrice + " 円";
+        /*
         switch (Aid)
         {
             case CardData.ECardID.Meet:
@@ -246,42 +248,60 @@ public class BuySyounin : MonoBehaviour
                 BuyText2.text = "買値 " + BuyGold[11] + " 円";
                 break;
         }
+        */
     }
 
     void Update()
     {
-
-        for (int i = 0; i < 12; i++)
+        if (Input.GetKeyDown(KeyCode.Alpha1)&& SozaiA)
         {
-            
-            if (Input.GetKeyDown(KeyCode.Alpha1) && AAid == i && SozaiA)
-            {
-                PlayerData.Instance.Money -= BuyGold[i];
-                Nametext.text = "";
-                BuyText.text = "";
-                SozaiA = false;
-                
-            }
+            pd.Money -= pd.CardManager.GetCardData(Aid).BuyPrice;
+            Nametext.text = "";
+            BuyText.text = "";
+            SozaiA = false;
 
-            if (Input.GetKeyDown(KeyCode.Alpha2) && BBid == i && SozaiB)
-            {
-                PlayerData.Instance.Money -= BuyGold[i];
-                Nametext2.text = "";
-                BuyText2.text = "";
-                SozaiB = false;
-            }
         }
 
-        for(int i = 0; i < 11; i++)
+        if (Input.GetKeyDown(KeyCode.Alpha2) && SozaiB)
         {
-            if (Input.GetKeyDown(KeyCode.Alpha3) && Number == i && Food)
-            {
-                PlayerData.Instance.Money -= BuyGoldF[i];
-                NametextF.text = "";
-                BuyTextF.text = "";
-                Food = false;
-            }
+            pd.Money -= pd.CardManager.GetCardData(Bid).BuyPrice;
+            Nametext.text = "";
+            BuyText.text = "";
+            SozaiB = false;
+
         }
+        /*
+                for (int i = 0; i < 12; i++)
+                {
+
+                    if (Input.GetKeyDown(KeyCode.Alpha1) && AAid == i && SozaiA)
+                    {
+                        pd.Money -= BuyGold[i];
+                        Nametext.text = "";
+                        BuyText.text = "";
+                        SozaiA = false;
+
+                    }
+
+                    if (Input.GetKeyDown(KeyCode.Alpha2) && BBid == i && SozaiB)
+                    {
+                        pd.Money -= BuyGold[i];
+                        Nametext2.text = "";
+                        BuyText2.text = "";
+                        SozaiB = false;
+                    }
+                }
+        */
+        for (int i = 0; i < 11; i++)
+                {
+                    if (Input.GetKeyDown(KeyCode.Alpha3) && Number == i && Food)
+                    {
+                        pd.Money -= BuyGoldF[i];
+                        NametextF.text = "";
+                        BuyTextF.text = "";
+                        Food = false;
+                    }
+                }
+        
     }
-
 }

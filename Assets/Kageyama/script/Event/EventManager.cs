@@ -23,6 +23,8 @@ public class EventManager : MonoBehaviour
 
     [SerializeField] List<TextMeshProUGUI> UIText = new List<TextMeshProUGUI>();
 
+    [SerializeField] PlayerData pd;//プレイヤーのデータ
+
     [SerializeField] int E1percent;
     int random;//どのイベントが選択されるか
     int Ernd;//イベント結果の選択
@@ -88,14 +90,12 @@ public class EventManager : MonoBehaviour
         sentaku = FindAnyObjectByType<Sentaku>();
 
         //やる気
-        PlayerData.Instance
-          .ReactiveProperty_YP
+          pd.ReactiveProperty_YP
           .Subscribe((yp) => { yp.ToString(); })
           .AddTo(this);
 
         //所持金
-        PlayerData.Instance
-          .ReactiveProperty_Money
+          pd.ReactiveProperty_Money
           .Subscribe((money) => { money.ToString(); })
           .AddTo(this);
 
@@ -144,7 +144,7 @@ public class EventManager : MonoBehaviour
         //結果A（やる気ゲージをMAXまで回復させる）
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            PlayerData.Instance.YP = PlayerData.MAX_YP;
+            pd.YP = PlayerData.MAX_YP;
 
         }
         //結果B（「調理」を一回行う）
@@ -159,12 +159,12 @@ public class EventManager : MonoBehaviour
         //結果A(現在のお金の50%を失う)
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            PlayerData.Instance.Money /= 2;
+            pd.Money /= 2;
         }
         //結果B(バトルに突入し、勝利するとお金×150を獲得する。)
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            PlayerData.Instance.YP *= 3/10;
+            pd.YP *= 3/10;
             //SceneManager.LoadScene();
         }
     }
@@ -176,15 +176,15 @@ public class EventManager : MonoBehaviour
         {
             if(Ernd <= 60)
             {
-                PlayerData.Instance.Money += 150;
+                pd.Money += 150;
             }
             else if(Ernd <= 90)
             {
-                PlayerData.Instance.Money += 500;
+                pd.Money += 500;
             }
             else if(Ernd <= 100)
             {
-                PlayerData.Instance.Money += 1000;
+                pd.Money += 1000;
             }
         }
         //結果B
