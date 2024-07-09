@@ -15,7 +15,7 @@ MonoBehaviour:
   cardID: 0
   cardName: "\u9B5A"
   kind: 1
-  taste: 0
+  taste: 1
   buyPrice: 100
   sellPrice: 70
   cardSprite: {fileID: 21300000, guid: 1ee044be992c3784896fe3ca2a7ffc92, type: 3}
