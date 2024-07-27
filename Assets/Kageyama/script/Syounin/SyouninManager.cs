@@ -10,7 +10,6 @@ public class SyouninManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SelectCanvas.SetActive(true);
         BuyCanvas.SetActive(false);
         SellCanvas.SetActive(false);
         SelectCanvas = GameObject.Find("SelectCanvas");
@@ -21,7 +20,6 @@ public class SyouninManager : MonoBehaviour
     {
         if (SelectCanvas.GetComponent<SelectSyounin>().buy)
         {
-            SelectCanvas.SetActive(false);
             BuyCanvas.SetActive(true);
             SellCanvas.SetActive(false);
             SelectCanvas.GetComponent<SelectSyounin>().buy = false;
@@ -29,7 +27,6 @@ public class SyouninManager : MonoBehaviour
 
         if (SelectCanvas.GetComponent<SelectSyounin>().sell)
         {
-            SelectCanvas.SetActive(false);
             BuyCanvas.SetActive(false);
             SellCanvas.SetActive(true);
             SelectCanvas.GetComponent<SelectSyounin>().buy = false;

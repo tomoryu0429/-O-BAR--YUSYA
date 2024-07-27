@@ -7,12 +7,13 @@ using UnityEngine.UI;
 using R3;
 using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 using System.Security.Cryptography;
+using TMPro;
 
 public class BuySyounin : MonoBehaviour
 {
-    [SerializeField] List<int> BuyGold = new List<int>();//買値
+    //[SerializeField] List<int> BuyGold = new List<int>();//買値
     [SerializeField] List<int> BuyGoldF = new List<int>();//料理買値
-    [SerializeField] List<int> SellGold = new List<int>();//売値
+    //[SerializeField] List<int> SellGold = new List<int>();//売値
     [SerializeField] List<int> Percent = new List<int>();//料理確率
     List<CardData> Data = new List<CardData>();//カードの全データを取得するためのもの
     [SerializeField] int rnd;//確率計算用
@@ -21,19 +22,27 @@ public class BuySyounin : MonoBehaviour
     //for文に使用する専用の変数
     AutoEnum.ECardID Aid;
     AutoEnum.ECardID Bid;
+
     int Number;
 
     bool SozaiA = true;
     bool SozaiB = true;
     bool Food = true;
 
-    [SerializeField] Text Nametext;
-    [SerializeField] Text Nametext2;
-    [SerializeField] Text NametextF;
-    [SerializeField] Text BuyText;
-    [SerializeField] Text BuyText2;
-    [SerializeField] Text BuyTextF;
-    [SerializeField] Text MoneyText;
+    [SerializeField] TextMeshProUGUI Nametext;
+    [SerializeField] TextMeshProUGUI Nametext2;
+    [SerializeField] TextMeshProUGUI NametextF;
+    [SerializeField] TextMeshProUGUI BuyText;
+    [SerializeField] TextMeshProUGUI BuyText2;
+    [SerializeField] TextMeshProUGUI BuyTextF;
+    [SerializeField] TextMeshProUGUI MoneyText;
+
+    [SerializeField] List<Image> cardImage = new List<Image>();
+
+    [SerializeField] Image S1sprite;
+    [SerializeField] Image S2sprite;
+   // [SerializeField] Image Fsprite;
+
     //[SerializeField] Text SellText;
     //[SerializeField] Image image;
 
@@ -57,6 +66,7 @@ public class BuySyounin : MonoBehaviour
         Aid = EnumSystem.GetRandom<AutoEnum.ECardID>();
         Debug.Log(Aid);
         Bid = EnumSystem.GetRandom<AutoEnum.ECardID>();
+        Debug.Log(Bid);
         /*
         for(int i = 0;i < (int)CardData.ECardID.Max; i++)
         {
@@ -64,7 +74,7 @@ public class BuySyounin : MonoBehaviour
         }
         */
         //所持金の取得
-                  pd.ReactiveProperty_Money
+        pd.ReactiveProperty_Money
                   .Subscribe((money) => { MoneyText.text = money.ToString(); })
                   .AddTo(this);
 
@@ -141,113 +151,20 @@ public class BuySyounin : MonoBehaviour
 
         Nametext.text = pd.CardManager.GetCardData(Aid).CardName;
         BuyText.text = "買値 " + pd.CardManager.GetCardData(Aid).BuyPrice + " 円";
+        S1sprite.sprite = pd.CardManager.GetCardData(Aid).CardSprite;//画像表示
 
         Nametext2.text = pd.CardManager.GetCardData(Bid).CardName;
         BuyText2.text = "買値 " + pd.CardManager.GetCardData(Bid).BuyPrice + " 円";
+        S2sprite.sprite = pd.CardManager.GetCardData(Bid).CardSprite;//画像表示
         /*
-        switch (Aid)
-        {
-            case CardData.ECardID.Meet:
-                Nametext.text = "肉";
-                BuyText.text = "買値 " + BuyGold[0] + " 円";
-                break;
-            case CardData.ECardID.Fish:
-                Nametext.text = "魚";
-                BuyText.text = "買値 " + BuyGold[1] + " 円";
-                break;
-            case CardData.ECardID.Mash:
-                Nametext.text = "キノコ";
-                BuyText.text = "買値 " + BuyGold[2] + " 円";
-                break;
-            case CardData.ECardID.Tomato:
-                Nametext.text = "トマト";
-                BuyText.text = "買値 " + BuyGold[3] + " 円";
-                break;
-            case CardData.ECardID.Onion:
-                Nametext.text = "玉ねぎ";
-                BuyText.text = "買値 " + BuyGold[4] + " 円";
-                break;
-            case CardData.ECardID.Rice:
-                Nametext.text = "お米";
-                BuyText.text = "買値 " + BuyGold[5] + " 円";
-                break;
-            case CardData.ECardID.Zer:
-                Nametext.text = "ゼラチン";
-                BuyText.text = "買値 " + BuyGold[6] + " 円";
-                break;
-            case CardData.ECardID.Flour:
-                Nametext.text = "小麦";
-                BuyText.text = "買値 " + BuyGold[7] + " 円";
-                break;
-            case CardData.ECardID.Strawberry:
-                Nametext.text = "イチゴ";
-                BuyText.text = "買値 " + BuyGold[8] + " 円";
-                break;
-            case CardData.ECardID.Honey:
-                Nametext.text = "はちみつ";
-                BuyText.text = "買値 " + BuyGold[9] + " 円";
-                break;
-            case CardData.ECardID.Milk:
-                Nametext.text = "ミルク";
-                BuyText.text = "買値 " + BuyGold[10] + " 円";
-                break;
-            case CardData.ECardID.Choco:
-                Nametext.text = "チョコ";
-                BuyText.text = "買値 " + BuyGold[11] + " 円";
-                break;
-        }
+        pd.CardManager.containers[(int)CardManager.EPileType.Hand].AddCard(AutoEnum.ECardID.meet_sozai_card);//カード追加
 
-        switch (Bid)
+        foreach (var i in pd.CardManager.containers[(int)CardManager.EPileType.Hand].GetAllCards())
         {
-            case CardData.ECardID.Meet:
-                Nametext2.text = "肉";
-                BuyText2.text = "買値 " + BuyGold[0] + " 円";
-                break;
-            case CardData.ECardID.Fish:
-                Nametext2.text = "魚";
-                BuyText2.text = "買値 " + BuyGold[1] + " 円";
-                break;
-            case CardData.ECardID.Mash:
-                Nametext2.text = "キノコ";
-                BuyText2.text = "買値 " + BuyGold[2] + " 円";
-                break;
-            case CardData.ECardID.Tomato:
-                Nametext2.text = "トマト";
-                BuyText2.text = "買値 " + BuyGold[3] + " 円";
-                break;
-            case CardData.ECardID.Onion:
-                Nametext2.text = "玉ねぎ";
-                BuyText2.text = "買値 " + BuyGold[4] + " 円";
-                break;
-            case CardData.ECardID.Rice:
-                Nametext2.text = "お米";
-                BuyText2.text = "買値 " + BuyGold[5] + " 円";
-                break;
-            case CardData.ECardID.Zer:
-                Nametext2.text = "ゼラチン";
-                BuyText2.text = "買値 " + BuyGold[6] + " 円";
-                break;
-            case CardData.ECardID.Flour:
-                Nametext2.text = "小麦";
-                BuyText2.text = "買値 " + BuyGold[7] + " 円";
-                break;
-            case CardData.ECardID.Strawberry:
-                Nametext2.text = "イチゴ";
-                BuyText2.text = "買値 " + BuyGold[8] + " 円";
-                break;
-            case CardData.ECardID.Honey:
-                Nametext2.text = "はちみつ";
-                BuyText2.text = "買値 " + BuyGold[9] + " 円";
-                break;
-            case CardData.ECardID.Milk:
-                Nametext2.text = "ミルク";
-                BuyText2.text = "買値 " + BuyGold[10] + " 円";
-                break;
-            case CardData.ECardID.Choco:
-                Nametext2.text = "チョコ";
-                BuyText2.text = "買値 " + BuyGold[11] + " 円";
-                break;
-        }
+            var name = pd.CardManager.GetCardData(i).CardName;
+            Debug.Log(name);
+        }//全てのデータ取得
+        //I.sprite = pd.CardManager.GetCardData(AutoEnum.ECardID.meet_sozai_card).CardSprite;//画像表示
         */
     }
 
@@ -258,6 +175,8 @@ public class BuySyounin : MonoBehaviour
             pd.Money -= pd.CardManager.GetCardData(Aid).BuyPrice;
             Nametext.text = "";
             BuyText.text = "";
+            pd.CardManager.containers[(int)CardManager.EPileType.Hand].AddCard(Aid);//手札に加える
+            //Debug.Log();
             SozaiA = false;
 
         }
@@ -265,33 +184,14 @@ public class BuySyounin : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha2) && SozaiB)
         {
             pd.Money -= pd.CardManager.GetCardData(Bid).BuyPrice;
-            Nametext.text = "";
-            BuyText.text = "";
+            Nametext2.text = "";
+            BuyText2.text = "";
+            pd.CardManager.containers[(int)CardManager.EPileType.Hand].AddCard(Bid);
             SozaiB = false;
 
+
         }
-        /*
-                for (int i = 0; i < 12; i++)
-                {
 
-                    if (Input.GetKeyDown(KeyCode.Alpha1) && AAid == i && SozaiA)
-                    {
-                        pd.Money -= BuyGold[i];
-                        Nametext.text = "";
-                        BuyText.text = "";
-                        SozaiA = false;
-
-                    }
-
-                    if (Input.GetKeyDown(KeyCode.Alpha2) && BBid == i && SozaiB)
-                    {
-                        pd.Money -= BuyGold[i];
-                        Nametext2.text = "";
-                        BuyText2.text = "";
-                        SozaiB = false;
-                    }
-                }
-        */
         for (int i = 0; i < 11; i++)
                 {
                     if (Input.GetKeyDown(KeyCode.Alpha3) && Number == i && Food)

@@ -19,10 +19,12 @@ public class SelectSyounin : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.A))
         {
             buy = true;
+            sell = false;
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
             sell = true;
+            buy = false;
         }
     }
 }

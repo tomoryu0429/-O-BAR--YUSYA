@@ -19,7 +19,7 @@ public class EventManager : MonoBehaviour
     public List<TextMeshProUGUI> Select;//選択肢
     [SerializeField] TextMeshProUGUI Eventname;//イベントの名前
 
-    [Alchemy.Inspector.LabelText("プランナー用"),Tooltip("Percent"), SerializeField] List<int> percent = new List<int>();//イベント1から4までの選択
+    [Header("イベント確率"), SerializeField] List<int> percent = new List<int>();//イベント1から4までの選択
 
     [SerializeField] List<TextMeshProUGUI> UIText = new List<TextMeshProUGUI>();
 
