@@ -7,7 +7,8 @@ public  class StateMachine <T>  : MonoBehaviour
 {
      public class State
      {
-        public StateMachine<T> StateMachine { get; set; }
+        public State(StateMachine<T> stateMachine) { StateMachine = stateMachine; }
+        public StateMachine<T> StateMachine { get; }
 
         public virtual void Enter() { }
         public virtual void Tick(float deltaTime) { }
