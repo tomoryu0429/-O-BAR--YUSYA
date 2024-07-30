@@ -6,24 +6,15 @@ using Tani;
 using Cysharp.Threading.Tasks;
 using System.Threading.Tasks;
 
-public class PlayerData : MonoBehaviour
+public class PlayerData : MonoBehaviour,IHealth
 {
     //public
     public static readonly int MAX_HP = 100;
     public static readonly int MAX_YP = 100;
     public UniTaskCompletionSource CS_Init { get; private set; } = new UniTaskCompletionSource();
-    [field: SerializeField]
-    public CardManager CardManager { get; set; }
-    
 
-    /// <summary>
-    /// 勇者のHPの取得と設定、値は 0 - MAX_HPにクランプされる
-    /// </summary>
-    public int HP
-    {
-        get => hp.Value;
-        set => hp.Value = Mathf.Clamp(value, 0, MAX_HP);
-    }
+    [field: SerializeField]public CardManager CardManager { get; private set; }
+
     /// <summary>
     /// 勇者のやる気ポイントの取得と設定、値は0 - MAX_YPにクランプされる
     /// </summary>
@@ -52,11 +43,18 @@ public class PlayerData : MonoBehaviour
         set => diffese.Value = value;
     }
 
-    public ReadOnlyReactiveProperty<int> ReactiveProperty_HP => hp.ToReadOnlyReactiveProperty();
     public ReadOnlyReactiveProperty<int> ReactiveProperty_YP => yp.ToReadOnlyReactiveProperty();
     public ReadOnlyReactiveProperty<int> ReactiveProperty_Money => money.ToReadOnlyReactiveProperty();
     public ReadOnlyReactiveProperty<int> ReactiveProperty_Attack => attack.ToReadOnlyReactiveProperty();
     public ReadOnlyReactiveProperty<int> ReactiveProperty_Diffense => diffese.ToReadOnlyReactiveProperty();
+
+    public ReadOnlyReactiveProperty<int> HealthProperty { 
+        get => hp.ToReadOnlyReactiveProperty();
+    }
+    public int Health {
+        get => hp.CurrentValue;
+        set => hp.Value = Mathf.Clamp(value, 0, MAX_HP);
+    }
 
 
 
@@ -70,23 +68,18 @@ public class PlayerData : MonoBehaviour
 
 
 
-    private async void Start()
+    private void Start()
     {
-        await CardManager.CS_Init.Task;
-
+        CardManager = GetComponent<CardManager>();
 
         CS_Init.TrySetResult();
 
-        CardManager.containers[(int)CardManager.EPileType.Hand].AddCard((AutoEnum.ECardID)Mathf.FloorToInt(Random.Range(0,(int)AutoEnum.ECardID.Max)));
-        CardManager.containers[(int)CardManager.EPileType.Draw].AddCard((AutoEnum.ECardID)Mathf.FloorToInt(Random.Range(0, (int)AutoEnum.ECardID.Max)));
-        CardManager.containers[(int)CardManager.EPileType.Draw].AddCard((AutoEnum.ECardID)Mathf.FloorToInt(Random.Range(0, (int)AutoEnum.ECardID.Max)));
-        CardManager.containers[(int)CardManager.EPileType.Hand].AddCard((AutoEnum.ECardID)Mathf.FloorToInt(Random.Range(0, (int)AutoEnum.ECardID.Max)));
-        CardManager.containers[(int)CardManager.EPileType.Draw].AddCard((AutoEnum.ECardID)Mathf.FloorToInt(Random.Range(0, (int)AutoEnum.ECardID.Max)));
-        CardManager.containers[(int)CardManager.EPileType.Draw].AddCard((AutoEnum.ECardID)Mathf.FloorToInt(Random.Range(0, (int)AutoEnum.ECardID.Max)));
-        CardManager.containers[(int)CardManager.EPileType.Hand].AddCard((AutoEnum.ECardID)Mathf.FloorToInt(Random.Range(0, (int)AutoEnum.ECardID.Max)));
-        CardManager.containers[(int)CardManager.EPileType.Draw].AddCard((AutoEnum.ECardID)Mathf.FloorToInt(Random.Range(0, (int)AutoEnum.ECardID.Max)));
-        CardManager.containers[(int)CardManager.EPileType.Draw].AddCard((AutoEnum.ECardID)Mathf.FloorToInt(Random.Range(0, (int)AutoEnum.ECardID.Max)));
+        for(int i = 0; i < 8 ; i++)
+        {
+            CardManager.containers[(int)CardManager.EPileType.Draw]
+                .AddCard((AutoEnum.ECardID)Mathf.FloorToInt(Random.Range(0, (int)AutoEnum.ECardID.Max)));
 
+        }
 
 
 

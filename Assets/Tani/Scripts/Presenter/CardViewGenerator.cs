@@ -27,7 +27,7 @@ namespace Tani
         public UniTaskCompletionSource CS_Init { get; private set; } = new UniTaskCompletionSource();
         private List<GameObject> cardsList = new();
 
-        private async void Start()
+        protected virtual async void Start()
         {
 
             await playerData.CS_Init.Task;
@@ -61,7 +61,7 @@ namespace Tani
         
                 cardsList.Add(go);
                 CardView cardView = go.GetComponent<CardView>();
-                cardView.Sprite = playerData.CardManager.GetCardData(n).CardSprite;
+                cardView.Sprite = CardSystem.CardSystemUtility.GetCardData(n).CardSprite;
               
              
 
@@ -85,7 +85,7 @@ namespace Tani
     
         public void AddCard(int siblingIndex, AutoEnum.ECardID id)
         {
-            Tani.CardData cardData = playerData.CardManager.GetCardData(id);
+            Tani.CardData cardData = CardSystem.CardSystemUtility.GetCardData(id);
 
             var go = Instantiate<GameObject>(card_prefab, card_parent);
             if(siblingIndex >= cardsList.Count)

@@ -8,10 +8,30 @@ namespace Tani
 {
     public class HandCardPileOPresenter : Tani.ViewOnlyCardPilePresenter,TurnController.ITurnContollerNotifyEnterExit
     {
-        bool CanUseCard = false;
+
+        protected override async void Start()
+        {
+            base.Start();
+
+            CardContainer handContainer = playerData.CardManager.containers[(int)CardManager.EPileType.Hand];
+
+            handContainer
+             .OnCardUsed.AsObservable()
+             .Subscribe(_ =>
+             {
+                 var moveDatas = handContainer.GetAllCards();
+                 handContainer.ClearCards();
+
+                 //•æ’n‚É’Ç‰Á
+                 foreach (var n in moveDatas)
+                 {
+                     playerData.CardManager.containers[(int)CardManager.EPileType.Discard].AddCard(n);
+                 }
+
+             }).AddTo(this);
+        }
         public  void OnEnter(TurnController.ETurnState state)
         {
-            CanUseCard = state == TurnController.ETurnState.Card;
 
             switch (state)
             {
@@ -59,11 +79,10 @@ namespace Tani
                 .OnPointerClickAsObservable()
                 .Subscribe(_ =>
                 {
-                    if (!CanUseCard) return;
                     playerData.CardManager
                     .containers[(int)CardManager.EPileType.Hand]
                     .UseCard(observableEvent.gameObject.transform.GetSiblingIndex());
-                    TurnController.Instance.ChangeState(TurnController.ETurnState.Yuusya);
+                    //TurnController.Instance.ChangeState(TurnController.ETurnState.Yuusya);
                 }).AddTo(this);
 
         }

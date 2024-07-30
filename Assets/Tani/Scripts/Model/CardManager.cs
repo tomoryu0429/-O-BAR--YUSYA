@@ -5,6 +5,7 @@ using Alchemy.Inspector;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using R3;
+using System;
 
 namespace Tani
 {
@@ -15,13 +16,12 @@ namespace Tani
     
     public class CardManager : MonoBehaviour
     {
-     
-
-
         public enum EPileType
         {
             Invalid = -1,Hand,Draw,Discard,Max
         }
+
+
         public CardContainer[] containers = new CardContainer[(int)EPileType.Max];
         public UniTaskCompletionSource CS_Init = new UniTaskCompletionSource();
         Dictionary<AutoEnum.ECardID, CardData> cardDatas = new();
@@ -29,29 +29,18 @@ namespace Tani
 
         private  void Awake()
         {
-           
 
             containers[0] = new CardContainer();
             containers[1] = new CardContainer();
             containers[2] = new CardContainer();
+
             containers[(int)EPileType.Hand].OnCardUsed
                 .AsObservable()
                 .Subscribe(arg => HandPileCardOnUsed(arg.Arg0, arg.Arg1))
                 .AddTo(this);
 
-            GetData().Forget();
 
            
-        }
-
-        private async UniTaskVoid GetData()
-        {
-            for (int i = 0; i < (int)AutoEnum.ECardID.Max; i++)
-            {
-                CardData data = (CardData)await Resources.LoadAsync<CardData>($"cards/{(AutoEnum.ECardID)i}");
-                cardDatas.Add((AutoEnum.ECardID)i, data);
-            }
-            CS_Init.TrySetResult();
         }
 
         public void DrawCard()
@@ -103,8 +92,11 @@ namespace Tani
             containers[(int)EPileType.Discard].AddCard(id);
         }
 
+
+        [Obsolete]
         public CardData GetCardData(AutoEnum.ECardID id)
         {
+            throw new NotImplementedException();
             return cardDatas[id];
         }
 

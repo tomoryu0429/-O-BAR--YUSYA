@@ -29,7 +29,7 @@ namespace Tani
                         toolTipInstance.transform.SetParent(observableEvent.gameObject.transform);
                         toolTipInstance.transform.localPosition = new Vector3(0, 120, 0);
                         toolTipInstance.GetComponentInChildren<TMPro.TextMeshProUGUI>().text =
-                            playerData.CardManager.GetCardData(
+                            CardSystem.CardSystemUtility.GetCardData(
                                 playerData.CardManager.containers[(int)type]
                                 .GetAt(observableEvent.gameObject.transform.GetSiblingIndex())).CardName;
                     }

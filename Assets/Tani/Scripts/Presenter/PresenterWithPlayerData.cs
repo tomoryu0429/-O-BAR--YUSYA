@@ -24,13 +24,13 @@ namespace Tani
             await playerData.CS_Init.Task;
             //HPに応じてHPBarのゲージを設定
             playerData
-                .ReactiveProperty_HP
+                .HealthProperty
                 .Subscribe(x => hpBar.SetHpPercent(x / 100.0f))
                 .AddTo(this);
 
             //Hpが0になったとき「PlayerDeath」と表示
             playerData
-                .ReactiveProperty_HP
+                .HealthProperty
                 .Where(x => x == 0)
                 .Subscribe(_ => print("PlayerDeath"))
                 .AddTo(this);
@@ -46,7 +46,7 @@ namespace Tani
             //デバッグ用
             if (Input.GetKeyDown(KeyCode.Return))
             {
-               playerData.HP -= 10;
+               playerData.Health -= 10;
               
             }
         }
