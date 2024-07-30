@@ -998,7 +998,7 @@ PrefabInstance:
     - target: {fileID: 6920139244479182507, guid: ac1d8abfa42f8b748827d8eb19c1aee3, type: 3}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 11400000, guid: c1552628c1465b64f800abfc553f8fd6, type: 2}
+      objectReference: {fileID: 11400000, guid: fcc85f38fbf8e304eab3c9b464202ac4, type: 2}
     - target: {fileID: 6920139244479182507, guid: ac1d8abfa42f8b748827d8eb19c1aee3, type: 3}
       propertyPath: m_PageAscender
       value: 56.04088
@@ -1018,7 +1018,7 @@ PrefabInstance:
     - target: {fileID: 6920139244479182507, guid: ac1d8abfa42f8b748827d8eb19c1aee3, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: -2664765926507139670, guid: c1552628c1465b64f800abfc553f8fd6, type: 2}
+      objectReference: {fileID: -2296420654543822234, guid: fcc85f38fbf8e304eab3c9b464202ac4, type: 2}
     - target: {fileID: 6920139244479182507, guid: ac1d8abfa42f8b748827d8eb19c1aee3, type: 3}
       propertyPath: m_ElementAscender
       value: 56.04088
@@ -1227,7 +1227,7 @@ PrefabInstance:
     - target: {fileID: 6920139244479182507, guid: ac1d8abfa42f8b748827d8eb19c1aee3, type: 3}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 11400000, guid: c1552628c1465b64f800abfc553f8fd6, type: 2}
+      objectReference: {fileID: 11400000, guid: fcc85f38fbf8e304eab3c9b464202ac4, type: 2}
     - target: {fileID: 6920139244479182507, guid: ac1d8abfa42f8b748827d8eb19c1aee3, type: 3}
       propertyPath: m_PageAscender
       value: 60.639194
@@ -1243,7 +1243,7 @@ PrefabInstance:
     - target: {fileID: 6920139244479182507, guid: ac1d8abfa42f8b748827d8eb19c1aee3, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: -2664765926507139670, guid: c1552628c1465b64f800abfc553f8fd6, type: 2}
+      objectReference: {fileID: -2296420654543822234, guid: fcc85f38fbf8e304eab3c9b464202ac4, type: 2}
     - target: {fileID: 6920139244479182507, guid: ac1d8abfa42f8b748827d8eb19c1aee3, type: 3}
       propertyPath: m_ElementAscender
       value: 60.639194
@@ -1598,8 +1598,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Turn : '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: c1552628c1465b64f800abfc553f8fd6, type: 2}
-  m_sharedMaterial: {fileID: -2664765926507139670, guid: c1552628c1465b64f800abfc553f8fd6, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: fcc85f38fbf8e304eab3c9b464202ac4, type: 2}
+  m_sharedMaterial: {fileID: -2296420654543822234, guid: fcc85f38fbf8e304eab3c9b464202ac4, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
