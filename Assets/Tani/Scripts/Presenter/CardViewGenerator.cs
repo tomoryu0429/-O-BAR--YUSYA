@@ -67,18 +67,22 @@ namespace Tani
 
             }
 
-            playerData.CardManager.containers[(int)type].OnCardAdded += AddCard;
-            playerData.CardManager.containers[(int)type].OnCardRemoved += RemoveCard;
+            //CardContainerのイベントに登録
+            playerData.CardManager.containers[(int)type].OnCardAdded
+                .AsObservable()
+                .Subscribe((arg) => AddCard(arg.Arg0, arg.Arg1))
+                .AddTo(this);
+
+            playerData.CardManager.containers[(int)type].OnCardRemoved
+                 .AsObservable()
+                 .Subscribe((arg) => RemoveCard(arg.Arg0, arg.Arg1))
+                 .AddTo(this);
 
             //初期化終了
             CS_Init.TrySetResult();
         }
 
-        private void OnDestroy()
-        {
-            playerData.CardManager.containers[(int)type].OnCardAdded -= AddCard;
-            playerData.CardManager.containers[(int)type].OnCardRemoved -= RemoveCard;
-        }
+    
         public void AddCard(int siblingIndex, AutoEnum.ECardID id)
         {
             Tani.CardData cardData = playerData.CardManager.GetCardData(id);

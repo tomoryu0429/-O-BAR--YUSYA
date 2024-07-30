@@ -15,15 +15,15 @@ public  class CardContainer
     /// <summary>
     /// 引数はリストの要素がaddされた要素のindex,id
     /// </summary>
-    public event UnityAction<int,AutoEnum.ECardID> OnCardAdded;
+    public  UnityEvent<int,AutoEnum.ECardID> OnCardAdded = new();
     /// <summary>
     /// 引数はリストの要素がRemoveされた要素のindex,id
     /// </summary>
-    public event UnityAction<int, AutoEnum.ECardID> OnCardRemoved;
+    public  UnityEvent<int, AutoEnum.ECardID> OnCardRemoved = new();
     /// <summary>
     /// 引数はリストの要素がRemoveされた要素のindex,id
     /// </summary>
-    public event UnityAction<int, AutoEnum.ECardID> OnCardUsed;
+    public  UnityEvent<int, AutoEnum.ECardID> OnCardUsed = new();
 
     protected List<AutoEnum.ECardID> cards = new();
 
@@ -79,6 +79,7 @@ public  class CardContainer
         var id = cards[index];
         Remove(index);
         OnCardUsed?.Invoke(index, id);
+        
     }
     public bool Contains(AutoEnum.ECardID id)
     {
@@ -136,19 +137,4 @@ public  class CardContainer
 
 }
 
-public class DrawPile : CardContainer
-{
 
-}
-
-public class HandPile : CardContainer
-{
-
-
-
-}
-
-public class DiscardPile : CardContainer
-{
-
-}

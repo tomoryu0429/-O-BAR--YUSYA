@@ -4,6 +4,7 @@ using UnityEngine;
 using Alchemy.Inspector;
 using System.Linq;
 using Cysharp.Threading.Tasks;
+using R3;
 
 namespace Tani
 {
@@ -33,7 +34,10 @@ namespace Tani
             containers[0] = new CardContainer();
             containers[1] = new CardContainer();
             containers[2] = new CardContainer();
-            containers[(int)EPileType.Hand].OnCardUsed += HandPileCardOnUsed;
+            containers[(int)EPileType.Hand].OnCardUsed
+                .AsObservable()
+                .Subscribe(arg => HandPileCardOnUsed(arg.Arg0, arg.Arg1))
+                .AddTo(this);
 
             GetData().Forget();
 

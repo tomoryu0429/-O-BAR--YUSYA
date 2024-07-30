@@ -7,8 +7,7 @@ public  class StateMachine <T>  : MonoBehaviour
 {
      public class State
      {
-        public State(StateMachine<T> stateMachine) { StateMachine = stateMachine; }
-        public StateMachine<T> StateMachine { get; }
+        public StateMachine<T> StateMachine { get; set; }
 
         public virtual void Enter() { }
         public virtual void Tick(float deltaTime) { }
@@ -22,8 +21,10 @@ public  class StateMachine <T>  : MonoBehaviour
     public void ChangeState<S>() where S : State,new()
     {
         CurrentState?.Exit();
-        current = new S();
-        current.StateMachine = this;
+        current = new S
+        {
+            StateMachine = this
+        };
         current?.Enter();
 
     }
