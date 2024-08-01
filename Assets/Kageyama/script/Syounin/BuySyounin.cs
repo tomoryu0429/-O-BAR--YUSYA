@@ -67,6 +67,10 @@ public class BuySyounin : MonoBehaviour
         Debug.Log(Aid);
         Bid = EnumSystem.GetRandom<AutoEnum.ECardID>();
         Debug.Log(Bid);
+        while(Aid == Bid)
+        {
+            Bid = EnumSystem.GetRandom<AutoEnum.ECardID>();
+        }
         /*
         for(int i = 0;i < (int)CardData.ECardID.Max; i++)
         {
@@ -77,6 +81,9 @@ public class BuySyounin : MonoBehaviour
         pd.ReactiveProperty_Money
                   .Subscribe((money) => { MoneyText.text = money.ToString(); })
                   .AddTo(this);
+
+        //テスト用　
+        pd.Money += 300;
 
         //料理カードの確率
         rnd = Random.Range(1, 100);
@@ -170,7 +177,8 @@ public class BuySyounin : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1)&& SozaiA)
+        /*
+        if (Input.GetKeyDown(KeyCode.Alpha1)&& SozaiA && pd.Money > pd.CardManager.GetCardData(Aid).BuyPrice)
         {
             pd.Money -= pd.CardManager.GetCardData(Aid).BuyPrice;
             Nametext.text = "";
@@ -181,7 +189,7 @@ public class BuySyounin : MonoBehaviour
 
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha2) && SozaiB)
+        if (Input.GetKeyDown(KeyCode.Alpha2) && SozaiB && pd.Money > pd.CardManager.GetCardData(Bid).BuyPrice)
         {
             pd.Money -= pd.CardManager.GetCardData(Bid).BuyPrice;
             Nametext2.text = "";
@@ -194,7 +202,7 @@ public class BuySyounin : MonoBehaviour
 
         for (int i = 0; i < 11; i++)
                 {
-                    if (Input.GetKeyDown(KeyCode.Alpha3) && Number == i && Food)
+                    if (Input.GetKeyDown(KeyCode.Alpha3) && Number == i && Food && pd.Money > BuyGoldF[i])
                     {
                         pd.Money -= BuyGoldF[i];
                         NametextF.text = "";
@@ -202,6 +210,44 @@ public class BuySyounin : MonoBehaviour
                         Food = false;
                     }
                 }
+        */
+    }
+
+    public void OnClickBuy1()
+    {
+        if (SozaiA && pd.Money >= pd.CardManager.GetCardData(Aid).BuyPrice) 
+        {
+            pd.Money -= pd.CardManager.GetCardData(Aid).BuyPrice;
+            Nametext.text = "";
+            BuyText.text = "";
+            pd.CardManager.containers[(int)CardManager.EPileType.Hand].AddCard(Aid);//手札に加える
+                                                                                    //Debug.Log();
+            SozaiA = false;
+        }
+    }
+
+    public void OnClickBuy2()
+    {
+        if (SozaiB && pd.Money >= pd.CardManager.GetCardData(Bid).BuyPrice)
+        {
+            pd.Money -= pd.CardManager.GetCardData(Bid).BuyPrice;
+            Nametext2.text = "";
+            BuyText2.text = "";
+            pd.CardManager.containers[(int)CardManager.EPileType.Hand].AddCard(Bid);
+            SozaiB = false;
+        }
+    }
+
+    public void OnClickBuy3()
+    {
+            if (Food && pd.Money >= BuyGoldF[Number])
+            {
+                pd.Money -= BuyGoldF[Number];
+                NametextF.text = "";
+                BuyTextF.text = "";
+            //pd.CardManager.containers[(int)CardManager.EPileType.Hand].AddCard(Bid);
+            Food = false;
+            }
         
     }
 }

@@ -16,15 +16,18 @@ public class SelectSyounin : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            buy = true;
-            sell = false;
-        }
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            sell = true;
-            buy = false;
-        }
+
+    }
+
+    public void OnClickBuy()
+    {
+        buy = true;
+        sell = false;
+    }
+
+    public void OnClickSell()
+    {
+        sell = true;
+        buy = false;
     }
 }
