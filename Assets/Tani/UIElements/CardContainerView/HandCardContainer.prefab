@@ -162,7 +162,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_TargetDisplay: 0
 --- !u!114 &3830367358714122767
 MonoBehaviour:
@@ -250,6 +250,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerData: {fileID: 0}
+  visibilityRoot: {fileID: 5795204398293569504}
   card_parent: {fileID: 677781650744139745}
   card_prefab: {fileID: 7282455087063911953, guid: 2cb69a76f3d7b5a4d816b33a29970c16, type: 3}
   type: 0
+  toolTipPrefab: {fileID: 2100459195129703533, guid: ffa99bcee1f1a0f42a3d13b727578cd7, type: 3}

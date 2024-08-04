@@ -59,8 +59,8 @@ public class PlayerData : MonoBehaviour,IHealth
 
 
     //private
-    ReactiveProperty<int> hp = new ReactiveProperty<int>(MAX_HP);
-    ReactiveProperty<int> yp = new ReactiveProperty<int>(MAX_YP);
+    ReactiveProperty<int> hp = new ReactiveProperty<int>(100);
+    ReactiveProperty<int> yp = new ReactiveProperty<int>(80);
     ReactiveProperty<int> money = new ReactiveProperty<int>(0);
     ReactiveProperty<int> attack = new ReactiveProperty<int>(0);
     ReactiveProperty<int> diffese = new ReactiveProperty<int>(0);

@@ -14,7 +14,7 @@ namespace Tani
     public class PresenterWithPlayerData : MonoBehaviour
     {
         [SerializeField]
-        HpBarView hpBar;
+        BarView hpBar;
         [SerializeField]
         PlayerData playerData;
 
@@ -25,7 +25,7 @@ namespace Tani
             //HPに応じてHPBarのゲージを設定
             playerData
                 .HealthProperty
-                .Subscribe(x => hpBar.SetHpPercent(x / 100.0f))
+                .Subscribe(x => hpBar.SetBarPercent(x / 100.0f))
                 .AddTo(this);
 
             //Hpが0になったとき「PlayerDeath」と表示

@@ -7,20 +7,20 @@ using R3.Triggers;
 
 namespace Tani
 {
-    public class HpBarView : MonoBehaviour
+    public class BarView : MonoBehaviour
     {
         [SerializeField]
-        Image hp_bar_green;
+        Image fillableImage;
 
 
         /// <summary>
         /// HpŠ„‡‚ğ0 - 1‚Ì”ÍˆÍ‚Åw’è
         /// </summary>
         /// <param name="value"></param>
-        public void SetHpPercent(float value)
+        public void SetBarPercent(float value)
         {
             value = Mathf.Clamp01(value);
-            hp_bar_green.fillAmount = value;
+            fillableImage.fillAmount = value;
         }
 
         private void Start()

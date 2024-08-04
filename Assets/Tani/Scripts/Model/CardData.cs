@@ -26,6 +26,10 @@ namespace Tani
         [SerializeField]
         private Sprite cardSprite;
 
+        [field:SerializeField] public int YP_Increase { get; private set; }
+        [field: SerializeField] public int Def_Increase { get; private set; }
+
+
         public ECardID CardID => cardID;
         public string CardName => cardName;
         public ECardKinds CardKind => kind;
