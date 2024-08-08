@@ -55,6 +55,10 @@ public class PlayerData : MonoBehaviour,IHealth
         get => hp.CurrentValue;
         set => hp.Value = Mathf.Clamp(value, 0, MAX_HP);
     }
+    public int MaxHealth {
+        get => MAX_HP;
+        set => throw new System.NotImplementedException(); 
+    }
 
 
 
@@ -62,7 +66,7 @@ public class PlayerData : MonoBehaviour,IHealth
     ReactiveProperty<int> hp = new ReactiveProperty<int>(100);
     ReactiveProperty<int> yp = new ReactiveProperty<int>(80);
     ReactiveProperty<int> money = new ReactiveProperty<int>(0);
-    ReactiveProperty<int> attack = new ReactiveProperty<int>(0);
+    ReactiveProperty<int> attack = new ReactiveProperty<int>(5);
     ReactiveProperty<int> diffese = new ReactiveProperty<int>(0);
  
 

@@ -7,20 +7,34 @@ using System.Threading;
 using System;
 using Tani;
 using R3;
+using System.Linq;
+using Alchemy.Inspector;
 
 public class MainGameLogic : MonoBehaviour
 {
     [SerializeField]PlayerData _playerData;
-    [SerializeField] List<GameObject> _enemyDatas;
-    [SerializeField] Transform[] _enemyPoints;
+    [SerializeField] List<EnemyPackage> _enemyPacks;
+    [SerializeField] Transform _enemyParent;
+
+    [SerializeField] bool UseFixedIndex = false;
+    [SerializeField,ShowIf(nameof(UseFixedIndex))] int _index = 0;
 
     CancellationToken cts;
-
-    List<EnemyBase> _enemies;
+    EnemyPackage _selectedPack;
+    List<EnemyBase> _enemies = new();
+    PlayerCombat _playerCombat;
 
     private async void Start()
     {
-        cts = new CancellationToken();
+        if (!UseFixedIndex)
+        {
+            int _index = Mathf.FloorToInt(UnityEngine.Random.Range(0, _enemyPacks.Count - float.Epsilon));
+
+        }
+        _selectedPack = _enemyPacks[_index];
+         cts = new CancellationToken();
+        _playerCombat = _playerData.gameObject.GetComponent<PlayerCombat>();
+
         await InitAsync(cts);
         GameLoop(cts).Forget();
 
@@ -29,10 +43,10 @@ public class MainGameLogic : MonoBehaviour
 
     private async UniTask InitAsync(CancellationToken cts)
     {
-        GameObject enemy = Instantiate<GameObject>(_enemyDatas[0], _enemyPoints[0]);
-        EnemyBase enemyBase = enemy.GetComponent<EnemyBase>();
-        enemyBase.Init(_playerData);
-        _enemies.Add(enemyBase);
+        _enemies = EnemyPackage.InstEnemies(_selectedPack.EnemyDatas,_enemyParent).ToList();
+        _enemies.ForEach(enemy => enemy.Init(_playerData));
+
+
 
 
         await UniTask.Yield(cancellationToken: cts);
@@ -72,15 +86,24 @@ public class MainGameLogic : MonoBehaviour
         _playerData.CardManager.DrawCard();
         _playerData.CardManager.DrawCard();
         _playerData.CardManager.DrawCard();
-        await UniTask.Delay(1000);
 
     }
 
     private async UniTask HeroPhaseAsync(CancellationToken cts)
     {
-        //入力受付
-       var selectedData =   await SelectCardAsync().Task;
-        CardData data = CardSystem.CardSystemUtility.GetCardData(selectedData.Item2);
+        CardData data = null;
+        try
+        {
+            //入力受付
+            var selectedData = await SelectCardAsync().Task;
+            data = CardSystem.CardSystemUtility.GetCardData(selectedData.Item2);
+        }
+        catch(Exception e)
+        {
+            print(e.Message);
+        }
+      
+       
         print(data.CardName.ToString() + "を使用");
 
         _playerData.YP += data.YP_Increase;
@@ -96,6 +119,9 @@ public class MainGameLogic : MonoBehaviour
     }
     private async UniTask BattlePhaseAsync(CancellationToken cts)
     {
+        _playerCombat.CurrentTarget = _enemies.Find(e => e.Health > 0);
+        _playerCombat.AttackEnemy();
+
         await UniTask.Delay(1000);
 
     }

@@ -13,16 +13,22 @@ public class EnemySlime : EnemyBase
         get => health.CurrentValue;
         set => health.Value = Mathf.Clamp(value, 0, 10);
     }
+    public override int MaxHealth { 
+        get => _maxHealth;
+        set => throw new System.NotImplementedException(); 
+    }
 
     public override ReadOnlyReactiveProperty<int> HealthProperty => health.ToReadOnlyReactiveProperty();
 
 
+    private ReactiveProperty<int> health = new(_maxHealth);
+
+
     private int currentActionIndex = 0;
-    const int MaxHealth = 10;
+    const int _maxHealth = 10;
 
 
 
-    private ReactiveProperty<int> health = new(MaxHealth);
 
     private enum ESlimeActions
     {
@@ -54,5 +60,7 @@ public class EnemySlime : EnemyBase
         Defence = 0;
 
         Health -= realDamage;
+
+        print($"{gameObject.name}‚Í{realDamage}‚ðŽó‚¯HP‚ª{Health}‚É‚È‚Á‚½");
     }
 }

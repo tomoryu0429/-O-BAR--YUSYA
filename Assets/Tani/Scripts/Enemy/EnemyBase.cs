@@ -6,6 +6,8 @@ using UnityEngine;
 public abstract class EnemyBase : MonoBehaviour,IHealth
 {
     public abstract int Health { get; set; }
+    public abstract int MaxHealth { get; set; }
+
     public abstract ReadOnlyReactiveProperty<int> HealthProperty { get; }
 
 
