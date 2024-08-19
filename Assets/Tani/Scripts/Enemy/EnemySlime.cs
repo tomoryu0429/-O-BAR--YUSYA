@@ -7,26 +7,52 @@ public class EnemySlime : EnemyBase
 {
 
     [SerializeField] ESlimeActions[] actions;
+    private static readonly int MAXHEALTH = 20;
+    private static readonly int MAXATTACK = int.MaxValue;
+    private static readonly int MAXDEFECE = int.MaxValue;
 
+    private static readonly int initialAttackValue = 5;
+    private static readonly int initialDefenceValue = 2;
+    
     public override int Health
     {
-        get => health.CurrentValue;
-        set => health.Value = Mathf.Clamp(value, 0, 10);
+        get => _health.CurrentValue;
+        set => _health.Value = Mathf.Clamp(value, 0, MAXHEALTH);
     }
-    public override int MaxHealth { 
-        get => _maxHealth;
-        set => throw new System.NotImplementedException(); 
+    public override int Attack {
+        get => throw new System.NotImplementedException();
+        set => throw new System.NotImplementedException();
     }
 
-    public override ReadOnlyReactiveProperty<int> HealthProperty => health.ToReadOnlyReactiveProperty();
+    public override int Defence { 
+        get => throw new System.NotImplementedException();
+        set => throw new System.NotImplementedException();
+    }
 
+    public override Observable<int> HealthObservable => _health;
+    public override Observable<int> AttackObservable => throw new System.NotImplementedException();
 
-    private ReactiveProperty<int> health = new(_maxHealth);
+    public override Observable<int> DefenceObservable => throw new System.NotImplementedException();
+
+    public override (int minHealth, int maxHealth) HealthValueRange { 
+        get => (0,MAXHEALTH);
+        set => throw new System.NotImplementedException();
+    }
+    public override (int minDefence, int MaxDefence) DefenceValueRange {
+        get => (0,MAXDEFECE);
+        set => throw new System.NotImplementedException();
+    }
+    public override (int minAttack, int maxAttack) AttackValueRange { 
+        get => (0,MAXATTACK); 
+        set => throw new System.NotImplementedException();
+    }
+
+    private ReactiveProperty<int> _health = new(MAXHEALTH);
+    private ReactiveProperty<int> _attack = new ReactiveProperty<int>(initialAttackValue);
+    private ReactiveProperty<int> _defence = new ReactiveProperty<int>(initialDefenceValue);
 
 
     private int currentActionIndex = 0;
-    const int _maxHealth = 10;
-
 
 
 
@@ -53,11 +79,11 @@ public class EnemySlime : EnemyBase
         }
     }
 
-    public override void GetDamage(int damage)
+    public override void TakeDamage(int damage)
     {
         int realDamage = damage - Defence;
         if(realDamage <= 0) { realDamage = 0; }
-        Defence = 0;
+        
 
         Health -= realDamage;
 

@@ -28,7 +28,7 @@ public class MainGameLogic : MonoBehaviour
     {
         if (!UseFixedIndex)
         {
-            int _index = Mathf.FloorToInt(UnityEngine.Random.Range(0, _enemyPacks.Count - float.Epsilon));
+            int _index = Mathf.FloorToInt(UnityEngine.Random.Range(0, _enemyPacks.Count));
 
         }
         _selectedPack = _enemyPacks[_index];

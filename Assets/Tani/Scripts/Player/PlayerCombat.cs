@@ -10,6 +10,6 @@ public class PlayerCombat : MonoBehaviour
     public void AttackEnemy()
     {
         print($"{CurrentTarget.gameObject.name}‚ÉUŒ‚");
-        CurrentTarget.GetDamage(_playerData.Attack);
+        CurrentTarget.TakeDamage(_playerData.Attack);
     }
 }
