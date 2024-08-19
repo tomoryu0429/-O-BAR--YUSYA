@@ -34,13 +34,27 @@ namespace Tani
             containers[1] = new CardContainer();
             containers[2] = new CardContainer();
 
+            //ŽèŽD‚ªŽg—p‚³‚ê‚½‚Æ‚«Žg—p‚³‚ê‚½ŽèŽD‚ÆŽc‚è‚ÌŽèŽD‚Í•æ’n‚É‘—‚ç‚ê‚é
             containers[(int)EPileType.Hand].OnCardUsed
                 .AsObservable()
-                .Subscribe(arg => HandPileCardOnUsed(arg.Arg0, arg.Arg1))
+                .Subscribe(arg => {
+
+                    containers[(int)EPileType.Discard].AddCard(arg.Arg1);
+
+                    CardContainer handContainer = containers[(int)CardManager.EPileType.Hand];
+                    foreach (var n in handContainer.GetAllCards())
+                    {
+                       containers[(int)EPileType.Discard].AddCard(n);
+                    }
+                    handContainer.ClearCards();
+
+                })
                 .AddTo(this);
 
 
-           
+            
+
+          
         }
 
         public void DrawCard()
@@ -87,10 +101,6 @@ namespace Tani
             return sortedList;
         }
 
-        private void HandPileCardOnUsed (int index, AutoEnum.ECardID id)
-        {
-            containers[(int)EPileType.Discard].AddCard(id);
-        }
 
 
         [Obsolete]

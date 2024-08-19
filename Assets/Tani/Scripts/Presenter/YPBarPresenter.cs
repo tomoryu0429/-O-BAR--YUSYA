@@ -11,7 +11,7 @@ public class YPBarPresenter : MonoBehaviour
 
     private void Start()
     {
-        _playerData.ReactiveProperty_YP
+        _playerData.YPObservable
             .Subscribe(yp =>
             {
                 bar.SetBarPercent((float)yp / 100.0f);

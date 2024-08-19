@@ -11,9 +11,9 @@ public class EnemyUIBinder : MonoBehaviour
 
     private void Start()
     {
-        _enemyData.HealthProperty.Subscribe(health =>
+        _enemyData.HealthObservable.Subscribe(health =>
         {
-            _fillImage.fillAmount = (float)health / (float)_enemyData.MaxHealth;
+            _fillImage.fillAmount = (float)health / (float)_enemyData.HealthValueRange.maxHealth;
         }).AddTo(this);
     }
 }

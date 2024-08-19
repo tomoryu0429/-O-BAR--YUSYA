@@ -6,7 +6,7 @@ using Tani;
 using Cysharp.Threading.Tasks;
 using System.Threading.Tasks;
 
-public class PlayerData : MonoBehaviour,IHealth
+public class PlayerData : MonoBehaviour,ICombatStatus
 {
     //public
     public static readonly int MAX_HP = 100;
@@ -32,33 +32,43 @@ public class PlayerData : MonoBehaviour,IHealth
         set => money.Value = value;
     }
 
-    public int Attack
-    {
-        get => attack.Value;
-        set => attack.Value = value;
-    }
-    public int Diffense
-    {
-        get => diffese.Value;
-        set => diffese.Value = value;
-    }
 
-    public ReadOnlyReactiveProperty<int> ReactiveProperty_YP => yp.ToReadOnlyReactiveProperty();
-    public ReadOnlyReactiveProperty<int> ReactiveProperty_Money => money.ToReadOnlyReactiveProperty();
-    public ReadOnlyReactiveProperty<int> ReactiveProperty_Attack => attack.ToReadOnlyReactiveProperty();
-    public ReadOnlyReactiveProperty<int> ReactiveProperty_Diffense => diffese.ToReadOnlyReactiveProperty();
+    public Observable<int> YPObservable => yp;
+    public ReadOnlyReactiveProperty<int> MoneyObservable => money;
 
-    public ReadOnlyReactiveProperty<int> HealthProperty { 
-        get => hp.ToReadOnlyReactiveProperty();
-    }
     public int Health {
         get => hp.CurrentValue;
         set => hp.Value = Mathf.Clamp(value, 0, MAX_HP);
     }
-    public int MaxHealth {
-        get => MAX_HP;
+    public int Defence { 
+        get => defence.CurrentValue; 
+        set => defence.Value = Mathf.Max(0,value);
+    }
+    public int Attack {
+        get => attack.CurrentValue;
+        set => attack.Value = Mathf.Max(0,value);
+    }
+
+
+
+    public Observable<int> HealthObservable => hp;
+    public Observable<int> AttackObservable => attack;
+    public Observable<int> DefenceObservable => defence;
+    public (int minHealth, int maxHealth) HealthValueRange
+    {
+        get => (0,MAX_HP);
+        set => throw new System.NotImplementedException();
+    }
+    public (int minDefence, int MaxDefence) DefenceValueRange {
+        get => (0,int.MaxValue); 
         set => throw new System.NotImplementedException(); 
     }
+    public (int minAttack, int maxAttack) AttackValueRange {
+        get => (0, int.MaxValue); 
+        set => throw new System.NotImplementedException();
+    }
+
+
 
 
 
@@ -67,7 +77,7 @@ public class PlayerData : MonoBehaviour,IHealth
     ReactiveProperty<int> yp = new ReactiveProperty<int>(80);
     ReactiveProperty<int> money = new ReactiveProperty<int>(0);
     ReactiveProperty<int> attack = new ReactiveProperty<int>(5);
-    ReactiveProperty<int> diffese = new ReactiveProperty<int>(0);
+    ReactiveProperty<int> defence = new ReactiveProperty<int>(0);
  
 
 

@@ -70,12 +70,12 @@ public class MainGameLogic : MonoBehaviour
 
     private async UniTask StartPhaseAsync(CancellationToken cts)
     {
-        _playerData.Diffense = 0;
+        _playerData.Defence = 0;
         _playerData.YP -= 5;
 
         print($"HP : {_playerData.Health}");
         print($"YP : {_playerData.YP    }");
-        print($"DEF : {_playerData.Diffense }");
+        print($"DEF : {_playerData.Defence }");
 
         await UniTask.Delay(1000);
 
@@ -107,7 +107,7 @@ public class MainGameLogic : MonoBehaviour
         print(data.CardName.ToString() + "‚ğg—p");
 
         _playerData.YP += data.YP_Increase;
-        _playerData.Diffense += data.Def_Increase;
+        _playerData.Defence += data.Def_Increase;
 
         print($"YP‚ª : {data.YP_Increase   }‘‰Á");
         print($"DEF‚ª : {data.Def_Increase }‘‰Á");

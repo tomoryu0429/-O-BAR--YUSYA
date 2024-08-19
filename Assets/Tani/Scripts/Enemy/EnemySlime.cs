@@ -20,18 +20,17 @@ public class EnemySlime : EnemyBase
         set => _health.Value = Mathf.Clamp(value, 0, MAXHEALTH);
     }
     public override int Attack {
-        get => throw new System.NotImplementedException();
-        set => throw new System.NotImplementedException();
+        get => _attack.CurrentValue;
+        set => _attack.Value = Mathf.Max(0,value);
     }
 
     public override int Defence { 
-        get => throw new System.NotImplementedException();
-        set => throw new System.NotImplementedException();
+        get => _defence.CurrentValue;
+        set => _defence.Value = Mathf.Max(0, value);
     }
 
     public override Observable<int> HealthObservable => _health;
     public override Observable<int> AttackObservable => throw new System.NotImplementedException();
-
     public override Observable<int> DefenceObservable => throw new System.NotImplementedException();
 
     public override (int minHealth, int maxHealth) HealthValueRange { 
