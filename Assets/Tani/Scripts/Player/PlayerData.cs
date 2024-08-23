@@ -6,14 +6,28 @@ using Tani;
 using Cysharp.Threading.Tasks;
 using System.Threading.Tasks;
 
-public class PlayerData : MonoBehaviour,ICombatStatus
+public class PlayerData : ICombatStatus,DamageUtility.IDamagable
 {
+
+    private PlayerData() { }
+
+    private static PlayerData instance = null;
+    public static PlayerData Instance
+    {
+        get
+        {
+            if (instance != null) return instance;
+            instance = new PlayerData();
+            instance.Initialize();
+            return instance;
+        }
+    }
+
     //public
     public static readonly int MAX_HP = 100;
     public static readonly int MAX_YP = 100;
-    public UniTaskCompletionSource CS_Init { get; private set; } = new UniTaskCompletionSource();
 
-    [field: SerializeField]public CardManager CardManager { get; private set; }
+    public CardManager CardManager { get; private set; }
 
     /// <summary>
     /// 勇者のやる気ポイントの取得と設定、値は0 - MAX_YPにクランプされる
@@ -34,7 +48,7 @@ public class PlayerData : MonoBehaviour,ICombatStatus
 
 
     public Observable<int> YPObservable => yp;
-    public ReadOnlyReactiveProperty<int> MoneyObservable => money;
+    public Observable<int> MoneyObservable => money;
 
     public int Health {
         get => hp.CurrentValue;
@@ -81,24 +95,26 @@ public class PlayerData : MonoBehaviour,ICombatStatus
  
 
 
-
-    private void Start()
+    private void Initialize()
     {
-        CardManager = GetComponent<CardManager>();
+        CardManager = new CardManager();
 
-        CS_Init.TrySetResult();
 
-        for(int i = 0; i < 8 ; i++)
+        for (int i = 0; i < 8; i++)
         {
             CardManager.containers[(int)CardManager.EPileType.Draw]
                 .AddCard((AutoEnum.ECardID)Mathf.FloorToInt(Random.Range(0, (int)AutoEnum.ECardID.Max)));
 
         }
-
-
-
     }
 
+    public void OnTakeDamage(float damage, DamageUtility.IDamageValueBase value = null)
+    {
+        float realDamage = damage - Defence;
+        realDamage = Mathf.Max(0, realDamage);
+
+        Health -= (int)realDamage;
+    }
 }
 
 

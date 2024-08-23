@@ -14,7 +14,7 @@ namespace Tani
     /// </summary>
     
     
-    public class CardManager : MonoBehaviour
+    public class CardManager
     {
         public enum EPileType
         {
@@ -23,11 +23,11 @@ namespace Tani
 
 
         public CardContainer[] containers = new CardContainer[(int)EPileType.Max];
-        public UniTaskCompletionSource CS_Init = new UniTaskCompletionSource();
+
         Dictionary<AutoEnum.ECardID, CardData> cardDatas = new();
 
 
-        private  void Awake()
+        public CardManager()
         {
 
             containers[0] = new CardContainer();
@@ -37,26 +37,22 @@ namespace Tani
             //èD‚ªg—p‚³‚ê‚½‚Æ‚«g—p‚³‚ê‚½èD‚Æc‚è‚ÌèD‚Í•æ’n‚É‘—‚ç‚ê‚é
             containers[(int)EPileType.Hand].OnCardUsed
                 .AsObservable()
-                .Subscribe(arg => {
+                .Subscribe(arg =>
+                {
 
                     containers[(int)EPileType.Discard].AddCard(arg.Arg1);
 
                     CardContainer handContainer = containers[(int)CardManager.EPileType.Hand];
                     foreach (var n in handContainer.GetAllCards())
                     {
-                       containers[(int)EPileType.Discard].AddCard(n);
+                        containers[(int)EPileType.Discard].AddCard(n);
                     }
                     handContainer.ClearCards();
 
-                })
-                .AddTo(this);
-
-
-            
-
-          
+                });
         }
 
+        //RD‚©‚çˆê–‡ˆø‚«AèD‚ÉˆÚ“®
         public void DrawCard()
         {
             var drawPile = containers[(int)EPileType.Draw];

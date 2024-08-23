@@ -138,7 +138,7 @@ PrefabInstance:
     - target: {fileID: 1294864870936308885, guid: 5d00ed4190f17bb4c843a9e56503dac8, type: 3}
       propertyPath: playerData
       value: 
-      objectReference: {fileID: 1446820436}
+      objectReference: {fileID: 0}
     - target: {fileID: 3334494094691844756, guid: 5d00ed4190f17bb4c843a9e56503dac8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 870.8622
@@ -252,7 +252,7 @@ PrefabInstance:
     - target: {fileID: 6931099524677749250, guid: ce87973959223e34c8b1b01f52d86461, type: 3}
       propertyPath: playerData
       value: 
-      objectReference: {fileID: 1446820436}
+      objectReference: {fileID: 0}
     - target: {fileID: 7300575867040704617, guid: ce87973959223e34c8b1b01f52d86461, type: 3}
       propertyPath: m_Name
       value: HandCardContainer
@@ -427,7 +427,7 @@ PrefabInstance:
     - target: {fileID: 1294864870936308885, guid: 5d00ed4190f17bb4c843a9e56503dac8, type: 3}
       propertyPath: playerData
       value: 
-      objectReference: {fileID: 1446820436}
+      objectReference: {fileID: 0}
     - target: {fileID: 3334494094691844756, guid: 5d00ed4190f17bb4c843a9e56503dac8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 870.8622
@@ -580,7 +580,7 @@ PrefabInstance:
     - target: {fileID: 7264408337634982588, guid: f7dd8bb7a5d236549b24bf78f7c15f7c, type: 3}
       propertyPath: playerData
       value: 
-      objectReference: {fileID: 1446820436}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -705,7 +705,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffd4d509b3ce186448fd884ff3906b6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerData: {fileID: 1446820436}
   _enemyPacks:
   - {fileID: 11400000, guid: 70be6a5c366fbe64aa37cdf316749c0b, type: 2}
   _enemyParent: {fileID: 149323504}
@@ -768,6 +767,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 2300692677038659559, guid: 322ccad509819b849a014f07c96f48cb, type: 3}
+      propertyPath: _playerData
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3885467352156879762, guid: 322ccad509819b849a014f07c96f48cb, type: 3}
+      propertyPath: <CardManager>k__BackingField
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6404797982347107739, guid: 322ccad509819b849a014f07c96f48cb, type: 3}
       propertyPath: m_LocalPosition.x
       value: -89.13782
@@ -808,7 +815,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8898048795431912105, guid: 322ccad509819b849a014f07c96f48cb, type: 3}
+    - {fileID: 3885467352156879762, guid: 322ccad509819b849a014f07c96f48cb, type: 3}
+    - {fileID: 2300692677038659559, guid: 322ccad509819b849a014f07c96f48cb, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -1190,17 +1200,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ac1d8abfa42f8b748827d8eb19c1aee3, type: 3}
---- !u!114 &1446820436 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3885467352156879762, guid: 322ccad509819b849a014f07c96f48cb, type: 3}
-  m_PrefabInstance: {fileID: 629078101}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d86518b872c12204b9e8d1626fc33561, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1446820437 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6404797982347107739, guid: 322ccad509819b849a014f07c96f48cb, type: 3}
@@ -1258,7 +1257,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bar: {fileID: 1448562000}
-  _playerData: {fileID: 1446820436}
 --- !u!114 &1448562000
 MonoBehaviour:
   m_ObjectHideFlags: 0

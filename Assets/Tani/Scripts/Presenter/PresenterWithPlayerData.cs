@@ -15,13 +15,14 @@ namespace Tani
     {
         [SerializeField]
         BarView hpBar;
-        [SerializeField]
+    
         PlayerData playerData;
 
         bool isInitialized = false;
         private async void Start()
         {
-            await playerData.CS_Init.Task;
+            playerData = PlayerData.Instance;
+
             //HP‚É‰‚¶‚ÄHPBar‚ÌƒQ[ƒW‚ğİ’è
             playerData
                 .HealthObservable

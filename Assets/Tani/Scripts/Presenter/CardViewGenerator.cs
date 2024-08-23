@@ -12,8 +12,8 @@ namespace Tani
 {
     public class CardViewGenerator : MonoBehaviour,IVisibilityControllable
     {
-        [SerializeField]
-        protected PlayerData playerData;
+
+       
         [SerializeField]
         GameObject visibilityRoot;
 
@@ -26,11 +26,11 @@ namespace Tani
 
         public UniTaskCompletionSource CS_Init { get; private set; } = new UniTaskCompletionSource();
         private List<GameObject> cardsList = new();
+        protected PlayerData playerData;
 
-        protected virtual async void Start()
+        protected virtual void Start()
         {
-
-            await playerData.CS_Init.Task;
+            playerData = PlayerData.Instance;
             Init();
   
         }

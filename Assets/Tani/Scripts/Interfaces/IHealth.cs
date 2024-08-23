@@ -14,6 +14,7 @@ public interface ICombatStatus : IHealth
     int Defence { get; set; }
     Observable<int> DefenceObservable { get; }
     (int minDefence,int MaxDefence) DefenceValueRange { get; set; }
+
     int Attack { get; set; }
     Observable<int> AttackObservable { get; }
 

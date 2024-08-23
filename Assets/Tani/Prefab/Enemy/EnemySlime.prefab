@@ -160,8 +160,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 690061353625619121}
-  - component: {fileID: 9102537379625907969}
   - component: {fileID: 2871108578970585442}
+  - component: {fileID: 1613388572756192952}
   m_Layer: 5
   m_Name: EnemySlime
   m_TagString: Untagged
@@ -190,21 +190,6 @@ RectTransform:
   m_AnchoredPosition: {x: 150, y: 45}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &9102537379625907969
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6485327587028249412}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e943850f813b02d489f136456b805a15, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <Attack>k__BackingField: 10
-  <Defence>k__BackingField: 10
-  actions: 000000000100000000000000
 --- !u!114 &2871108578970585442
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -218,7 +203,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _fillImage: {fileID: 7943828314425003076}
-  _enemyData: {fileID: 9102537379625907969}
+  _enemyData: {fileID: 1613388572756192952}
+--- !u!114 &1613388572756192952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6485327587028249412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3123829e2c4b02c46aad1d5b49c44842, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actions: 000000000100000000000000
+  _health:
+    value: 10
+  _defence:
+    value: 0
+  _attack:
+    value: 10
+  _increasePowerMultipleValue: 1.25
+  _increaseDefenceValue: 10
+  _decreaseYPValue: 15
 --- !u!1 &7993535235342726047
 GameObject:
   m_ObjectHideFlags: 0

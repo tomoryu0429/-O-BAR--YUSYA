@@ -12,7 +12,7 @@ using Alchemy.Inspector;
 
 public class MainGameLogic : MonoBehaviour
 {
-    [SerializeField]PlayerData _playerData;
+
     [SerializeField] List<EnemyPackage> _enemyPacks;
     [SerializeField] Transform _enemyParent;
 
@@ -22,10 +22,13 @@ public class MainGameLogic : MonoBehaviour
     CancellationToken cts;
     EnemyPackage _selectedPack;
     List<EnemyBase> _enemies = new();
-    PlayerCombat _playerCombat;
+    PlayerData _playerData;
+    EnemyBase _currentPlayerTarget = null;
 
     private async void Start()
     {
+        _playerData = PlayerData.Instance;
+
         if (!UseFixedIndex)
         {
             int _index = Mathf.FloorToInt(UnityEngine.Random.Range(0, _enemyPacks.Count));
@@ -33,7 +36,7 @@ public class MainGameLogic : MonoBehaviour
         }
         _selectedPack = _enemyPacks[_index];
          cts = new CancellationToken();
-        _playerCombat = _playerData.gameObject.GetComponent<PlayerCombat>();
+        //_playerCombat = _playerData.gameObject.GetComponent<PlayerCombat>();
 
         await InitAsync(cts);
         GameLoop(cts).Forget();
@@ -44,7 +47,7 @@ public class MainGameLogic : MonoBehaviour
     private async UniTask InitAsync(CancellationToken cts)
     {
         _enemies = EnemyPackage.InstEnemies(_selectedPack.EnemyDatas,_enemyParent).ToList();
-        _enemies.ForEach(enemy => enemy.Init(_playerData));
+
 
 
 
@@ -70,6 +73,7 @@ public class MainGameLogic : MonoBehaviour
 
     private async UniTask StartPhaseAsync(CancellationToken cts)
     {
+        //ターン開始時処理
         _playerData.Defence = 0;
         _playerData.YP -= 5;
 
@@ -87,40 +91,38 @@ public class MainGameLogic : MonoBehaviour
         _playerData.CardManager.DrawCard();
         _playerData.CardManager.DrawCard();
 
+
+        
     }
 
     private async UniTask HeroPhaseAsync(CancellationToken cts)
     {
         CardData data = null;
-        try
-        {
-            //入力受付
-            var selectedData = await SelectCardAsync().Task;
-            data = CardSystem.CardSystemUtility.GetCardData(selectedData.Item2);
-        }
-        catch(Exception e)
-        {
-            print(e.Message);
-        }
-      
-       
-        print(data.CardName.ToString() + "を使用");
-
-        _playerData.YP += data.YP_Increase;
-        _playerData.Defence += data.Def_Increase;
-
-        print($"YPが : {data.YP_Increase   }増加");
-        print($"DEFが : {data.Def_Increase }増加");
 
         //カード選択待機
+        var selectedData = await SelectCardAsync().Task;
+        data = CardSystem.CardSystemUtility.GetCardData(selectedData.Item2);
+
+        //使用したカードの効果を適用
+        ApplyCardEffect(data);
+
+
+        
 
         await UniTask.Delay(1000);
 
     }
     private async UniTask BattlePhaseAsync(CancellationToken cts)
     {
-        _playerCombat.CurrentTarget = _enemies.Find(e => e.Health > 0);
-        _playerCombat.AttackEnemy();
+        if(_currentPlayerTarget is not null)
+        {
+            DamageUtility.ApplyDamage((DamageUtility.IDamagable)_currentPlayerTarget, _playerData.Attack);
+        }
+        else
+        {
+            DamageUtility.ApplyDamage((DamageUtility.IDamagable)_enemies.Find(e => e is not null), _playerData.Attack);
+        }
+
 
         await UniTask.Delay(1000);
 
@@ -142,5 +144,34 @@ public class MainGameLogic : MonoBehaviour
            });
 
         return cs;
+    }
+
+    private void ApplyCardEffect(CardData data)
+    {
+        print(data.CardName.ToString() + "を使用");
+
+        _playerData.YP += data.YP_Increase;
+        _playerData.Defence += data.Def_Increase;
+
+
+        print($"YPが : {data.YP_Increase   }増加");
+        print($"DEFが : {data.Def_Increase }増加");
+    }
+
+    public void SetTargetEnemy(EnemyBase enemy)
+    {
+        _currentPlayerTarget = enemy;
+    }
+    public void OnEnemyDie(EnemyBase enemy)
+    {
+        int index = _enemies.FindIndex(e => e == enemy);
+        if(index != -1)
+        {
+            _enemies[index] = null;
+        }
+        else
+        {
+            throw new System.ArgumentOutOfRangeException();
+        }
     }
 }

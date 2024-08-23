@@ -9,9 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6404797982347107739}
-  - component: {fileID: 3885467352156879762}
-  - component: {fileID: 8898048795431912105}
-  - component: {fileID: 2300692677038659559}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -35,44 +32,6 @@ Transform:
   - {fileID: 1893040667584857781}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3885467352156879762
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1671440161590579096}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d86518b872c12204b9e8d1626fc33561, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <CardManager>k__BackingField: {fileID: 8898048795431912105}
---- !u!114 &8898048795431912105
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1671440161590579096}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e1512e9d9937c64893255cbc452e0d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2300692677038659559
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1671440161590579096}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e225987647fdf140a6904d5d85ca7ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _playerData: {fileID: 3885467352156879762}
 --- !u!1 &5145841357499450210
 GameObject:
   m_ObjectHideFlags: 0
