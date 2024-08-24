@@ -12,31 +12,21 @@ using Alchemy.Inspector;
 
 public class MainGameLogic : MonoBehaviour
 {
+    [SerializeField]EnemyControl enemyControl;
 
-    [SerializeField] List<EnemyPackage> _enemyPacks;
-    [SerializeField] Transform _enemyParent;
-
-    [SerializeField] bool UseFixedIndex = false;
-    [SerializeField,ShowIf(nameof(UseFixedIndex))] int _index = 0;
 
     CancellationToken cts;
-    EnemyPackage _selectedPack;
-    List<EnemyBase> _enemies = new();
+
     PlayerData _playerData;
-    EnemyBase _currentPlayerTarget = null;
+
 
     private async void Start()
     {
+
         _playerData = PlayerData.Instance;
 
-        if (!UseFixedIndex)
-        {
-            int _index = Mathf.FloorToInt(UnityEngine.Random.Range(0, _enemyPacks.Count));
 
-        }
-        _selectedPack = _enemyPacks[_index];
          cts = new CancellationToken();
-        //_playerCombat = _playerData.gameObject.GetComponent<PlayerCombat>();
 
         await InitAsync(cts);
         GameLoop(cts).Forget();
@@ -46,16 +36,9 @@ public class MainGameLogic : MonoBehaviour
 
     private async UniTask InitAsync(CancellationToken cts)
     {
-        _enemies = EnemyPackage.InstEnemies(_selectedPack.EnemyDatas,_enemyParent).ToList();
+        enemyControl.SpawnEnemies();
 
-
-
-
-
-        await UniTask.Yield(cancellationToken: cts);
-        await UniTask.Delay(1000);
-
-       
+        await UniTask.Delay(1000); 
     }
 
     private async UniTask GameLoop(CancellationToken cts)
@@ -90,9 +73,6 @@ public class MainGameLogic : MonoBehaviour
         _playerData.CardManager.DrawCard();
         _playerData.CardManager.DrawCard();
         _playerData.CardManager.DrawCard();
-
-
-        
     }
 
     private async UniTask HeroPhaseAsync(CancellationToken cts)
@@ -107,21 +87,13 @@ public class MainGameLogic : MonoBehaviour
         ApplyCardEffect(data);
 
 
-        
-
         await UniTask.Delay(1000);
 
     }
     private async UniTask BattlePhaseAsync(CancellationToken cts)
     {
-        if(_currentPlayerTarget is not null)
-        {
-            DamageUtility.ApplyDamage((DamageUtility.IDamagable)_currentPlayerTarget, _playerData.Attack);
-        }
-        else
-        {
-            DamageUtility.ApplyDamage((DamageUtility.IDamagable)_enemies.Find(e => e is not null), _playerData.Attack);
-        }
+        DamageUtility.ApplyDamage(enemyControl.GetAttackTarget(), _playerData.Attack);
+
 
 
         await UniTask.Delay(1000);
@@ -158,20 +130,5 @@ public class MainGameLogic : MonoBehaviour
         print($"DEF‚ª : {data.Def_Increase }‘‰Á");
     }
 
-    public void SetTargetEnemy(EnemyBase enemy)
-    {
-        _currentPlayerTarget = enemy;
-    }
-    public void OnEnemyDie(EnemyBase enemy)
-    {
-        int index = _enemies.FindIndex(e => e == enemy);
-        if(index != -1)
-        {
-            _enemies[index] = null;
-        }
-        else
-        {
-            throw new System.ArgumentOutOfRangeException();
-        }
-    }
+  
 }

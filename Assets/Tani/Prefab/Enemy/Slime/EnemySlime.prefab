@@ -204,6 +204,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _fillImage: {fileID: 7943828314425003076}
   _enemyData: {fileID: 1613388572756192952}
+  observableEventTrigger: {fileID: 6582508077352197888}
+  OnClickEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnEnemyDieEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1613388572756192952
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -237,6 +244,7 @@ GameObject:
   - component: {fileID: 89656151459058642}
   - component: {fileID: 7547867373844158689}
   - component: {fileID: 2907089229408039770}
+  - component: {fileID: 6582508077352197888}
   m_Layer: 5
   m_Name: MainImage
   m_TagString: Untagged
@@ -301,3 +309,15 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6582508077352197888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7993535235342726047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd253e17d14ec9346b4e8ec0b1ecf277, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
