@@ -13,7 +13,7 @@ namespace CardSystem
         static Dictionary<AutoEnum.ECardID, CardData> dataList = null;
 
         [RuntimeInitializeOnLoadMethod]
-        static public void GetData()
+        static private void GetData()
         {
             dataList = new();
             for (int i = 0; i < (int)AutoEnum.ECardID.Max; i++)
