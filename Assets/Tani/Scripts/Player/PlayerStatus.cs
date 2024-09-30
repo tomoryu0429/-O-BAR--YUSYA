@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //プレイヤーのステータスを管理するクラスです
-public class PlayerStatus 
+public class PlayerStatus : IDamagable
 {
     public PlayerStatus()
     {
@@ -13,14 +13,16 @@ public class PlayerStatus
         Attack = new ReactiveStatus(10, int.MaxValue);
         Guard = new ReactiveStatus(0, int.MaxValue);
         Money = new ReactiveStatus(0, int.MaxValue);
-        PlayerDieAsObservable = Health.Observable.Where(health => health.Value == 0).AsUnitObservable().Publish();
+        PlayerDieAsObservable = 
+            Health.Observable.Where(health => health.Value == 0)
+            .AsUnitObservable().Publish();
     }
 
     public Observable<Unit> PlayerDieAsObservable { get; }
 
-    public void ApplyDamage(int damage)
+    public void ApplyDamage(Damage damage)
     {
-        int realDamage = damage = Guard.Value;
+        int realDamage = damage.damage - Guard.Value;
         realDamage = Mathf.Max(0, realDamage);
         Health.Value -= realDamage;
     }

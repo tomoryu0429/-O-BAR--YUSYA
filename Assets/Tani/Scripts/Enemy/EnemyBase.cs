@@ -3,99 +3,37 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public  class EnemyBase : MonoBehaviour,ICombatStatus,DamageUtility.IDamagable
+
+//基本的な敵のロジックを管理するクラス
+//特殊な敵はこのクラスを継承する
+public  class EnemyBase : MonoBehaviour,IDamagable
 {
     [SerializeField] EEnemyActions[] actions;
-    [SerializeField] SerializableReactiveProperty<int> _health;
-    [SerializeField] SerializableReactiveProperty<int> _defence;
-    [SerializeField] SerializableReactiveProperty<int> _attack;
+    [SerializeField] int _health;
+    [SerializeField] int _guard;
+    [SerializeField] int _attack;
+    [Space(20)]
     [SerializeField,Tooltip("25%増加は1.25を指定")] float _increasePowerMultipleValue = 1.25f;
-    [SerializeField, Tooltip("10増加は10を指定")] int _increaseDefenceValue = 10;
+    [SerializeField, Tooltip("10増加は10を指定")] int _increaseGuardValue = 10;
     [SerializeField, Tooltip("15%の減少は15を指定")] int _decreaseYPValue = 15;
 
 
-    private int MAXHEALTH;
-    private bool isIncreasedPower = false;
+    //ステータス
+    public EnemyStatus Status { get; private set; }
+
+
+
     private int _currentActionIndex = -1;
 
     protected virtual void Awake()
     {
-        MAXHEALTH = _health.CurrentValue;
+        Status = new EnemyStatus(_health, _attack, _guard);
     }
 
     protected enum EEnemyActions
     {
-        Attack, Guard,IncreaseAttack,Demotivate, Max
+        Attack, Guard,IncreaseAttack,Demotivate,Special
     }
-    public  int Health
-    {
-        get => _health.CurrentValue;
-        set => _health.Value = Mathf.Clamp(value, 0, MAXHEALTH);
-    }
-    public  int Attack
-    {
-        get => (int)(isIncreasedPower ? _attack.Value * _increasePowerMultipleValue : _attack.Value);
-        set => _attack.Value = Mathf.Max(0, value);
-    }
-
-    public  int Defence
-    {
-        get => _defence.CurrentValue;
-        set => _defence.Value = Mathf.Max(0, value);
-    }
-
-
-    public  Observable<int> HealthObservable { get => _health; }
-    public  Observable<int> DefenceObservable { get => _defence; }
-    public  Observable<int> AttackObservable { get => _attack; }
-    
-    public  (int minHealth, int maxHealth) HealthValueRange { 
-        get => (0,MAXHEALTH);
-        set => throw new System.NotImplementedException(); 
-    }
-
-    public virtual (int minDefence, int MaxDefence) DefenceValueRange { 
-        get => throw new System.NotImplementedException(); 
-        set => throw new System.NotImplementedException(); 
-    }
-    public virtual (int minAttack, int maxAttack) AttackValueRange { 
-        get => throw new System.NotImplementedException();
-        set => throw new System.NotImplementedException();
-    }
-
-    public  void OnTakeDamage(float damage, DamageUtility.IDamageValueBase value = null)
-    {
-        int readDamage = (int)Mathf.Max(0,damage - Defence);
-        Defence = 0;
-
-        Health -= readDamage;
-    }
-
-
-    public virtual void PerformAttack()
-    {
-        var action = GetCurrentAction();
-
-        switch (action)
-        {
-            case EEnemyActions.Attack:
-                DamageUtility.ApplyDamage(PlayerData.Instance, Attack);
-                isIncreasedPower = false;
-                break;
-            case EEnemyActions.Guard:
-                Defence += _increaseDefenceValue;
-                break;
-            case EEnemyActions.IncreaseAttack:
-                isIncreasedPower = true;
-                break;
-            case EEnemyActions.Demotivate:
-                PlayerData.Instance.YP -= _decreaseYPValue;
-                break;
-            case EEnemyActions.Max:
-                break;
-        }
-    }
-
     //PerformAttackの先頭で一度だけ使用
     protected EEnemyActions GetCurrentAction()
     {
@@ -105,4 +43,47 @@ public  class EnemyBase : MonoBehaviour,ICombatStatus,DamageUtility.IDamagable
         return actions[_currentActionIndex];
     }
 
+    public virtual void DoAction()
+    {
+        var action = GetCurrentAction();
+
+        switch (action)
+        {
+            case EEnemyActions.Attack:
+                PerformAttack();
+                break;
+            case EEnemyActions.Guard:
+                Status.ReinforceGuard(_increaseGuardValue);
+                break;
+            case EEnemyActions.IncreaseAttack:
+                Status.PowerUp(_increasePowerMultipleValue);
+                break;
+            case EEnemyActions.Demotivate:
+                PlayerData.Instance.Status.Motivation.Value -= _decreaseYPValue;
+                break;
+            case EEnemyActions.Special:
+                break;
+        }
+    }
+
+    protected virtual void PerformAttack()
+    {
+        PlayerData.Instance.Status.ApplyDamage(new Damage { damage = Status.Attack.Value });
+        Status.PowerReset(_attack);
+
+    }
+
+    protected virtual void PerformSpecial()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void ApplyDamage(Damage damage)
+    {
+        int realDamage = damage.damage - Status.Guard.Value;
+        realDamage = Mathf.Max(0, realDamage);
+        Status.Health.Value -= realDamage;
+        Status.GuardReset(_guard);
+
+    }
 }

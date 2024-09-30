@@ -18,36 +18,34 @@ namespace Tani
     
         PlayerData playerData;
 
-        bool isInitialized = false;
-        private async void Start()
+        private  void Start()
         {
             playerData = PlayerData.Instance;
 
             //HPに応じてHPBarのゲージを設定
             playerData
-                .HealthObservable
-                .Subscribe(x => hpBar.SetBarPercent(x / 100.0f))
+                .Status
+                .Health
+                .Observable
+                .Subscribe(x => hpBar.SetBarPercent(x.Value / (float)x.Max))
                 .AddTo(this);
 
             //Hpが0になったとき「PlayerDeath」と表示
             playerData
-                .HealthObservable
-                .Where(x => x == 0)
+                .Status
+                .PlayerDieAsObservable
                 .Subscribe(_ => print("PlayerDeath"))
                 .AddTo(this);
-
-            isInitialized = true;
         }
 
 
 
         private void Update()
         {
-            if (!isInitialized) return;
             //デバッグ用
             if (Input.GetKeyDown(KeyCode.Return))
             {
-               playerData.Health -= 10;
+               playerData.Status.Health.Value -= 10;
               
             }
         }

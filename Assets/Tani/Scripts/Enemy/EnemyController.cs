@@ -5,7 +5,7 @@ using Alchemy.Inspector;
 using System.Linq;
 using R3;
 
-public class EnemyControl : MonoBehaviour
+public class EnemyController : MonoBehaviour
 {
     [SerializeField] List<EnemyPackage> _enemyPacks;
     [SerializeField] bool UseFixedIndex = false;

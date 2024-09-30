@@ -11,10 +11,10 @@ public class YPBarPresenter : MonoBehaviour
 
     private void Start()
     {
-        PlayerData.Instance.YPObservable
+        PlayerData.Instance.Status.Motivation.Observable
             .Subscribe(yp =>
             {
-                bar.SetBarPercent((float)yp / 100.0f);
+                bar.SetBarPercent((float)yp.Value / yp.Max);
             }).AddTo(this);
     }
 }
