@@ -38,14 +38,6 @@ namespace Tani
         public int SellOPrice => sellPrice;
         public Sprite CardSprite => cardSprite;
 
-
-        [SerializeReference]
-        public CardEffect cardEffect_1;
-        [SerializeReference]
-        public CardEffect cardEffect_2;
-        [SerializeReference]
-        public CardEffect cardEffect_3;
-
         public enum ECardKinds
         {
             None,Meet_Fish,Vegetable,RowFood,Sweety,BigPlate,Dessert

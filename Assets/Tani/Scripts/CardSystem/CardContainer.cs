@@ -3,138 +3,120 @@ using System.Collections.Generic;
 using UnityEngine;
 using Tani;
 using UnityEngine.Events;
-
+using AutoEnum;
+using R3;
 
 /// <summary>
 /// Card(CardId)をリストとして格納するためのWrapperクラス
 /// リストに要素が追加されたときなどのコールバッグが存在
 /// </summary>
-public  class CardContainer 
+public class CardContainer : IList<AutoEnum.ECardID>
 {
-    public int Count => cards.Count;
-    /// <summary>
-    /// 引数はリストの要素がaddされた要素のindex,id
-    /// </summary>
-    public  UnityEvent<int,AutoEnum.ECardID> OnCardAdded = new();
-    /// <summary>
-    /// 引数はリストの要素がRemoveされた要素のindex,id
-    /// </summary>
-    public  UnityEvent<int, AutoEnum.ECardID> OnCardRemoved = new();
-    /// <summary>
-    /// 引数はリストの要素がRemoveされた要素のindex,id
-    /// </summary>
-    public  UnityEvent<int, AutoEnum.ECardID> OnCardUsed = new();
 
-    protected List<AutoEnum.ECardID> cards = new();
 
-    
+    public Observable<(int index, ECardID item)> OnCardAddedAsObservable => _onCardAddedSubject;
+    public Observable<(int index, ECardID item)> OnCardRemovedAsObservable => _onCardRemovedSubject;
 
-    public void AddCard(AutoEnum.ECardID id)
-    {
-        var index = GetContainerSibiling(id);
-        if (index.HasValue)
-        {
-            cards.Insert(index.Value, id);
-            OnCardAdded?.Invoke(index.Value, id);
-        }
-        else
-        {
-            cards.Add(id);
-            OnCardAdded?.Invoke(Count,id);
-        }
-        
-        
+    List<AutoEnum.ECardID> _list = new();
+
+    private Subject<(int index, ECardID item)> _onCardAddedSubject = new();
+    private Subject<(int index, ECardID item)> _onCardRemovedSubject = new();
+
+    public ECardID this[int index] {
+        get => _list[index]; 
+        set => throw new System.InvalidOperationException();
     }
-    public bool Remove(int listIndex)
+
+    public int Count => _list.Count;
+
+    public bool IsReadOnly => false;
+
+    public void Add(ECardID item)
     {
-        if(listIndex >= Count)
+        int index = GetAppropriateIndex(item);
+        Insert(index, item);
+        _onCardAddedSubject.OnNext((index, item));
+    }
+
+    public void Clear()
+    {
+        ECardID[] copy = new ECardID[Count];
+        CopyTo(copy, 0);
+        _list.Clear();
+        for (int i = 0; i < copy.Length; i++)
         {
-            Debug.LogError($"indexOutOfRange : {Count}");
-            return false;
+            _onCardRemovedSubject.OnNext((i, copy[i]));
         }
-        var removed_id = cards[listIndex];
-        cards.RemoveAt(listIndex);
-        OnCardRemoved?.Invoke(listIndex,removed_id);
+    }
+
+    public bool Contains(ECardID item)
+    {
+        return _list.Contains(item);
+    }
+
+    public void CopyTo(ECardID[] array, int arrayIndex)
+    {
+        _list.CopyTo(array, arrayIndex);
+    }
+
+    public IEnumerator<ECardID> GetEnumerator()
+    {
+        return _list.GetEnumerator();
+    }
+
+    public int IndexOf(ECardID item)
+    {
+        return _list.IndexOf(item);
+    }
+
+    public void Insert(int index, ECardID item)
+    {
+        _list.Insert(index, item);
+    }
+
+    public bool Remove(ECardID item)
+    {
+        int index = IndexOf(item);
+        if(index == -1) { return false; }
+        RemoveAt(index);
         return true;
     }
-    public bool Remove(AutoEnum.ECardID id)
-    {
-        if (cards.Contains(id))
-        {
-            int index = cards.IndexOf(id);
-            cards.RemoveAt(index);
-            OnCardRemoved?.Invoke(index, id);
 
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-        
+    public void RemoveAt(int index)
+    {
+        var item = this[index];
+        _list.RemoveAt(index);
+        _onCardRemovedSubject.OnNext((index, item));
     }
 
-    public void UseCard(int index)
+    IEnumerator IEnumerable.GetEnumerator()
     {
-        var id = cards[index];
-        Remove(index);
-        OnCardUsed?.Invoke(index, id);
-        
-    }
-    public bool Contains(AutoEnum.ECardID id)
-    {
-        return cards.Contains(id);
-    }
-    public AutoEnum.ECardID GetAt(int index)
-    {
-        if (index >= Count)
-        {
-            Debug.LogError($"indexOutOfRange : {index}");
-            return AutoEnum.ECardID.Invalid;
-        }
-        return cards[index];
-    }
-    public (AutoEnum.ECardID,int)? GetRandom()
-    {
-        if (Count == 0) return null;
-        int index = Random.Range(0, cards.Count);
-        AutoEnum.ECardID id = cards[index];
-        return (id, index);
-    }
-    public void ClearCards()
-    {
-        int count = cards.Count;
-        for(int i = 0; i < count; i++)
-        {
-            Remove(0);
-        }
-       
+        return GetEnumerator();
     }
 
-    public IEnumerable<AutoEnum.ECardID> GetAllCards() => cards;
-
-    int? GetContainerSibiling(AutoEnum.ECardID id)
+    public int GetAppropriateIndex(ECardID item)
     {
-        int? index = null;
-        for (int i = 0; i < cards.Count; i++)
-        {
-            if ((int)id < (int)cards[i])
-            {
-                index = i;
-                break;
-            }
-        }
+        ECardID searchId = (ECardID)((int)item + 1);
+        int index = IndexOf(item);
+        if(index == -1) { return Count; }
         return index;
     }
 
-    //このコンテナに存在するcardIndexのカードを他のコンテナに移動する
-    public void MoveCardToAnotherContainer(int cardIndex,CardContainer anotherContainer)
+    public (AutoEnum.ECardID, int)? GetRandom()
     {
-        var card = GetAt(cardIndex);
-        Remove(cardIndex);
-        anotherContainer.AddCard(card);
+        if (Count == 0) return null;
+        int index = Random.Range(0, Count);
+        return (this[index], index);
     }
 
+
+    //このコンテナに存在するcardIndexのカードを他のコンテナに移動する
+    public void MoveCardToAnotherContainer(int index, CardContainer anotherContainer)
+    {
+        var item = this[index];
+        RemoveAt(index);
+        anotherContainer.Add(item);
+    }
 }
 
 

@@ -24,7 +24,7 @@ namespace Tani
         [SerializeField,LabelText("参照するコンテナのタイプ")]
         protected CardManager.EPileType type = CardManager.EPileType.Invalid;
 
-        public UniTaskCompletionSource CS_Init { get; private set; } = new UniTaskCompletionSource();
+
         private List<GameObject> cardsList = new();
         protected PlayerData playerData;
 
@@ -78,8 +78,6 @@ namespace Tani
                  .Subscribe((arg) => RemoveCard(arg.Arg0, arg.Arg1))
                  .AddTo(this);
 
-            //初期化終了
-            CS_Init.TrySetResult();
         }
 
     
