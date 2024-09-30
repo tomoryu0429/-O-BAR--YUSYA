@@ -18,14 +18,16 @@ public class EnemyUIBinder : MonoBehaviour
     
     private void Start()
     {
-        _enemyData.HealthObservable.Subscribe(health =>
+        _enemyData.Status.Health
+            .Observable
+            .Subscribe(health =>
         {
-            _fillImage.fillAmount = (float)health / (float)_enemyData.HealthValueRange.maxHealth;
+            _fillImage.fillAmount = (float)health.Value / (float)health.Max;
         }).AddTo(this);
 
 
-        _enemyData.HealthObservable
-            .Where(hp => hp == 0)
+        _enemyData.Status
+            .DieAsObservable
             .Subscribe(_ =>
             {
                 print($"{gameObject.name}‚ð“|‚µ‚½");
@@ -35,7 +37,7 @@ public class EnemyUIBinder : MonoBehaviour
 
         observableEventTrigger
             .OnPointerClickAsObservable()
-            .Where(_=>_enemyData.Health != 0)
+            .Where(_=>_enemyData.Status.Health.Value != 0)
             .Subscribe(_ =>
             {
                 OnClickEvent.Invoke(_enemyData);

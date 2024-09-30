@@ -12,10 +12,9 @@ using Alchemy.Inspector;
 
 public class MainGameLogic : MonoBehaviour
 {
-    [SerializeField]EnemyControl enemyControl;
+    [SerializeField, LabelText("ターン開始時減少するやる気")] int _motivationDownPerTurn = 5;
 
-
-    CancellationToken cts;
+    [SerializeField,FoldoutGroup("Refs")]EnemyController enemyController;
 
     PlayerData _playerData;
 
@@ -26,48 +25,48 @@ public class MainGameLogic : MonoBehaviour
         _playerData = PlayerData.Instance;
 
 
-         cts = new CancellationToken();
 
-        await InitAsync(cts);
-        GameLoop(cts).Forget();
+
+        await InitAsync();
+        GameLoop().Forget();
 
 
     }
 
-    private async UniTask InitAsync(CancellationToken cts)
+    private async UniTask InitAsync()
     {
-        enemyControl.SpawnEnemies();
+        enemyController.SpawnEnemies();
 
         await UniTask.Delay(1000); 
     }
 
-    private async UniTask GameLoop(CancellationToken cts)
+    private async UniTask GameLoop()
     {
         while (true)
         {
-            await StartPhaseAsync(cts);
-            await DrawPhaseAsync(cts);
-            await HeroPhaseAsync(cts);
-            await BattlePhaseAsync(cts);
+            await StartPhaseAsync();
+            await DrawPhaseAsync();
+            await HeroPhaseAsync();
+            await BattlePhaseAsync();
         }
     }
 
   
 
-    private async UniTask StartPhaseAsync(CancellationToken cts)
+    private async UniTask StartPhaseAsync()
     {
         //ターン開始時処理
-        _playerData.Defence = 0;
-        _playerData.YP -= 5;
+        _playerData.Status.Guard.Value = 0;
+        _playerData.Status.Motivation.Value -= 5;
 
-        print($"HP : {_playerData.Health}");
-        print($"YP : {_playerData.YP    }");
-        print($"DEF : {_playerData.Defence }");
+        print($"HP : {_playerData.Status.Health.Value}");
+        print($"YP : {_playerData.Status.Motivation.Value    }");
+        print($"DEF : {_playerData.Status.Guard.Value }");
 
         await UniTask.Delay(1000);
 
     }
-    private async UniTask DrawPhaseAsync(CancellationToken cts)
+    private async UniTask DrawPhaseAsync()
     {
         print("カードをドロー");
         _playerData.CardManager.DrawCard();
@@ -75,7 +74,7 @@ public class MainGameLogic : MonoBehaviour
         _playerData.CardManager.DrawCard();
     }
 
-    private async UniTask HeroPhaseAsync(CancellationToken cts)
+    private async UniTask HeroPhaseAsync()
     {
         CardData data = null;
 
@@ -90,11 +89,9 @@ public class MainGameLogic : MonoBehaviour
         await UniTask.Delay(1000);
 
     }
-    private async UniTask BattlePhaseAsync(CancellationToken cts)
+    private async UniTask BattlePhaseAsync()
     {
-        DamageUtility.ApplyDamage(enemyControl.GetAttackTarget(), _playerData.Attack);
-
-
+        
 
         await UniTask.Delay(1000);
 
@@ -122,8 +119,8 @@ public class MainGameLogic : MonoBehaviour
     {
         print(data.CardName.ToString() + "を使用");
 
-        _playerData.YP += data.YP_Increase;
-        _playerData.Defence += data.Def_Increase;
+        _playerData.Status.Motivation.Value += data.YP_Increase;
+        _playerData.Status.Guard.Value += data.Def_Increase;
 
 
         print($"YPが : {data.YP_Increase   }増加");

@@ -26,7 +26,7 @@ public class PlayerData
         }
     }
 
-    public CardManager CardManager { get; private set; }
+    public CardManager CardManager { get; private set; } = null;
     public PlayerStatus Status { get; private set; } = null;
 
     private void Initialize()

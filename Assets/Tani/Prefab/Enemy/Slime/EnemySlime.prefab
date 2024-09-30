@@ -223,15 +223,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3123829e2c4b02c46aad1d5b49c44842, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actions: 000000000100000000000000
-  _health:
-    value: 10
-  _defence:
-    value: 0
-  _attack:
-    value: 10
+  actions: 00000000010000000000000002000000
+  _health: 0
+  _guard: 0
+  _attack: 0
   _increasePowerMultipleValue: 1.25
-  _increaseDefenceValue: 10
+  _increaseGuardValue: 10
   _decreaseYPValue: 15
 --- !u!1 &7993535235342726047
 GameObject:

@@ -40,18 +40,7 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    public DamageUtility.IDamagable GetAttackTarget()
-    {
-        if (_currentPlayerTarget is not null && _currentPlayerTarget.Health != 0)
-        {
-            return _currentPlayerTarget;
-        }
-        else
-        {
-            return _enemies.Find(e => e.Health != 0);
-        }
 
-    }
 
     public void SetTargetEnemy(EnemyBase enemy)
     {
