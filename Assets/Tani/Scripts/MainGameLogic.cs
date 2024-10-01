@@ -35,7 +35,7 @@ public class MainGameLogic : MonoBehaviour
 
     private async UniTask InitAsync()
     {
-        enemyController.SpawnEnemies();
+        //enemyController.SpawnEnemies();
 
         await UniTask.Delay(1000); 
     }
@@ -70,8 +70,13 @@ public class MainGameLogic : MonoBehaviour
     {
         print("カードをドロー");
         _playerData.CardManager.DrawCard();
-        _playerData.CardManager.DrawCard();
-        _playerData.CardManager.DrawCard();
+        //_playerData.CardManager.DrawCard();
+        //_playerData.CardManager.DrawCard();
+
+        while (true)
+        {
+            await UniTask.Yield();
+        }
     }
 
     private async UniTask HeroPhaseAsync()
@@ -79,11 +84,11 @@ public class MainGameLogic : MonoBehaviour
         CardData data = null;
 
         //カード選択待機
-        var selectedData = await SelectCardAsync().Task;
-        data = CardSystem.CardSystemUtility.GetCardData(selectedData.Item2);
+        //var selectedData = await SelectCardAsync().Task;
+        //data = CardSystem.CardSystemUtility.GetCardData(selectedData.Item2);
 
-        //使用したカードの効果を適用
-        ApplyCardEffect(data);
+        ////使用したカードの効果を適用
+        //ApplyCardEffect(data);
 
 
         await UniTask.Delay(1000);
@@ -97,35 +102,35 @@ public class MainGameLogic : MonoBehaviour
 
     }
 
-    private UniTaskCompletionSource<(int, AutoEnum.ECardID)> SelectCardAsync()
-    {
-        var cs = new  UniTaskCompletionSource<(int, AutoEnum.ECardID)>();
+    //private UniTaskCompletionSource<(int, AutoEnum.ECardID)> SelectCardAsync()
+    //{
+    //    var cs = new  UniTaskCompletionSource<(int, AutoEnum.ECardID)>();
 
-        IDisposable disposable = null;
+    //    IDisposable disposable = null;
 
-        disposable = _playerData.CardManager.containers[(int)CardManager.EPileType.Hand]
-           .OnCardUsed.AsObservable()
-           .Subscribe(data =>
-           {
-               cs.TrySetResult(data);
-               disposable?.Dispose();
+    //    disposable = _playerData.CardManager.containers[(int)PlayerCardManager.EPileType.Hand]
+    //       .OnCardUsed.AsObservable()
+    //       .Subscribe(data =>
+    //       {
+    //           cs.TrySetResult(data);
+    //           disposable?.Dispose();
 
-           });
+    //       });
 
-        return cs;
-    }
+    //    return cs;
+    //}
 
-    private void ApplyCardEffect(CardData data)
-    {
-        print(data.CardName.ToString() + "を使用");
+    //private void ApplyCardEffect(CardData data)
+    //{
+    //    print(data.CardName.ToString() + "を使用");
 
-        _playerData.Status.Motivation.Value += data.YP_Increase;
-        _playerData.Status.Guard.Value += data.Def_Increase;
+    //    _playerData.Status.Motivation.Value += data.YP_Increase;
+    //    _playerData.Status.Guard.Value += data.Def_Increase;
 
 
-        print($"YPが : {data.YP_Increase   }増加");
-        print($"DEFが : {data.Def_Increase }増加");
-    }
+    //    print($"YPが : {data.YP_Increase   }増加");
+    //    print($"DEFが : {data.Def_Increase }増加");
+    //}
 
   
 }

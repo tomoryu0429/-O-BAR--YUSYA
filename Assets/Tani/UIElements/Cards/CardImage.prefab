@@ -143,6 +143,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f92759a0337da554b8056c84cae73a13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  image: {fileID: 4328202679703919871}
   ObservableEvent: {fileID: 3907575461195558236}
-  DiscriptionPrefab: {fileID: 2100459195129703533, guid: ffa99bcee1f1a0f42a3d13b727578cd7, type: 3}
+  _image: {fileID: 4328202679703919871}

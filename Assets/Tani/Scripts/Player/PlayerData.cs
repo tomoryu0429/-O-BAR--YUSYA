@@ -26,18 +26,20 @@ public class PlayerData
         }
     }
 
-    public CardManager CardManager { get; private set; } = null;
+    public PlayerCardManager CardManager { get; private set; } = null;
     public PlayerStatus Status { get; private set; } = null;
 
     private void Initialize()
     {
-        CardManager = new CardManager();
+        CardManager = new PlayerCardManager();
         Status = new PlayerStatus();
 
         for (int i = 0; i < 8; i++)
         {
-            CardManager.containers[(int)CardManager.EPileType.Draw]
-                .AddCard((AutoEnum.ECardID)Mathf.FloorToInt(Random.Range(0, (int)AutoEnum.ECardID.Max)));
+            var id = (AutoEnum.ECardID)Mathf.FloorToInt(Random.Range(0, (int)AutoEnum.ECardID.Max));
+            Debug.Log($"ƒJ[ƒh’Ç‰Á : {id.ToString()}");
+            CardManager.DrawpileCardContainer
+                .Add(id);
 
         }
     }

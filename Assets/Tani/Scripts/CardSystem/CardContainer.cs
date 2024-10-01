@@ -38,6 +38,14 @@ public class CardContainer : IList<AutoEnum.ECardID>
         _onCardAddedSubject.OnNext((index, item));
     }
 
+    public void Add(IEnumerable<ECardID> range)
+    {
+        foreach (var item in range)
+        {
+            Add(item);
+        }
+    }
+
     public void Clear()
     {
         ECardID[] copy = new ECardID[Count];
@@ -94,10 +102,10 @@ public class CardContainer : IList<AutoEnum.ECardID>
         return GetEnumerator();
     }
 
-    public int GetAppropriateIndex(ECardID item)
+    private int GetAppropriateIndex(ECardID item)
     {
         ECardID searchId = (ECardID)((int)item + 1);
-        int index = IndexOf(item);
+        int index = IndexOf(searchId);
         if(index == -1) { return Count; }
         return index;
     }
