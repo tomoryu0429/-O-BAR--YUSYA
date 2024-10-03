@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
+using Cysharp.Threading.Tasks.Triggers;
 using System.Threading.Tasks;
 using System.Threading;
 using System;
@@ -63,7 +64,17 @@ public class MainGameLogic : MonoBehaviour
         print($"YP : {_playerData.Status.Motivation.Value    }");
         print($"DEF : {_playerData.Status.Guard.Value }");
 
-        await UniTask.Delay(1000);
+        await UniTask.Create(async () =>
+        {
+            while (true)
+            {
+                if (Input.GetKeyDown(KeyCode.Return))
+                {
+                    break;
+                }
+                await UniTask.NextFrame();
+            }
+        });
 
     }
     private async UniTask DrawPhaseAsync()

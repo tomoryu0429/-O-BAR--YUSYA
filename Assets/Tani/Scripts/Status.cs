@@ -1,6 +1,6 @@
 
 using R3;
-
+using System;
 
 public class Status
 {
@@ -70,5 +70,3 @@ public class ReactiveStatus
 
     public Observable<Status> Observable => _property;
 }
-
-

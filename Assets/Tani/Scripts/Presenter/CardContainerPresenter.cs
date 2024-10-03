@@ -38,12 +38,12 @@ public class CardContainerPresenter : MonoBehaviour
     {
         visibilityRoot.SetActive(visibility);
 
-        if (visibility) { CardsShowed(); }
+        if (visibility) { CardsShown(); }
         else { CardsHidden(); }
 
     }
 
-    public void CardsShowed()
+    public void CardsShown()
     {
         CardContainer container = type switch
         {
@@ -54,7 +54,6 @@ public class CardContainerPresenter : MonoBehaviour
             _ => throw new System.InvalidOperationException()
         };
 
-        
 
         for (int i = 0; i < container.Count; i++)
         {
@@ -76,6 +75,7 @@ public class CardContainerPresenter : MonoBehaviour
             cardView.gameObject.SetActive(false);
             _objectPool.Push(cardView);
         }
+        _visibleObjects.Clear();
         disposables.Clear();
     }
 
@@ -104,12 +104,13 @@ public class CardContainerPresenter : MonoBehaviour
     private CardView GetCardView()
     {
         //プールに存在する場合はそれを返却
-        if(_objectPool.Count != 0) { return _objectPool.Pop(); }
+        if(_objectPool.Count != 0){
+            return _objectPool.Pop();
+        }
         //存在しない場合は作成し、リストに登録
         GameObject go = Instantiate(cardPrefab, cardsRoot);
         var cardView = go.GetComponentInChildren<CardView>();
         if(cardView == null) { throw new System.Exception("CardViewコンポーネントが存在しません"); }
-        _visibleObjects.Add(cardView);
         return cardView;
     }
 
