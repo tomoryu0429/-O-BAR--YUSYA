@@ -19,14 +19,12 @@ MonoBehaviour:
   buyPrice: 100
   sellPrice: 70
   cardSprite: {fileID: 21300000, guid: c8fbc1be749cc8545829746a6a2ecae7, type: 3}
-  cardEffect_1:
-    rid: -2
-  cardEffect_2:
-    rid: -2
-  cardEffect_3:
-    rid: -2
+  __effects:
+  - rid: 37789244836544535
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+    - rid: 37789244836544535
+      type: {class: GuardIncreaseLarge, ns: CardSystem, asm: Assembly-CSharp}
+      data:
+        _changeValue: 40

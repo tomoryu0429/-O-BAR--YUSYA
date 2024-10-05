@@ -15,7 +15,8 @@ public class MainGameLogic : MonoBehaviour
 {
     [SerializeField, LabelText("ターン開始時減少するやる気")] int _motivationDownPerTurn = 5;
 
-    [SerializeField,FoldoutGroup("Refs")]EnemyController enemyController;
+    [SerializeField, FoldoutGroup("Refs")]EnemyController enemyController;
+    [SerializeField, FoldoutGroup("Refs")] UseableCardContainerPresenter useableCardContainer;
 
     PlayerData _playerData;
 
@@ -81,25 +82,19 @@ public class MainGameLogic : MonoBehaviour
     {
         print("カードをドロー");
         _playerData.CardManager.DrawCard();
-        //_playerData.CardManager.DrawCard();
-        //_playerData.CardManager.DrawCard();
+        _playerData.CardManager.DrawCard();
+        _playerData.CardManager.DrawCard();
 
-        while (true)
-        {
-            await UniTask.Yield();
-        }
+        await UniTask.Delay(1000);
     }
 
     private async UniTask HeroPhaseAsync()
     {
-        CardData data = null;
-
-        //カード選択待機
-        //var selectedData = await SelectCardAsync().Task;
-        //data = CardSystem.CardSystemUtility.GetCardData(selectedData.Item2);
-
-        ////使用したカードの効果を適用
-        //ApplyCardEffect(data);
+        while (_playerData.Status.RemainingUseCount.Value != 0)
+        {
+            var usedInfo = await SelectUseCardAsync();
+            _playerData.CardManager.UseCard(_playerData.CardManager.HandCardContainer, usedInfo.index);
+        }
 
 
         await UniTask.Delay(1000);
@@ -113,35 +108,24 @@ public class MainGameLogic : MonoBehaviour
 
     }
 
-    //private UniTaskCompletionSource<(int, AutoEnum.ECardID)> SelectCardAsync()
-    //{
-    //    var cs = new  UniTaskCompletionSource<(int, AutoEnum.ECardID)>();
+    private  UniTask<(int index, AutoEnum.ECardID id)> SelectUseCardAsync()
+    {
+        var cs = new UniTaskCompletionSource<(int index, AutoEnum.ECardID id)>();
 
-    //    IDisposable disposable = null;
+        IDisposable disposable = null;
 
-    //    disposable = _playerData.CardManager.containers[(int)PlayerCardManager.EPileType.Hand]
-    //       .OnCardUsed.AsObservable()
-    //       .Subscribe(data =>
-    //       {
-    //           cs.TrySetResult(data);
-    //           disposable?.Dispose();
+        disposable = 
+            useableCardContainer
+            .OnCardUseSelected
+            .Subscribe(info => 
+            {
+                cs.TrySetResult(info); 
+                disposable?.Dispose();
+            });
 
-    //       });
-
-    //    return cs;
-    //}
-
-    //private void ApplyCardEffect(CardData data)
-    //{
-    //    print(data.CardName.ToString() + "を使用");
-
-    //    _playerData.Status.Motivation.Value += data.YP_Increase;
-    //    _playerData.Status.Guard.Value += data.Def_Increase;
+        return cs.Task;
+    }
 
 
-    //    print($"YPが : {data.YP_Increase   }増加");
-    //    print($"DEFが : {data.Def_Increase }増加");
-    //}
 
-  
 }

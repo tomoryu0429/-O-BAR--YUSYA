@@ -17,6 +17,10 @@ public class CardContainerPresenter : MonoBehaviour
 
     [SerializeField] private EPileType type;
 
+    public Observable<GameObject> OnCardCreated => _onCardCreated;
+
+    private Subject<GameObject> _onCardCreated = new();
+
     private Stack<CardView> _objectPool = new();
     private List<CardView> _visibleObjects = new();
 
@@ -89,6 +93,7 @@ public class CardContainerPresenter : MonoBehaviour
     {
         var cardView = _visibleObjects[removedData.index];
         cardView.gameObject.SetActive(false);
+        cardView.gameObject.transform.SetAsLastSibling();
         _visibleObjects.RemoveAt(removedData.index);
         _objectPool.Push(cardView);
 
@@ -110,6 +115,7 @@ public class CardContainerPresenter : MonoBehaviour
         }
         //存在しない場合は作成し、リストに登録
         GameObject go = Instantiate(cardPrefab, cardsRoot);
+        _onCardCreated.OnNext(go);
         var cardView = go.GetComponentInChildren<CardView>();
         if(cardView == null) { throw new System.Exception("CardViewコンポーネントが存在しません"); }
         return cardView;

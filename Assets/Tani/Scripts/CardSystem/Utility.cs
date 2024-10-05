@@ -11,7 +11,7 @@ namespace CardSystem
     {
 
         static private Dictionary<AutoEnum.ECardID, CardData> dataList = null;
-        static public CardMasterData MasterData { get; private set; }
+
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         static private void GetData()
@@ -22,8 +22,6 @@ namespace CardSystem
                 CardData data = Resources.Load<CardData>($"cards/{(AutoEnum.ECardID)i}");
                 dataList.Add((AutoEnum.ECardID)i, data);
             }
-
-            MasterData = Resources.Load<CardMasterData>("cards/CardMasterData");
         }
 
 
