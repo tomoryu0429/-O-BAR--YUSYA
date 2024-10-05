@@ -25,6 +25,7 @@ namespace Tani
         private int sellPrice = 0;
         [SerializeField]
         private Sprite cardSprite;
+        [SerializeField] private List<CardEffectType> effectType;
 
         [field:SerializeField] public int YP_Increase { get; private set; }
         [field: SerializeField] public int Def_Increase { get; private set; }
@@ -37,6 +38,7 @@ namespace Tani
         public int BuyPrice => buyPrice;
         public int SellOPrice => sellPrice;
         public Sprite CardSprite => cardSprite;
+        public IReadOnlyList<CardEffectType> EffectList => effectType;
 
         public enum ECardKinds
         {
@@ -46,12 +48,21 @@ namespace Tani
         {
             None,Syoppai,Amai
         }
-        //public enum ECardID
-        //{
-        //    Invalid = -1,
-        //    Meet,Fish,Mash,Tomato,Onion,Rice,Zer,Flour,Strawberry,Honey,Milk,Choco
-        //    ,Max
-        //}
+        
+        public enum CardEffectType
+        {
+            MotivationIncreaseSmall,
+            MotivationIncreaseMiddle,
+            MotivationIncreaseLarge, 
+            GuardIncreaseSmall,
+            GuardIncreaseMiddle,
+            GuardIncreaseLarge,
+            CardEffectIncreaseSmall, 
+            CardEffectIncreaseMiddle, 
+            CardEffectIncreaseLarge,
+            AddCardUsageCount
+
+        }
     }
 }
 

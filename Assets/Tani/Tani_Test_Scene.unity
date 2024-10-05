@@ -2686,7 +2686,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   visibilityRoot: {fileID: 5795204398399605429}
   cardsRoot: {fileID: 677781650638363316}
-  cardPrefab: {fileID: 7282455087063911953, guid: 2cb69a76f3d7b5a4d816b33a29970c16, type: 3}
+  cardPrefab: {fileID: 1851506101654923602, guid: a9473990fed663043b1e1b1c38a019ae, type: 3}
   type: 0
 --- !u!1 &7368477795865516002
 GameObject:
@@ -3043,7 +3043,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   visibilityRoot: {fileID: 3399635854756941110}
   cardsRoot: {fileID: 821489239148794970}
-  cardPrefab: {fileID: 7282455087063911953, guid: 2cb69a76f3d7b5a4d816b33a29970c16, type: 3}
+  cardPrefab: {fileID: 1851506101654923602, guid: a9473990fed663043b1e1b1c38a019ae, type: 3}
   type: 1
 --- !u!1 &8872366035888766169
 GameObject:
@@ -3076,7 +3076,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   visibilityRoot: {fileID: 3399635854953524753}
   cardsRoot: {fileID: 821489238944167805}
-  cardPrefab: {fileID: 7282455087063911953, guid: 2cb69a76f3d7b5a4d816b33a29970c16, type: 3}
+  cardPrefab: {fileID: 1851506101654923602, guid: a9473990fed663043b1e1b1c38a019ae, type: 3}
   type: 2
 --- !u!114 &8989925344127355356
 MonoBehaviour:

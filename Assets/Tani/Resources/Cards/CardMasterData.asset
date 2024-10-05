@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ed5bc8177d902c4d97dd61faf8a4d3e, type: 3}
+  m_Name: CardMasterData
+  m_EditorClassIdentifier: 
+  <MotivationIncreaseSmall>k__BackingField: 0
+  <MotivationIncreaseMiddle>k__BackingField: 0
+  <MotivationIncreaseLarge>k__BackingField: 0
+  <GuardIncreaseSmall>k__BackingField: 0
+  <GuardIncreaseMiddle>k__BackingField: 0
+  <GuardIncreaseLarge>k__BackingField: 0
+  <CardEffectIncreaseSmall>k__BackingField: 0
+  <CardEffectIncreaseMiddle>k__BackingField: 0
+  <CardEffectIncreaseLarge>k__BackingField: 0

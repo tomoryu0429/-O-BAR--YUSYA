@@ -6,6 +6,7 @@ using R3;
 using R3.Triggers;
 using Tani;
 
+//CardContainerクラスを参照し、状態をViewに反映します
 public class CardContainerPresenter : MonoBehaviour
 {
     [SerializeField]private GameObject visibilityRoot;

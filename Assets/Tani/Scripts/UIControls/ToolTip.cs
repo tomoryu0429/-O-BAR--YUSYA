@@ -10,6 +10,8 @@ namespace UIControls
     {
         [SerializeField] TextMeshProUGUI textObj;
 
+
+
         public void SetText(string text)
         {
             textObj.text = text;

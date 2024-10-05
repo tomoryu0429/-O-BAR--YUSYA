@@ -22,14 +22,16 @@ namespace Tani
         public CardContainer DrawpileCardContainer { get; }
 
         public int RemainingUseCount { get;  set; } = 1;
+        private PlayerStatus Status { get; }
 
-        public PlayerCardManager()
+        private float _cardEffectMultiply = 1f;
+        public PlayerCardManager(PlayerStatus playerStatus)
         {
 
             HandCardContainer = new CardContainer();
             DiscardCardContainer = new CardContainer();
             DrawpileCardContainer = new CardContainer();
-
+            Status = playerStatus;
 
         }
 
@@ -94,8 +96,55 @@ namespace Tani
             return sortedList;
         }
 
-        public void ResetRemainingUseCount() => RemainingUseCount = 1;
+        public void ResetUsage() 
+        {
+            RemainingUseCount = 1;
+            _cardEffectMultiply = 1;
+        }
 
+
+        private void ApplyCardEffect(AutoEnum.ECardID id)
+        {
+            CardData data = CardSystem.Utility.GetCardData(id);
+            foreach(CardData.CardEffectType effectType in data.EffectList)
+            {
+                switch (effectType)
+                {
+                    case CardData.CardEffectType.MotivationIncreaseSmall:
+                        Status.Motivation.Value += (int)(CardSystem.Utility.MasterData.MotivationIncreaseSmall * _cardEffectMultiply);
+                        break;
+                    case CardData.CardEffectType.MotivationIncreaseMiddle:
+                        Status.Motivation.Value += (int)(CardSystem.Utility.MasterData.MotivationIncreaseMiddle * _cardEffectMultiply);
+                        break;
+                    case CardData.CardEffectType.MotivationIncreaseLarge:
+                        Status.Motivation.Value += (int)(CardSystem.Utility.MasterData.MotivationIncreaseLarge * _cardEffectMultiply);
+                        break;
+                    case CardData.CardEffectType.GuardIncreaseSmall:
+                        Status.Guard.Value += (int)(CardSystem.Utility.MasterData.GuardIncreaseSmall * _cardEffectMultiply);
+                        break;
+                    case CardData.CardEffectType.GuardIncreaseMiddle:
+                        Status.Guard.Value += (int)(CardSystem.Utility.MasterData.GuardIncreaseMiddle * _cardEffectMultiply);
+                        break;
+                    case CardData.CardEffectType.GuardIncreaseLarge:
+                        Status.Guard.Value += (int)(CardSystem.Utility.MasterData.GuardIncreaseLarge * _cardEffectMultiply);
+                        break;
+                    case CardData.CardEffectType.CardEffectIncreaseSmall:
+                        _cardEffectMultiply *= CardSystem.Utility.MasterData.CardEffectIncreaseSmall;
+                        break;
+                    case CardData.CardEffectType.CardEffectIncreaseMiddle:
+                        _cardEffectMultiply *= CardSystem.Utility.MasterData.CardEffectIncreaseMiddle;
+                        break;
+                    case CardData.CardEffectType.CardEffectIncreaseLarge:
+                        _cardEffectMultiply *= CardSystem.Utility.MasterData.CardEffectIncreaseLarge;
+                        break;
+                    case CardData.CardEffectType.AddCardUsageCount:
+                        RemainingUseCount++;
+                        break;
+                    default:
+                        throw new System.ArgumentOutOfRangeException();
+                }
+            }
+        }
     }
 }
 

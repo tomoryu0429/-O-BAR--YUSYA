@@ -35,7 +35,7 @@ public class CardContainer : IList<AutoEnum.ECardID>
     {
         int index = GetAppropriateIndex(item);
         Insert(index, item);
-        _onCardAddedSubject.OnNext((index, item));
+        
     }
 
     public void Add(IEnumerable<ECardID> range)
@@ -80,6 +80,7 @@ public class CardContainer : IList<AutoEnum.ECardID>
     public void Insert(int index, ECardID item)
     {
         _list.Insert(index, item);
+        _onCardAddedSubject.OnNext((index, item));
     }
 
     public bool Remove(ECardID item)
@@ -102,6 +103,11 @@ public class CardContainer : IList<AutoEnum.ECardID>
         return GetEnumerator();
     }
 
+    /// <summary>
+    /// カードの適切な挿入位置を返します
+    /// </summary>
+    /// <param name="item"></param>
+    /// <returns></returns>
     private int GetAppropriateIndex(ECardID item)
     {
         ECardID searchId = (ECardID)((int)item + 1);

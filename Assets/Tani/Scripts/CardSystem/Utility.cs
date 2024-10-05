@@ -7,12 +7,13 @@ using UnityEngine;
 
 namespace CardSystem
 {
-    public static class CardSystemUtility
+    public static class Utility
     {
 
-        static Dictionary<AutoEnum.ECardID, CardData> dataList = null;
+        static private Dictionary<AutoEnum.ECardID, CardData> dataList = null;
+        static public CardMasterData MasterData { get; private set; }
 
-        [RuntimeInitializeOnLoadMethod]
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         static private void GetData()
         {
             dataList = new();
@@ -21,6 +22,8 @@ namespace CardSystem
                 CardData data = Resources.Load<CardData>($"cards/{(AutoEnum.ECardID)i}");
                 dataList.Add((AutoEnum.ECardID)i, data);
             }
+
+            MasterData = Resources.Load<CardMasterData>("cards/CardMasterData");
         }
 
 
@@ -31,5 +34,6 @@ namespace CardSystem
         }
 
     }
+
 
 }
