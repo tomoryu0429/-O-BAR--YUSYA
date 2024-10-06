@@ -128,4 +128,22 @@ namespace CardSystem
 
 
     }
+    [System.Serializable]
+    public class IncreaseUseCardCount : ICardEffect
+    {
+        [SerializeField, Header("カードの使用回数+1"), LabelText("変化値")] private int _changeValue = 1;
+        public int ChangeValue
+        {
+            get => _changeValue;
+            set => _changeValue = value;
+        }
+
+        public string EffectLabel => "カードの使用回数+1";
+        public void ApplyEffect(PlayerStatus status)
+        {
+            status.RemainingUseCount.Value += _changeValue;
+        }
+
+
+    }
 }
