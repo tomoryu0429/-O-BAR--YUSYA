@@ -21,6 +21,7 @@ MonoBehaviour:
   cardSprite: {fileID: 21300000, guid: c8fbc1be749cc8545829746a6a2ecae7, type: 3}
   __effects:
   - rid: 37789244836544530
+  - rid: 37789256442707970
   references:
     version: 2
     RefIds:
@@ -28,3 +29,7 @@ MonoBehaviour:
       type: {class: GuardIncreaseSmall, ns: CardSystem, asm: Assembly-CSharp}
       data:
         _changeValue: 10
+    - rid: 37789256442707970
+      type: {class: MotivationIncreaseLarge, ns: CardSystem, asm: Assembly-CSharp}
+      data:
+        _changeValue: 40

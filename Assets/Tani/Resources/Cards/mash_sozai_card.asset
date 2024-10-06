@@ -21,10 +21,15 @@ MonoBehaviour:
   cardSprite: {fileID: 21300000, guid: c8fbc1be749cc8545829746a6a2ecae7, type: 3}
   __effects:
   - rid: 37789244836544529
+  - rid: 37789256442707969
   references:
     version: 2
     RefIds:
     - rid: 37789244836544529
       type: {class: GuardIncreaseMiddle, ns: CardSystem, asm: Assembly-CSharp}
+      data:
+        _changeValue: 25
+    - rid: 37789256442707969
+      type: {class: MotivationIncreaseMiddle, ns: CardSystem, asm: Assembly-CSharp}
       data:
         _changeValue: 25
