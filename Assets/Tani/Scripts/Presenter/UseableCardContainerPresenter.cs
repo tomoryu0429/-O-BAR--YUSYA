@@ -10,9 +10,9 @@ public class UseableCardContainerPresenter : MonoBehaviour
 {
     [SerializeField] private UIControls.CardUseMenu menu;
 
-    public Observable<(int index, AutoEnum.ECardID id)> OnCardUseSelected => _onCardUseSelected;
+    public Observable<IndexIdPair> OnCardUseSelected => _onCardUseSelected;
 
-    private Subject<(int index, AutoEnum.ECardID id)> _onCardUseSelected = new();
+    private Subject<IndexIdPair> _onCardUseSelected = new();
     private void Start()
     {
         var presenter = GetComponent<CardContainerPresenter>();
@@ -25,7 +25,7 @@ public class UseableCardContainerPresenter : MonoBehaviour
                 .Subscribe(_ =>
                 {
                     menu.gameObject.SetActive(true);
-                    menu.DefineCardInfo(go.transform.GetSiblingIndex(),go.GetComponent<Tani.CardView>().ID);
+                    menu.DefineCardInfo(new IndexIdPair { index = go.transform.GetSiblingIndex(), id = go.GetComponent<Tani.CardView>().ID });
 
                 }).AddTo(go);
 

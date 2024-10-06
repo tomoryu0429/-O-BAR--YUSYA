@@ -47,15 +47,21 @@ namespace Tani
 
         }
 
+        public void MoveHandCardContainerCardToDiscardContainer()
+        {
+            DiscardCardContainer.Add(HandCardContainer);
+            HandCardContainer.Clear();
+        }
+
         //山札から一枚引き、手札に移動
         public void DrawCard()
         {
 
-            (AutoEnum.ECardID item, int index)? drawedData = DrawpileCardContainer.GetRandom();
+            IndexIdPair drawedData = DrawpileCardContainer.GetRandom();
 
-            if (drawedData.HasValue)//DrawPileにカードが存在している
+            if (drawedData != null)//DrawPileにカードが存在している
             {
-                DrawpileCardContainer.MoveCardToAnotherContainer(drawedData.Value.index, HandCardContainer);
+                DrawpileCardContainer.MoveCardToAnotherContainer(drawedData.index, HandCardContainer);
             }
             else//Drawpileにカードが存在しないためDiscardPileから持ってきて、引く
             {
@@ -89,7 +95,7 @@ namespace Tani
             foreach(var card in data.Effects)
             {
                 card?.ApplyEffect(Status);
-                Debug.Log(card?.EffectLabel);
+                Debug.Log($"カード効果 : {card?.EffectLabel},値 : {card?.ChangeValue}");
             }
         }
     }

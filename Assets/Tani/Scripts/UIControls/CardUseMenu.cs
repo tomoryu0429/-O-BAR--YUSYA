@@ -15,10 +15,10 @@ namespace UIControls
         [SerializeField] private Button _useButton;
         [SerializeField] private Button _cancelButton;
 
-        public Observable<(int index, AutoEnum.ECardID id)> OnCardUseSelected => _onCardUseSelected;
+        public Observable<IndexIdPair> OnCardUseSelected => _onCardUseSelected;
 
-        private Subject<(int index, AutoEnum.ECardID id)> _onCardUseSelected = new();
-        private (int index, AutoEnum.ECardID id) _currentDefinedInfo;
+        private Subject<IndexIdPair> _onCardUseSelected = new();
+        private IndexIdPair _currentDefinedInfo;
         
         private void Start()
         {
@@ -39,10 +39,10 @@ namespace UIControls
                 ).AddTo(this);
         }
 
-        public void DefineCardInfo(int index, AutoEnum.ECardID id)
+        public void DefineCardInfo(IndexIdPair pair)
         {
-            _currentDefinedInfo = (index,id);
-            var data = CardSystem.Utility.GetCardData(id);
+            _currentDefinedInfo = pair;
+            var data = CardSystem.Utility.GetCardData(pair.id);
             _cardSpriteImage.sprite = data.CardSprite;
             _cardNameText.text = data.CardName;
 

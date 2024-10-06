@@ -14,13 +14,13 @@ public class CardContainer : IList<AutoEnum.ECardID>
 {
 
 
-    public Observable<(int index, ECardID item)> OnCardAddedAsObservable => _onCardAddedSubject;
-    public Observable<(int index, ECardID item)> OnCardRemovedAsObservable => _onCardRemovedSubject;
+    public Observable<IndexIdPair> OnCardAddedAsObservable => _onCardAddedSubject;
+    public Observable<IndexIdPair> OnCardRemovedAsObservable => _onCardRemovedSubject;
 
     List<AutoEnum.ECardID> _list = new();
 
-    private Subject<(int index, ECardID item)> _onCardAddedSubject = new();
-    private Subject<(int index, ECardID item)> _onCardRemovedSubject = new();
+    private Subject<IndexIdPair> _onCardAddedSubject = new();
+    private Subject<IndexIdPair> _onCardRemovedSubject = new();
 
     public ECardID this[int index] {
         get => _list[index]; 
@@ -53,7 +53,7 @@ public class CardContainer : IList<AutoEnum.ECardID>
         _list.Clear();
         for (int i = 0; i < copy.Length; i++)
         {
-            _onCardRemovedSubject.OnNext((i, copy[i]));
+            _onCardRemovedSubject.OnNext(new IndexIdPair { index = 0, id = copy[i] });
         }
     }
 
@@ -80,7 +80,7 @@ public class CardContainer : IList<AutoEnum.ECardID>
     public void Insert(int index, ECardID item)
     {
         _list.Insert(index, item);
-        _onCardAddedSubject.OnNext((index, item));
+        _onCardAddedSubject.OnNext(new IndexIdPair { index = index, id = item });
     }
 
     public bool Remove(ECardID item)
@@ -95,7 +95,7 @@ public class CardContainer : IList<AutoEnum.ECardID>
     {
         var item = this[index];
         _list.RemoveAt(index);
-        _onCardRemovedSubject.OnNext((index, item));
+        _onCardRemovedSubject.OnNext(new IndexIdPair { index = index, id = item });
     }
 
     IEnumerator IEnumerable.GetEnumerator()
@@ -110,17 +110,18 @@ public class CardContainer : IList<AutoEnum.ECardID>
     /// <returns></returns>
     private int GetAppropriateIndex(ECardID item)
     {
-        ECardID searchId = (ECardID)((int)item + 1);
-        int index = IndexOf(searchId);
-        if(index == -1) { return Count; }
-        return index;
+        for(int i = 0; i < this.Count; i++)
+        {
+            if((int)this[i] > (int)item) { return i; }
+        }
+        return Count;
     }
 
-    public (AutoEnum.ECardID, int)? GetRandom()
+    public IndexIdPair GetRandom()
     {
         if (Count == 0) return null;
         int index = Random.Range(0, Count);
-        return (this[index], index);
+        return new IndexIdPair { index = index, id = this[index] };
     }
 
 
@@ -131,6 +132,12 @@ public class CardContainer : IList<AutoEnum.ECardID>
         RemoveAt(index);
         anotherContainer.Add(item);
     }
+}
+
+public class IndexIdPair
+{
+    public int index = 0;
+    public AutoEnum.ECardID id;
 }
 
 

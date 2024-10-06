@@ -12,6 +12,7 @@ public class CardContainerPresenter : MonoBehaviour
     [SerializeField]private GameObject visibilityRoot;
 
     [SerializeField]private Transform cardsRoot;
+
     [AssetsOnly]
     [SerializeField] private GameObject cardPrefab;
 
@@ -84,12 +85,12 @@ public class CardContainerPresenter : MonoBehaviour
         disposables.Clear();
     }
 
-    private void CardAdded((int index,AutoEnum.ECardID item) addedData)
+    private void CardAdded(IndexIdPair addedData)
     {
-        InitializeCardView(GetCardView(), addedData.index, addedData.item);
+        InitializeCardView(GetCardView(), addedData.index, addedData.id);
     }
 
-    private void CardRemoved((int index, AutoEnum.ECardID item) removedData)
+    private void CardRemoved(IndexIdPair removedData)
     {
         var cardView = _visibleObjects[removedData.index];
         cardView.gameObject.SetActive(false);

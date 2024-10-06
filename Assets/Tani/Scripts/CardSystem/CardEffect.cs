@@ -94,14 +94,14 @@ namespace CardSystem
     [System.Serializable]
     public class GuardIncreaseMiddle : ICardEffect
     {
-        [SerializeField, Header("–hŒä‘(*LƒÃ`*)Á­¯Á­"), LabelText("•Ï‰»’l")] private int _changeValue = 25;
+        [SerializeField, Header("–hŒä‘’†"), LabelText("•Ï‰»’l")] private int _changeValue = 25;
         public int ChangeValue
         {
             get => _changeValue;
             set => _changeValue = value;
         }
 
-        public string EffectLabel => "–hŒä‘(*LƒÃ`*)Á­¯Á­";
+        public string EffectLabel => "–hŒä‘’†";
         public void ApplyEffect(PlayerStatus status)
         {
             status.Guard.Value += _changeValue;

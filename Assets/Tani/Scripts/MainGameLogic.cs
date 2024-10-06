@@ -90,12 +90,14 @@ public class MainGameLogic : MonoBehaviour
 
     private async UniTask HeroPhaseAsync()
     {
+        _playerData.Status.ResetTempStatus();
         while (_playerData.Status.RemainingUseCount.Value != 0)
         {
             var usedInfo = await SelectUseCardAsync();
             _playerData.CardManager.UseCard(_playerData.CardManager.HandCardContainer, usedInfo.index);
         }
 
+        _playerData.CardManager.MoveHandCardContainerCardToDiscardContainer();
 
         await UniTask.Delay(1000);
 
@@ -108,9 +110,9 @@ public class MainGameLogic : MonoBehaviour
 
     }
 
-    private  UniTask<(int index, AutoEnum.ECardID id)> SelectUseCardAsync()
+    private  UniTask<IndexIdPair> SelectUseCardAsync()
     {
-        var cs = new UniTaskCompletionSource<(int index, AutoEnum.ECardID id)>();
+        var cs = new UniTaskCompletionSource<IndexIdPair>();
 
         IDisposable disposable = null;
 
@@ -119,6 +121,7 @@ public class MainGameLogic : MonoBehaviour
             .OnCardUseSelected
             .Subscribe(info => 
             {
+                Debug.Log("OnCardUsed");
                 cs.TrySetResult(info); 
                 disposable?.Dispose();
             });
