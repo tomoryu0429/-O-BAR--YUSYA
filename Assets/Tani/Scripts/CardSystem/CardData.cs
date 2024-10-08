@@ -29,7 +29,7 @@ namespace Tani
 
         [SerializeReference] public List<CardSystem.ICardEffect> __effects;
 
-
+        [SerializeField, SerializeReference] private List<CardSystem.ICardEffect> _list;
 
 
 
