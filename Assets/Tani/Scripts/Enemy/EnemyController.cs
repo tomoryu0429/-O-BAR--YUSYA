@@ -7,46 +7,37 @@ using R3;
 
 public class EnemyController : MonoBehaviour
 {
-    [SerializeField] List<EnemyPackage> _enemyPacks;
-    [SerializeField] bool UseFixedIndex = false;
-    [SerializeField, ShowIf(nameof(UseFixedIndex))] int _index = 0;
-    [SerializeField, AssetsOnly] GameObject selectArrowImageObject; 
+    [SerializeField] EnemyPackage _enemyPackage;
 
-    EnemyBase _currentPlayerTarget = null;
-    EnemyPackage _selectedPack;
-    List<EnemyBase> _enemies = new();
+    [SerializeField] private List<Transform> _enemyRoots_1;
+    [SerializeField] private List<Transform> _enemyRoots_2;
+    [SerializeField] private List<Transform> _enemyRoots_3;
+    
+    public EnemyBase TargetEnemy => _enemies.Find(data => data.Status.Health.Value != 0);
 
+    private List<EnemyBase> _enemies = new();
 
-    public void SpawnEnemies()
+    public void SpawnEnemies(int enemyLevel)
     {
-
-        if (!UseFixedIndex)
+        EnemyPackage.PackageData data = _enemyPackage.GetCertainLevelRandomPackageData(enemyLevel);
+        if(data == null) { throw new System.Exception("適合するデータが存在しません"); }
+        for(int i = 0; i < data.EnemyPrefabs.Length; i++)
         {
-            int _index = Mathf.FloorToInt(Random.Range(0, _enemyPacks.Count));
-
-        }
-        _selectedPack = _enemyPacks[_index];
-
-        _enemies = EnemyPackage.InstEnemies(_selectedPack.EnemyDatas, transform).ToList();
-
-        foreach(var e in _enemies)
-        {
-            e.gameObject.GetComponent<EnemyUIBinder>()
-                .OnClickEvent
-                .AsObservable()
-                .Subscribe(SetTargetEnemy)
-                .AddTo(this);
-
+            GameObject go = Instantiate<GameObject>(data.EnemyPrefabs[i], 
+            data.EnemyPrefabs.Length switch
+            {
+                1 => _enemyRoots_1[i],
+                2 => _enemyRoots_2[i],
+                3 => _enemyRoots_3[i],
+                _ => throw new System.ArgumentOutOfRangeException()
+            });
+            go.transform.localPosition = Vector3.zero;
+            _enemies.Add(go.GetComponent<EnemyBase>());
         }
     }
 
 
 
-    public void SetTargetEnemy(EnemyBase enemy)
-    {
-        print($"{enemy.transform.position}");
-        _currentPlayerTarget = enemy;
 
-    }
 
 }

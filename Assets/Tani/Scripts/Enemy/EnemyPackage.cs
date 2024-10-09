@@ -1,6 +1,7 @@
 using Alchemy.Inspector;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "EnemyPackage", menuName = "ScriptableObjects/EnemyPackage")]
@@ -9,28 +10,19 @@ public class EnemyPackage : ScriptableObject
     [System.Serializable]
     public class PackageData
     {
-        [field: SerializeField] public GameObject enemyPrefab { get; private set; }
-        [field: SerializeField] public Vector3 spawnPosition { get; private set; }
+        [field: SerializeField] public GameObject[] EnemyPrefabs { get; private set; }
+        [field: SerializeField] public int Level = 0;
 
     }
 
     [SerializeField]
     private List<PackageData> _enemyDatas;
 
-    public IReadOnlyList<PackageData> EnemyDatas
+    public PackageData GetCertainLevelRandomPackageData(int level)
     {
-        get => _enemyDatas;
+        var correctDatas = _enemyDatas.FindAll(x => x.Level == level);
+        if(correctDatas.Count == 0) { throw new System.NullReferenceException(); }
+        return correctDatas[(int)(Random.value * correctDatas.Count)];
     }
     
-    
- 
-    public static IEnumerable<EnemyBase> InstEnemies(IEnumerable<PackageData> packDatas,Transform parent)
-    {
-        foreach(PackageData data in packDatas)
-        {
-            var e = Instantiate(data.enemyPrefab,parent).GetComponent<EnemyBase>();
-            e.gameObject.transform.localPosition = data.spawnPosition;
-            yield return e;
-        }
-    }
 }

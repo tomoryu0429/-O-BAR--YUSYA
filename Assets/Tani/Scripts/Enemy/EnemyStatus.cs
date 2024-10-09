@@ -7,9 +7,13 @@ public class EnemyStatus
 {
     public EnemyStatus(int health,int attack,int guard)
     {
+        _initialAttack = attack;
+        _initialGuard = guard;
+
         Health = new ReactiveStatus(health, health);
         Attack = new ReactiveStatus(attack, int.MaxValue);
         Guard = new ReactiveStatus(guard, int.MaxValue);
+
         DieAsObservable = Health.Observable.Where(health => health.Value == 0).AsUnitObservable().Publish();
     }
 
@@ -18,10 +22,9 @@ public class EnemyStatus
         Attack.Value = (int)(Attack.Value * mul);
         _isPowerUpSubject.OnNext(true);
     }
-    public void PowerReset(int initialValue)
+    public void PowerReset()
     {
-        Attack.Value = initialValue;
-        _isPowerUpSubject.OnNext(false);
+        Attack.Value = _initialAttack;
     }
 
     public void ReinforceGuard(int increase)
@@ -29,10 +32,9 @@ public class EnemyStatus
         Guard.Value += increase;
         _isReinforcedGuardSubject.OnNext(true);
     }
-    public void GuardReset(int initialValue)
+    public void GuardReset()
     {
-        Guard.Value = initialValue;
-        _isReinforcedGuardSubject.OnNext(false);
+        Guard.Value = _initialGuard;
     }
 
     public ReactiveStatus Health { get; private set; } = null;
@@ -44,4 +46,6 @@ public class EnemyStatus
 
     private Subject<bool> _isPowerUpSubject = new Subject<bool>();
     private Subject<bool> _isReinforcedGuardSubject = new Subject<bool>();
+    private int _initialAttack;
+    private int _initialGuard;
 }

@@ -223,13 +223,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3123829e2c4b02c46aad1d5b49c44842, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actions: 00000000010000000000000002000000
-  _health: 0
+  actions:
+  - rid: 1971193663347490816
+  - rid: 1971193663347490817
+  - rid: 1971193663347490818
+  _health: 20
   _guard: 0
-  _attack: 0
-  _increasePowerMultipleValue: 1.25
-  _increaseGuardValue: 10
-  _decreaseYPValue: 15
+  _attack: 5
+  references:
+    version: 2
+    RefIds:
+    - rid: 1971193663347490816
+      type: {class: AttackPlayer, ns: , asm: Assembly-CSharp}
+      data:
+        _actionLabel: "\u653B\u6483"
+    - rid: 1971193663347490817
+      type: {class: ReinforceGuard, ns: , asm: Assembly-CSharp}
+      data:
+        _increaseValue: 5
+        _actionLabel: "\u9632\u5FA1\u529B\u4E0A\u6607"
+    - rid: 1971193663347490818
+      type: {class: AttackPlayer, ns: , asm: Assembly-CSharp}
+      data:
+        _actionLabel: "\u653B\u6483"
 --- !u!1 &7993535235342726047
 GameObject:
   m_ObjectHideFlags: 0
