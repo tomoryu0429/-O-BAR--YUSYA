@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using AutoEnum;
-
+using Alchemy.Inspector;
 
 
 namespace Tani
@@ -27,10 +27,10 @@ namespace Tani
         private Sprite cardSprite;
 
 
-        [SerializeReference] public List<CardSystem.ICardEffect> __effects;
+        [SerializeField,SerializeReference] private List<CardSystem.ICardEffect> _effects;
 
-        [SerializeField, SerializeReference] private List<CardSystem.ICardEffect> _list;
-
+        [SerializeField] private bool _isCookable = false;
+        [SerializeField, ShowIf(nameof(_isCookable))] private List<AutoEnum.ECardID> _ingredients;
 
 
         public ECardID CardID => cardID;
@@ -40,7 +40,14 @@ namespace Tani
         public int BuyPrice => buyPrice;
         public int SellOPrice => sellPrice;
         public Sprite CardSprite => cardSprite;
-        public IReadOnlyList<CardSystem.ICardEffect> Effects => __effects;
+        public IReadOnlyList<CardSystem.ICardEffect> Effects => _effects;
+
+        public uint GetIngredientsProduct()
+        {
+            uint product = 1;
+            _ingredients.ForEach(id => product *= CardSystem.Utility.GetPrimeNumber((uint)id));
+            return product;
+        }
 
         public enum ECardKinds
         {

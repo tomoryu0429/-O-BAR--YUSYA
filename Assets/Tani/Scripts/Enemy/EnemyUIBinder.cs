@@ -11,11 +11,12 @@ public class EnemyUIBinder : MonoBehaviour
     [SerializeField] Image _fillImage;
     [SerializeField] EnemyBase _enemyData;
     [SerializeField] ObservableEventTrigger observableEventTrigger;
+    [SerializeField] Image _targetedImage;
 
 
     [HideInInspector] public UnityEvent<EnemyBase> OnClickEvent;
     [HideInInspector] public UnityEvent<EnemyBase> OnEnemyDieEvent;
-    
+
     private void Start()
     {
         _enemyData.Status.Health
@@ -27,29 +28,36 @@ public class EnemyUIBinder : MonoBehaviour
 
 
         _enemyData.Status
-            .DieAsObservable
+
+            .Health
+            .Observable
+            .Where(h => h.Value == 0)
             .Subscribe(_ =>
             {
                 print($"{gameObject.name}‚ð“|‚µ‚½");
-                gameObject.SetActive(false) ;
+                gameObject.SetActive(false);
             }).AddTo(this);
 
 
         observableEventTrigger
             .OnPointerClickAsObservable()
-            .Where(_=>_enemyData.Status.Health.Value != 0)
+            .Where(_ => _enemyData.Status.Health.Value != 0)
             .Subscribe(_ =>
             {
                 OnClickEvent.Invoke(_enemyData);
             }).AddTo(this);
 
+    }
 
-        observableEventTrigger
-            .OnDisableAsObservable()
-            .Subscribe(_ =>
-            {
-                OnEnemyDieEvent.Invoke(_enemyData);
-            }).AddTo(this);
+    public void OnTargeted()
+    {
+        _targetedImage.gameObject.SetActive(true);
+    }
+
+    public void OnUnTargeted()
+    {
+        _targetedImage.gameObject.SetActive(false);
+
     }
 
 

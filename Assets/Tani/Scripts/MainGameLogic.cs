@@ -104,7 +104,7 @@ public class MainGameLogic : MonoBehaviour
     }
     private async UniTask BattlePhaseAsync()
     {
-        enemyController.TargetEnemy.ApplyDamage(new Damage { damage = _playerData.Status.Attack.Value });
+        enemyController.TargetEnemy().ApplyDamage(new Damage { damage = _playerData.Status.Attack.Value });
 
         await UniTask.Delay(1000);
 

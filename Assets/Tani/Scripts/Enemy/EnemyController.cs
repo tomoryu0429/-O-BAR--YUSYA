@@ -13,7 +13,19 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private List<Transform> _enemyRoots_2;
     [SerializeField] private List<Transform> _enemyRoots_3;
     
-    public EnemyBase TargetEnemy => _enemies.Find(data => data.Status.Health.Value != 0);
+    public EnemyBase TargetEnemy()
+    {
+        if(_targeted == null || _targeted.Status.Health.Value == 0)
+        {
+            return _enemies.Find(data => data.Status.Health.Value != 0);
+        }
+        else
+        {
+            return _targeted;
+        }
+    }
+
+    private EnemyBase _targeted = null;
 
     private List<EnemyBase> _enemies = new();
 
@@ -31,7 +43,17 @@ public class EnemyController : MonoBehaviour
                 3 => _enemyRoots_3[i],
                 _ => throw new System.ArgumentOutOfRangeException()
             });
+
             go.transform.localPosition = Vector3.zero;
+
+            var binder = go.GetComponent<EnemyUIBinder>();
+            binder.OnClickEvent.AsObservable().Subscribe(enemyData =>
+            {
+                _enemies.ForEach(e => e.gameObject.GetComponent<EnemyUIBinder>().OnUnTargeted());
+                _targeted = enemyData;
+                binder.OnTargeted();
+            }).AddTo(this);
+
             _enemies.Add(go.GetComponent<EnemyBase>());
         }
     }

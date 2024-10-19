@@ -19,28 +19,14 @@ MonoBehaviour:
   buyPrice: 100
   sellPrice: 70
   cardSprite: {fileID: 21300000, guid: 1ee044be992c3784896fe3ca2a7ffc92, type: 3}
-  __effects:
-  - rid: 37789256442707968
-  - rid: 37789256442707971
-  _list:
-  - rid: 37789281063272448
-  - rid: 37789281063272449
+  _effects:
+  - rid: 37789554179309568
+  _isCookable: 0
+  _ingredients: 
   references:
     version: 2
     RefIds:
-    - rid: 37789256442707968
-      type: {class: MotivationIncreaseSmall, ns: CardSystem, asm: Assembly-CSharp}
-      data:
-        _changeValue: 10
-    - rid: 37789256442707971
-      type: {class: IncreaseUseCardCount, ns: CardSystem, asm: Assembly-CSharp}
-      data:
-        _changeValue: 1
-    - rid: 37789281063272448
-      type: {class: MotivationIncreaseLarge, ns: CardSystem, asm: Assembly-CSharp}
-      data:
-        _changeValue: 40
-    - rid: 37789281063272449
+    - rid: 37789554179309568
       type: {class: GuardIncreaseLarge, ns: CardSystem, asm: Assembly-CSharp}
       data:
         _changeValue: 40

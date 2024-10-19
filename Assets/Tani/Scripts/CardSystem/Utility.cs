@@ -11,7 +11,7 @@ namespace CardSystem
     {
 
         static private Dictionary<AutoEnum.ECardID, CardData> dataList = null;
-
+        static private List<uint> PrimeNumberList = new();
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         static private void GetData()
@@ -23,12 +23,31 @@ namespace CardSystem
                 dataList.Add((AutoEnum.ECardID)i, data);
             }
         }
-
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        static private void GetPrimeNumber()
+        {
+            TextAsset primeNumberTextAsset = Resources.Load<TextAsset>("PrimeNumbers");
+            string[] split = primeNumberTextAsset.text.Split(',');
+            for(int i = 0; i < split.Length; i++)
+            {
+                if(uint.TryParse(split[i],out uint num))
+                {
+                    PrimeNumberList.Add(num);
+                    Debug.Log($"Test,Added Prime Num : {num}");
+                }
+            }
+        }
 
         static public CardData GetCardData(AutoEnum.ECardID id)
         {
             if(dataList == null) { throw new NullReferenceException(); }
             return dataList[id];
+        }
+
+        static public uint GetPrimeNumber(uint index)
+        {
+            if(index >= PrimeNumberList.Count) { throw new System.ArgumentOutOfRangeException(); }
+            return PrimeNumberList[(int)index];
         }
 
     }
