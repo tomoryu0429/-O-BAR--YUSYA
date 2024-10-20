@@ -44,6 +44,7 @@ namespace Tani
 
         public uint GetIngredientsProduct()
         {
+            if(_isCookable == false) { return 0; }
             uint product = 1;
             _ingredients.ForEach(id => product *= CardSystem.Utility.GetPrimeNumber((uint)id));
             return product;

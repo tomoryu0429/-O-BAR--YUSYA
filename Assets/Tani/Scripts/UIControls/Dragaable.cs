@@ -26,6 +26,7 @@ public class Dragaable : MonoBehaviour,IDragHandler,IBeginDragHandler,IEndDragHa
     public void OnEndDrag(PointerEventData eventData)
     {
         var results = new List<RaycastResult>();
+
         EventSystem.current.RaycastAll(eventData, results);
         bool IsFound = false;
         foreach(var result in results)

@@ -21,8 +21,8 @@ MonoBehaviour:
   cardSprite: {fileID: 21300000, guid: c8fbc1be749cc8545829746a6a2ecae7, type: 3}
   _effects:
   - rid: 37789554179309573
-  _isCookable: 0
-  _ingredients: 
+  _isCookable: 1
+  _ingredients: 0200000000000000
   references:
     version: 2
     RefIds:

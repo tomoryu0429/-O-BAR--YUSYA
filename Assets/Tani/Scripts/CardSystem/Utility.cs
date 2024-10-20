@@ -24,7 +24,7 @@ namespace CardSystem
             }
         }
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-        static private void GetPrimeNumber()
+        static private void GetPrimeNumbers()
         {
             TextAsset primeNumberTextAsset = Resources.Load<TextAsset>("PrimeNumbers");
             string[] split = primeNumberTextAsset.text.Split(',');
@@ -48,6 +48,19 @@ namespace CardSystem
         {
             if(index >= PrimeNumberList.Count) { throw new System.ArgumentOutOfRangeException(); }
             return PrimeNumberList[(int)index];
+        }
+
+        static public AutoEnum.ECardID GetCraftableCardId(uint product)
+        {
+            foreach(var pair in dataList)
+            {
+                if(pair.Value == null) { continue; }
+                if(pair.Value.GetIngredientsProduct() == product)
+                {
+                    return pair.Key;
+                }
+            }
+            return AutoEnum.ECardID.Invalid;
         }
 
     }
