@@ -12,13 +12,15 @@ public class CraftArea : MonoBehaviour, IDropReceivable
         Observable.EveryValueChanged(transform, t => t.childCount)
             .Subscribe(childCount =>
             {
-                uint totalPrimeNumberProduct = 1;
+                int totalPrimeNumberProduct = 1;
 
                 for (int i = 0; i < childCount; i++)
                 {
-                    totalPrimeNumberProduct *= CardSystem.Utility.GetPrimeNumber((uint)transform.GetChild(i).gameObject.GetComponent<CardIdData>().Id);
+                    totalPrimeNumberProduct *= CardSystem.Utility.GetCardIdPrimeNumber(transform.GetChild(i).gameObject.GetComponent<CardIdData>().Id);
                 }
+
                 var id = CardSystem.Utility.GetCraftableCardId(totalPrimeNumberProduct);
+                
                 if(id == AutoEnum.ECardID.Invalid) {
                     outPutImage.sprite = null;
                     return;

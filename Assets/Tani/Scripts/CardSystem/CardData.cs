@@ -9,46 +9,25 @@ namespace Tani
 {
     [CreateAssetMenu(fileName = "CardData", menuName = "ScriptableObjects/Create CardData")]
     public class CardData : ScriptableObject
-    {
-
-        [SerializeField]
-        private ECardID cardID;
-        [SerializeField]
-        private string cardName = "";
-        [SerializeField]
-        private ECardKinds kind = ECardKinds.None;
-        [SerializeField]
-        private ECardTaste taste = ECardTaste.None;
-        [SerializeField]
-        private int buyPrice = 0;
-        [SerializeField]
-        private int sellPrice = 0;
-        [SerializeField]
-        private Sprite cardSprite;
-
-
-        [SerializeField,SerializeReference] private List<CardSystem.ICardEffect> _effects;
-
-        [SerializeField] private bool _isCookable = false;
-        [SerializeField, ShowIf(nameof(_isCookable))] private List<AutoEnum.ECardID> _ingredients;
-
-
-        public ECardID CardID => cardID;
-        public string CardName => cardName;
-        public ECardKinds CardKind => kind;
-        public ECardTaste CardTaste => taste;
-        public int BuyPrice => buyPrice;
-        public int SellOPrice => sellPrice;
-        public Sprite CardSprite => cardSprite;
+    {        
+        [field: SerializeField] public ECardID CardID { get; private set; }
+        [field: SerializeField] public string CardName { get; private set; }
+        [field: SerializeField] public ECardKinds CardKind { get; private set; }
+        [field: SerializeField] public ECardTaste CardTaste { get; private set; }
+        [field: SerializeField] public int BuyPrice { get; private set; }
+        [field: SerializeField] public int SellOPrice { get; private set; }
+        [field: SerializeField] public Sprite CardSprite { get; private set; }
         public IReadOnlyList<CardSystem.ICardEffect> Effects => _effects;
+        public IReadOnlyList<ECardID> Ingredients => _ingredients;
 
-        public uint GetIngredientsProduct()
-        {
-            if(_isCookable == false) { return 0; }
-            uint product = 1;
-            _ingredients.ForEach(id => product *= CardSystem.Utility.GetPrimeNumber((uint)id));
-            return product;
-        }
+        //カード効果
+        [SerializeField, SerializeReference] private List<CardSystem.ICardEffect> _effects;
+
+        //このカードを作成するのに必要な素材リスト
+        [field: SerializeField] public bool Cookable { get; private set; } = false;
+        [SerializeField, ShowIf(nameof(Cookable))] private List<ECardID> _ingredients;
+
+
 
         public enum ECardKinds
         {
