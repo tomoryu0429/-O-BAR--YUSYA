@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c6655add874a7848a361b2756837789, type: 3}
   m_Name: tomato_sozai_card
   m_EditorClassIdentifier: 
-  cardID: 3
-  cardName: "\u30C8\u30DE\u30C8"
-  kind: 3
-  taste: 0
-  buyPrice: 100
-  sellPrice: 70
-  cardSprite: {fileID: 21300000, guid: c8fbc1be749cc8545829746a6a2ecae7, type: 3}
+  <CardID>k__BackingField: 5
+  <CardName>k__BackingField: "\u30C8\u30DE\u30C8"
+  <CardKind>k__BackingField: 0
+  <CardTaste>k__BackingField: 0
+  <BuyPrice>k__BackingField: 100
+  <SellOPrice>k__BackingField: 10
+  <CardSprite>k__BackingField: {fileID: 21300000, guid: 0ebd3b4b5c52ff54b80f8c0ac550227b, type: 3}
   _effects:
   - rid: 37789554179309573
-  _isCookable: 1
+  <Cookable>k__BackingField: 0
   _ingredients: 0200000000000000
   references:
     version: 2
