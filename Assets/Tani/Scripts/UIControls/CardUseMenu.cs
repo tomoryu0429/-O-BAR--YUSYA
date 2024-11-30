@@ -20,7 +20,7 @@ namespace UIControls
         private Subject<IndexIdPair> _onCardUseSelected = new();
         private IndexIdPair _currentDefinedInfo;
         
-        private void Start()
+        public void Entry()
         {
 
             _useButton.onClick.AsObservable()

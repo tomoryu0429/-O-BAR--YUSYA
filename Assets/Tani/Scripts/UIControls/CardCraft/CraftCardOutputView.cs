@@ -8,7 +8,7 @@ public class CraftCardOutputView : MonoBehaviour
 {
     private Image _image;
     private AutoEnum.ECardID _currentId;
-    private void Start()
+    public void Entry()
     {
         _image = GetComponent<Image>();
         SetCardPreview(AutoEnum.ECardID.Invalid);

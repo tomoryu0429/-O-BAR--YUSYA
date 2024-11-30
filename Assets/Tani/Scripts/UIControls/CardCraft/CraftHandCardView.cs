@@ -8,7 +8,7 @@ public class CraftHandCardView : MonoBehaviour, IPlacable
 
     private CardContainer container;
 
-    private void Start()
+    public void Entry()
     {
         container = PlayerData.Instance.CardManager.HandCardContainer;
 

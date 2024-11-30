@@ -11,14 +11,14 @@ using Cysharp.Threading.Tasks.Triggers;
 
 namespace Tani 
 {
-    public class PresenterWithPlayerData : MonoBehaviour
+    public class PresenterWithPlayerData : UIGroup
     {
         [SerializeField]
         BarView hpBar;
     
         PlayerData playerData;
 
-        private  void Start()
+        public override void Initialize()
         {
             playerData = PlayerData.Instance;
 
@@ -37,9 +37,6 @@ namespace Tani
                 .Subscribe(_ => print("PlayerDeath"))
                 .AddTo(this);
         }
-
-
-
         private void Update()
         {
             //デバッグ用

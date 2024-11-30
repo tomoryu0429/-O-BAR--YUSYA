@@ -4,12 +4,11 @@ using UnityEngine;
 using R3;
 
 
-public class YPBarPresenter : MonoBehaviour
+public class YPBarPresenter : UIGroup
 {
     [SerializeField] Tani.BarView bar;
 
-
-    private void Start()
+    public override void Initialize()
     {
         PlayerData.Instance.Status.Motivation.Observable
             .Subscribe(yp =>

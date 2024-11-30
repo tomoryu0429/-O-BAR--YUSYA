@@ -5,11 +5,11 @@ using UnityEngine;
 using R3;
 using R3.Triggers;
 using Tani;
+using uPools;
 
 //CardContainerクラスを参照し、状態をViewに反映します
-public class CardContainerPresenter : MonoBehaviour
+public class CardContainerPresenter : UIGroup
 {
-    [SerializeField]private GameObject visibilityRoot;
 
     [SerializeField]private Transform cardsRoot;
 
@@ -26,7 +26,8 @@ public class CardContainerPresenter : MonoBehaviour
     private List<CardView> _visibleObjects = new();
 
     private CompositeDisposable disposables = new();
-    private void Start()
+
+    public override void Initialize()
     {
         //子オブジェクトをすべて破棄
         if (cardsRoot.childCount != 0)
@@ -42,7 +43,7 @@ public class CardContainerPresenter : MonoBehaviour
 
     public void SetVisible(bool visibility)
     {
-        visibilityRoot.SetActive(visibility);
+        gameObject.SetActive(visibility);
 
         if (visibility) { CardsShown(); }
         else { CardsHidden(); }
@@ -124,8 +125,10 @@ public class CardContainerPresenter : MonoBehaviour
 
     public void SwitchVisibility()
     {
-        SetVisible(!visibilityRoot.activeSelf);
+        SetVisible(!gameObject.activeSelf);
     }
+
+ 
 
     public enum EPileType
     {

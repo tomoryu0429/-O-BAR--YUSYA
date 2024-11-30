@@ -5,19 +5,18 @@ using R3;
 using System;
 using R3.Triggers;
 
-[RequireComponent(typeof(CardContainerPresenter))]
-public class UseableCardContainerPresenter : MonoBehaviour
+public class UseableCardContainerPresenter : UIGroup
 {
     [SerializeField] private UIControls.CardUseMenu menu;
-
+    [SerializeField] private CardContainerPresenter cardContainerPresenter;
     public Observable<IndexIdPair> OnCardUseSelected => _onCardUseSelected;
 
     private Subject<IndexIdPair> _onCardUseSelected = new();
-    private void Start()
-    {
-        var presenter = GetComponent<CardContainerPresenter>();
 
-        presenter.OnCardCreated
+    public override void Initialize()
+    {
+        menu.Entry();
+        cardContainerPresenter.OnCardCreated
             .Subscribe(go =>
             {
                 go.GetComponentInChildren<ObservableEventTrigger>()
@@ -33,6 +32,6 @@ public class UseableCardContainerPresenter : MonoBehaviour
 
             }).AddTo(this);
 
-        menu.OnCardUseSelected.Subscribe(info=>_onCardUseSelected.OnNext(info)).AddTo(this);
+        menu.OnCardUseSelected.Subscribe(info => _onCardUseSelected.OnNext(info)).AddTo(this);
     }
 }

@@ -5,7 +5,6 @@ using Tani;
 using UnityEngine.Events;
 using AutoEnum;
 using R3;
-
 /// <summary>
 /// Card(CardId)をリストとして格納するためのWrapperクラス
 /// リストに要素が追加されたときなどのコールバッグが存在

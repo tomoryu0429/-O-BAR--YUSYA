@@ -9,7 +9,7 @@ public class CraftButton : MonoBehaviour
 {
     [SerializeField] private CraftArea _area;
     [SerializeField] private CraftCardOutputView _outputView;
-    private void Start()
+    public void Entry()
     {
         Button button = GetComponent<Button>();
         button.onClick.AsObservable()
