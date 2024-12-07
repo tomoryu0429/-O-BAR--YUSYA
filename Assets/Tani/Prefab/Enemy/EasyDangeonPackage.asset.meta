@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Tani/Prefab/Enemy/EasyDangeonPackage.asset.meta
 guid: fe46b0099823c7143914010dacb9392a
+========
+guid: c122ce0c3ddc523419ef952579afb48f
+>>>>>>>> main:Assets/Tani/Resources/Cards/berry_sozai_card.asset.meta
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 11400000
