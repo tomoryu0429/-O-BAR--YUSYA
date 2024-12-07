@@ -21,54 +21,47 @@ namespace Tani
         public CardContainer DiscardCardContainer { get; }
         public CardContainer DrawpileCardContainer { get; }
 
-        public int RemainingUseCount { get;  set; } = 1;
+        private PlayerStatus Status { get; }
 
-        public PlayerCardManager()
+        private float _cardEffectMultiply = 1f;
+        public PlayerCardManager(PlayerStatus playerStatus)
         {
 
             HandCardContainer = new CardContainer();
             DiscardCardContainer = new CardContainer();
             DrawpileCardContainer = new CardContainer();
-
+            Status = playerStatus;
 
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="container"></param>
-        /// <param name="index"></param>
-        /// <returns>これ以上カードを使用できなければtrue</returns>
-        public  bool UseCard(CardContainer container,int index)
+
+        public  void UseCard(CardContainer container,int index)
         {
             AutoEnum.ECardID item = container[index];
             container.MoveCardToAnotherContainer(index, DiscardCardContainer);
             //カードの効果を発動する
-
-            RemainingUseCount--;
-            if(RemainingUseCount > 0)
-            { 
-                return false;
-            }
-            else
-            {
-                DiscardCardContainer.Add(container);
-                container.Clear();
-                return true;
-            }
+            Debug.Log($"{CardSystem.Utility.GetCardData(item).CardName}を使用");
+            ApplyCardEffect(item);
+            Status.RemainingUseCount.Value--;
             
 
+        }
+
+        public void MoveHandCardContainerCardToDiscardContainer()
+        {
+            DiscardCardContainer.Add(HandCardContainer);
+            HandCardContainer.Clear();
         }
 
         //山札から一枚引き、手札に移動
         public void DrawCard()
         {
 
-            (AutoEnum.ECardID item, int index)? drawedData = DrawpileCardContainer.GetRandom();
+            IndexIdPair drawedData = DrawpileCardContainer.GetRandom();
 
-            if (drawedData.HasValue)//DrawPileにカードが存在している
+            if (drawedData != null)//DrawPileにカードが存在している
             {
-                DrawpileCardContainer.MoveCardToAnotherContainer(drawedData.Value.index, HandCardContainer);
+                DrawpileCardContainer.MoveCardToAnotherContainer(drawedData.index, HandCardContainer);
             }
             else//Drawpileにカードが存在しないためDiscardPileから持ってきて、引く
             {
@@ -94,8 +87,17 @@ namespace Tani
             return sortedList;
         }
 
-        public void ResetRemainingUseCount() => RemainingUseCount = 1;
 
+
+        private void ApplyCardEffect(AutoEnum.ECardID id)
+        {
+            var data = CardSystem.Utility.GetCardData(id);
+            foreach(var card in data.Effects)
+            {
+                card?.ApplyEffect(Status);
+                Debug.Log($"カード効果 : {card?.EffectLabel},値 : {card?.ChangeValue}");
+            }
+        }
     }
 }
 

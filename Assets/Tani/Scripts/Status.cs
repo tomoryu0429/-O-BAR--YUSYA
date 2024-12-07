@@ -1,6 +1,6 @@
 
 using R3;
-
+using System;
 
 public class Status
 {
@@ -15,6 +15,7 @@ public class Status
             throw new System.Exception($"MaxÇ™valueÇÊÇËÇ‡è¨Ç≥Ç¢Ç≈Ç∑ Value : {value}, Max : {max}");
         }
         _value = value;
+        _initialValue = value;
         _max = max;
     }
 
@@ -36,10 +37,15 @@ public class Status
         return SetValue(_value + value_diff, _max + max_diff);
     }
 
+    public Status ResetValueAsInitial()
+    {
+        return SetValue(_initialValue, _max);
+    }
+
     //private
     private readonly int _value;
     private readonly int _max;
-
+    private readonly int _initialValue;
 
 
 }
@@ -68,7 +74,10 @@ public class ReactiveStatus
         }
     }
 
+    public void Reset()
+    {
+        _property.Value = _property.Value.ResetValueAsInitial();
+    }
+
     public Observable<Status> Observable => _property;
 }
-
-

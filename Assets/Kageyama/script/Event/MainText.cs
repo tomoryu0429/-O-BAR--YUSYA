@@ -19,7 +19,7 @@
 //    {
 //        SentakuM = FindAnyObjectByType<Sentaku>();
 //        EM = FindAnyObjectByType<EventManager>();
-//            StartCoroutine(Dialogue());
+//        StartCoroutine(Dialogue());
 //    }
 
 //    // Update is called once per frame
@@ -45,7 +45,7 @@
 //            Mati = false;
 //            Count++;
 //            Debug.Log(Count);
-//            for(int i = 0; i > 4; i++)
+//            for (int i = 0; i > 4; i++)
 //            {
 //                SentakuM.GetComponent<Sentaku>().Kettei[i] = false;
 //            }
@@ -54,12 +54,12 @@
 
 //    IEnumerator Dialogue()
 //    {
-//            foreach(var word in talk)
-//            {
-//                textLabel.text = textLabel.text + word;
-//                yield return new WaitForSeconds(0.2f);//null 次のフレーム待つ
-//            }
-//            Mati = true;
+//        foreach (var word in talk)
+//        {
+//            textLabel.text = textLabel.text + word;
+//            yield return new WaitForSeconds(0.2f);//null 次のフレーム待つ
+//        }
+//        Mati = true;
 
 //    }
 
