@@ -4,6 +4,7 @@ using UnityEngine;
 using Alchemy.Inspector;
 using System.Linq;
 using R3;
+using Cysharp.Threading.Tasks;
 
 public class EnemyController : MonoBehaviour
 {
@@ -12,22 +13,19 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private List<Transform> _enemyRoots_1;
     [SerializeField] private List<Transform> _enemyRoots_2;
     [SerializeField] private List<Transform> _enemyRoots_3;
-    
-    public EnemyBase TargetEnemy()
+
+    public void AttackEneny(int damage)
     {
-        if(_targeted == null || _targeted.Status.Health.Value == 0)
+        if(_enemies[_targetIndex].Enemy.Status.Health.Value <= 0)
         {
-            return _enemies.Find(data => data.Status.Health.Value != 0);
+            _targetIndex = _enemies.FindIndex(binder => binder.Enemy.Status.Health.Value > 0);
+            if(_targetIndex == -1) { return; }
         }
-        else
-        {
-            return _targeted;
-        }
+        _enemies[_targetIndex].Enemy.ApplyDamage(new Damage { damage = damage });
     }
 
-    private EnemyBase _targeted = null;
-
-    private List<EnemyBase> _enemies = new();
+    private int _targetIndex = 0;
+    private List<EnemyUIBinder> _enemies = new();
 
     public void SpawnEnemies(int enemyLevel)
     {
@@ -47,18 +45,34 @@ public class EnemyController : MonoBehaviour
             go.transform.localPosition = Vector3.zero;
 
             var binder = go.GetComponent<EnemyUIBinder>();
+            
             binder.OnClickEvent.AsObservable().Subscribe(enemyData =>
             {
-                _enemies.ForEach(e => e.gameObject.GetComponent<EnemyUIBinder>().OnUnTargeted());
-                _targeted = enemyData;
-                binder.OnTargeted();
+                int index = _enemies.FindIndex(binder => binder.Enemy == enemyData);
+                if(_targetIndex == index) { index = 0; }
+                else { _targetIndex = index; }
+                print($"{enemyData.name},{_targetIndex}がターゲットされました");
+
             }).AddTo(this);
 
-            _enemies.Add(go.GetComponent<EnemyBase>());
+            _enemies.Add(binder);
         }
     }
 
+    public bool IsAllEnemiesDie()
+    {
+        return System.Linq.Enumerable.All(_enemies, binder => binder.Enemy.Status.Health.Value <= 0);
+    }
 
+    public async UniTask PerformEnemiesAction()
+    {
+        foreach(var binder in _enemies)
+        {
+            if(binder.Enemy.Status.Health.Value <= 0) { continue; }
+            binder.Enemy.PerformAction();
+            await UniTask.Delay(1000);
+        }
+    }
 
 
 

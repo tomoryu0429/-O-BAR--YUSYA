@@ -50,7 +50,7 @@ namespace CardSystem
             int product = 1;
             foreach(AutoEnum.ECardID ingredientId in cardData.Ingredients)
             {
-                product *= primeNumberList[(int)id];
+                product *= primeNumberList[(int)ingredientId];
             }
             return product;
         }

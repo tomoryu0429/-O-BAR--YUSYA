@@ -40,7 +40,6 @@ public class Dragaable : MonoBehaviour,IDragHandler,IBeginDragHandler,IEndDragHa
     private int _lastSibilingIndex;
     public void OnBeginDrag(PointerEventData eventData)
     {
-        print("start drag");
         _lastSibilingIndex = transform.GetSiblingIndex();
         transform.SetParent(_rectTransform);
     }
@@ -57,9 +56,10 @@ public class Dragaable : MonoBehaviour,IDragHandler,IBeginDragHandler,IEndDragHa
 
         EventSystem.current.RaycastAll(eventData, results);
         bool IsFound = false;
-        foreach(var result in results)
+        IPlacable placable = null;
+        foreach (var result in results)
         {
-            if(result.gameObject.TryGetComponent(out IPlacable placable))
+            if(result.gameObject.TryGetComponent(out  placable))
             {
                 //DropÇµÇΩç€Ç…IPlacableÇåüím
 
@@ -88,6 +88,11 @@ public class Dragaable : MonoBehaviour,IDragHandler,IBeginDragHandler,IEndDragHa
             //PlacableÇ™î≠å©Ç≈Ç´Ç»Ç©Ç¡ÇΩèÍçá
             transform.SetParent(_lastPlacable.GetTransform());
             transform.SetSiblingIndex(_lastSibilingIndex);
+        }
+        else
+        {
+            _lastPlacable.OnAway(gameObject);
+            _lastPlacable = placable;
         }
     }
 }

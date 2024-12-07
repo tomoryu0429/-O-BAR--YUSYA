@@ -19,6 +19,10 @@ public class CraftHandCardView : MonoBehaviour, IPlacable
 
     }
 
+    private void OnEnable()
+    {
+        ReInitialize();
+    }
 
     public void ReInitialize()
     {

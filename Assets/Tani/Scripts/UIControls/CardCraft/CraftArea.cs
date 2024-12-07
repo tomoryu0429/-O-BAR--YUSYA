@@ -21,11 +21,13 @@ public class CraftArea : MonoBehaviour, IPlacable
                 CardSystem.Utility.GetCardIdPrimeNumber(transform.GetChild(i).gameObject.GetComponent<CardView>().ID);
         }
 
+
         var craftCardId = CardSystem.Utility.GetCraftableCardId(totalPrimeNumberProduct);
 
         _isCraftable.Value = craftCardId != AutoEnum.ECardID.Invalid;
 
         outPutImage.SetCardPreview(craftCardId);
+        print(craftCardId);
     }
 
     public void PerformCraft()
@@ -36,7 +38,16 @@ public class CraftArea : MonoBehaviour, IPlacable
         }
         _isCraftable.Value = false;
     }
-    
+
+    private void OnEnable()
+    {
+        foreach (Transform t in transform)
+        {
+            Destroy(t.gameObject);
+        }
+        outPutImage.SetCardPreview(AutoEnum.ECardID.Invalid);
+    }
+
 
     public RectTransform GetTransform()
     {

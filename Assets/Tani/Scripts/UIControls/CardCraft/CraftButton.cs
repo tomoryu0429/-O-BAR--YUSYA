@@ -16,7 +16,12 @@ public class CraftButton : MonoBehaviour
             .Subscribe(_ =>
             {
                 _area.PerformCraft();
-                PlayerData.Instance.CardManager.HandCardContainer.Add(_outputView.CraftCard());
+                var craftId = _outputView.CraftCard();
+                PlayerData.Instance.CardManager.HandCardContainer.Add(craftId);
+                foreach(var removeId in CardSystem.Utility.GetCardData(craftId).Ingredients)
+                {
+                    PlayerData.Instance.CardManager.HandCardContainer.Remove(removeId);
+                }
             }).AddTo(this);
 
         _area.IsCraftable.Subscribe(craftable => button.interactable = craftable).AddTo(this.gameObject);

@@ -12,10 +12,6 @@ public  class EnemyBase : MonoBehaviour,IDamagable
     [SerializeField] int _health;
     [SerializeField] int _guard;
     [SerializeField] int _attack;
-
-
-
-
     //ステータス
     public EnemyStatus Status { get; private set; }
 

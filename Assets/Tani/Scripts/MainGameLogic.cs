@@ -25,19 +25,13 @@ public class MainGameLogic : MonoBehaviour
     {
 
         _playerData = PlayerData.Instance;
-
-
-
-
         await InitAsync();
         GameLoop().Forget();
-
-
     }
 
     private async UniTask InitAsync()
     {
-        enemyController.SpawnEnemies(0);
+        enemyController.SpawnEnemies(1);
 
         await UniTask.Delay(1000); 
     }
@@ -50,7 +44,12 @@ public class MainGameLogic : MonoBehaviour
             await DrawPhaseAsync();
             await HeroPhaseAsync();
             await BattlePhaseAsync();
+            if (enemyController.IsAllEnemiesDie())
+            {
+                break;
+            }
         }
+        print("StageClear");
     }
 
   
@@ -64,19 +63,6 @@ public class MainGameLogic : MonoBehaviour
         print($"HP : {_playerData.Status.Health.Value}");
         print($"YP : {_playerData.Status.Motivation.Value    }");
         print($"DEF : {_playerData.Status.Guard.Value }");
-
-        await UniTask.Create(async () =>
-        {
-            while (true)
-            {
-                if (Input.GetKeyDown(KeyCode.Return))
-                {
-                    break;
-                }
-                await UniTask.NextFrame();
-            }
-        });
-
     }
     private async UniTask DrawPhaseAsync()
     {
@@ -104,9 +90,10 @@ public class MainGameLogic : MonoBehaviour
     }
     private async UniTask BattlePhaseAsync()
     {
-        enemyController.TargetEnemy().ApplyDamage(new Damage { damage = _playerData.Status.Attack.Value });
+        enemyController.AttackEneny(_playerData.Status.Attack.Value);
 
-        await UniTask.Delay(1000);
+        await enemyController.PerformEnemiesAction();
+
 
     }
 
@@ -128,6 +115,7 @@ public class MainGameLogic : MonoBehaviour
 
         return cs.Task;
     }
+
 
 
 

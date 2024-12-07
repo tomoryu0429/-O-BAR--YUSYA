@@ -18,3 +18,7 @@ MonoBehaviour:
     - {fileID: 6485327587028249412, guid: e7d138fdd6e7b4d4aa2bfcb67f158a3d, type: 3}
     - {fileID: 6485327587028249412, guid: e7d138fdd6e7b4d4aa2bfcb67f158a3d, type: 3}
     Level: 0
+  - <EnemyPrefabs>k__BackingField:
+    - {fileID: 6485327587028249412, guid: afcc189c84643b84b94696f78f4a1914, type: 3}
+    - {fileID: 6485327587028249412, guid: afcc189c84643b84b94696f78f4a1914, type: 3}
+    Level: 1

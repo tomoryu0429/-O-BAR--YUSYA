@@ -21,7 +21,7 @@ MonoBehaviour:
   <CardSprite>k__BackingField: {fileID: 21300000, guid: 4c0e03c3e14e76249a4130afb9ed1d65, type: 3}
   _effects:
   - rid: 37789554179309574
-  <Cookable>k__BackingField: 0
+  <Cookable>k__BackingField: 1
   _ingredients: 00000000
   references:
     version: 2
