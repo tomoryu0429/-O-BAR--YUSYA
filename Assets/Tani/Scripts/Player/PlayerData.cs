@@ -31,8 +31,9 @@ public class PlayerData
 
     private void Initialize()
     {
-        CardManager = new PlayerCardManager();
         Status = new PlayerStatus();
+        CardManager = new PlayerCardManager(Status);
+       
 
         for (int i = 0; i < 8; i++)
         {

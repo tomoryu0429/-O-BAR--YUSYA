@@ -12,21 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c6655add874a7848a361b2756837789, type: 3}
   m_Name: rice_sozai_card
   m_EditorClassIdentifier: 
-  cardID: 5
-  cardName: "\u7C73"
-  kind: 3
-  taste: 1
-  buyPrice: 100
-  sellPrice: 70
-  cardSprite: {fileID: 21300000, guid: c8fbc1be749cc8545829746a6a2ecae7, type: 3}
-  cardEffect_1:
-    rid: -2
-  cardEffect_2:
-    rid: -2
-  cardEffect_3:
-    rid: -2
+  <CardID>k__BackingField: 4
+  <CardName>k__BackingField: "\u3053\u3081"
+  <CardKind>k__BackingField: 0
+  <CardTaste>k__BackingField: 0
+  <BuyPrice>k__BackingField: 0
+  <SellOPrice>k__BackingField: 0
+  <CardSprite>k__BackingField: {fileID: 21300000, guid: e37d2f1d9d2a9d04abf3db30a1eaf875, type: 3}
+  _effects:
+  - rid: 37789554179309572
+  <Cookable>k__BackingField: 0
+  _ingredients: 
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+    - rid: 37789554179309572
+      type: {class: MotivationIncreaseLarge, ns: CardSystem, asm: Assembly-CSharp}
+      data:
+        _changeValue: 40

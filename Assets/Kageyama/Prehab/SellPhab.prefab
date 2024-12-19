@@ -54,6 +54,7 @@ MonoBehaviour:
   handname: {fileID: 3062793964784393261}
   sellprice: {fileID: 4924864919802952999}
   SellButton: {fileID: 2246214262837481666}
+  handID: 0
 --- !u!1 &3105348357034191678
 GameObject:
   m_ObjectHideFlags: 0
@@ -254,8 +255,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: New Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 49868e04fefba9c448518515c0f0511a, type: 2}
-  m_sharedMaterial: {fileID: -1639814060333398114, guid: 49868e04fefba9c448518515c0f0511a, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7151dd5438ef3524ab657bae28903ef2, type: 2}
+  m_sharedMaterial: {fileID: -4747754511153614550, guid: 7151dd5438ef3524ab657bae28903ef2, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -388,8 +389,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: New Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 49868e04fefba9c448518515c0f0511a, type: 2}
-  m_sharedMaterial: {fileID: -1639814060333398114, guid: 49868e04fefba9c448518515c0f0511a, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7151dd5438ef3524ab657bae28903ef2, type: 2}
+  m_sharedMaterial: {fileID: -4747754511153614550, guid: 7151dd5438ef3524ab657bae28903ef2, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -522,8 +523,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Button
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7151dd5438ef3524ab657bae28903ef2, type: 2}
+  m_sharedMaterial: {fileID: -4747754511153614550, guid: 7151dd5438ef3524ab657bae28903ef2, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

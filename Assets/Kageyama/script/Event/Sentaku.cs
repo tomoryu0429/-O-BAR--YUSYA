@@ -6,7 +6,7 @@
 
 //public class Sentaku : MonoBehaviour
 //{
-//    public List<bool> Kettei = new List<bool>() {false, false, false, false}; 
+//    public List<bool> Kettei = new List<bool>() { false, false, false, false };
 //    [SerializeField] MainText MainT;
 //    [SerializeField] EventManager EM;
 //    // Start is called before the first frame update

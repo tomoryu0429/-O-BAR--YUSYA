@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+<<<<<<< HEAD
+<<<<<<<< HEAD:Assets/Tani/Extension/SubclassSelectorAttribute/Scripts/Editor/SubclassSelectorDrawer.cs.meta
+guid: a1e25bf6be30f4f44b5a8ed767a99abb
+========
+guid: a5f83950844142441b4149014ddb3a5b
+>>>>>>>> 1a8189b090cc11dbde180e1d9a04f336057a7578:Assets/Tani/Scripts/CardSystem/Utility.cs.meta
+=======
+<<<<<<<< HEAD:Assets/Tani/Scripts/CardSystem/Utility.cs.meta
+guid: a5f83950844142441b4149014ddb3a5b
+========
+guid: a1e25bf6be30f4f44b5a8ed767a99abb
+>>>>>>>> 1a8189b090cc11dbde180e1d9a04f336057a7578:Assets/Tani/Extension/SubclassSelectorAttribute/Scripts/Editor/SubclassSelectorDrawer.cs.meta
+>>>>>>> 1a8189b090cc11dbde180e1d9a04f336057a7578
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

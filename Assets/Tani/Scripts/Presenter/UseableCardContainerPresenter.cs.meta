@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Tani/Scripts/Presenter/UseableCardContainerPresenter.cs.meta
+guid: b0ca816f7494d2046bb6e4f3830f9433
+========
+guid: a5f83950844142441b4149014ddb3a5b
+>>>>>>>> 1a8189b090cc11dbde180e1d9a04f336057a7578:Assets/Tani/Scripts/CardSystem/Utility.cs.meta
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -70,6 +70,7 @@ public class EnumBuild : MonoBehaviour
         writeCodes.Add("}");
         // ê∂ê¨
         string codePath = Application.dataPath + $"/{folderLocation}/{ScriptName}.cs";
+        File.Delete(codePath);
         FileStream stream = new FileStream(codePath, FileMode.OpenOrCreate);
         StreamWriter sw = new StreamWriter(stream, Encoding.UTF8);
         sw.Write("");

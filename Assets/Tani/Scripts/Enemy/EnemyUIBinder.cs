@@ -9,16 +9,16 @@ using UnityEngine.Events;
 public class EnemyUIBinder : MonoBehaviour
 {
     [SerializeField] Image _fillImage;
-    [SerializeField] EnemyBase _enemyData;
+    [field:SerializeField]public EnemyBase Enemy { get; private set; }
     [SerializeField] ObservableEventTrigger observableEventTrigger;
 
 
     [HideInInspector] public UnityEvent<EnemyBase> OnClickEvent;
     [HideInInspector] public UnityEvent<EnemyBase> OnEnemyDieEvent;
-    
+
     private void Start()
     {
-        _enemyData.Status.Health
+        Enemy.Status.Health
             .Observable
             .Subscribe(health =>
         {
@@ -26,31 +26,24 @@ public class EnemyUIBinder : MonoBehaviour
         }).AddTo(this);
 
 
-        _enemyData.Status
-            .DieAsObservable
+        Enemy.Status
+            .Health
+            .Observable
+            .Where(h => h.Value == 0)
             .Subscribe(_ =>
             {
                 print($"{gameObject.name}‚ð“|‚µ‚½");
-                gameObject.SetActive(false) ;
+                gameObject.SetActive(false);
             }).AddTo(this);
 
 
         observableEventTrigger
             .OnPointerClickAsObservable()
-            .Where(_=>_enemyData.Status.Health.Value != 0)
+            .Where(_ => Enemy.Status.Health.Value != 0)
             .Subscribe(_ =>
             {
-                OnClickEvent.Invoke(_enemyData);
+                OnClickEvent.Invoke(Enemy);
             }).AddTo(this);
 
-
-        observableEventTrigger
-            .OnDisableAsObservable()
-            .Subscribe(_ =>
-            {
-                OnEnemyDieEvent.Invoke(_enemyData);
-            }).AddTo(this);
     }
-
-
 }

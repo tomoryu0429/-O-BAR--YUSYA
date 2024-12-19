@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
+using Cysharp.Threading.Tasks.Triggers;
 using System.Threading.Tasks;
 using System.Threading;
 using System;
@@ -14,7 +15,8 @@ public class MainGameLogic : MonoBehaviour
 {
     [SerializeField, LabelText("ターン開始時減少するやる気")] int _motivationDownPerTurn = 5;
 
-    [SerializeField,FoldoutGroup("Refs")]EnemyController enemyController;
+    [SerializeField, FoldoutGroup("Refs")]EnemyController enemyController;
+    [SerializeField, FoldoutGroup("Refs")] UseableCardContainerPresenter useableCardContainer;
 
     PlayerData _playerData;
 
@@ -23,19 +25,13 @@ public class MainGameLogic : MonoBehaviour
     {
 
         _playerData = PlayerData.Instance;
-
-
-
-
         await InitAsync();
         GameLoop().Forget();
-
-
     }
 
     private async UniTask InitAsync()
     {
-        //enemyController.SpawnEnemies();
+        enemyController.SpawnEnemies(1);
 
         await UniTask.Delay(1000); 
     }
@@ -48,7 +44,12 @@ public class MainGameLogic : MonoBehaviour
             await DrawPhaseAsync();
             await HeroPhaseAsync();
             await BattlePhaseAsync();
+            if (enemyController.IsAllEnemiesDie())
+            {
+                break;
+            }
         }
+        print("StageClear");
     }
 
   
@@ -62,75 +63,60 @@ public class MainGameLogic : MonoBehaviour
         print($"HP : {_playerData.Status.Health.Value}");
         print($"YP : {_playerData.Status.Motivation.Value    }");
         print($"DEF : {_playerData.Status.Guard.Value }");
-
-        await UniTask.Delay(1000);
-
     }
     private async UniTask DrawPhaseAsync()
     {
         print("カードをドロー");
         _playerData.CardManager.DrawCard();
-        //_playerData.CardManager.DrawCard();
-        //_playerData.CardManager.DrawCard();
+        _playerData.CardManager.DrawCard();
+        _playerData.CardManager.DrawCard();
 
-        while (true)
-        {
-            await UniTask.Yield();
-        }
+        await UniTask.Delay(1000);
     }
 
     private async UniTask HeroPhaseAsync()
     {
-        CardData data = null;
+        _playerData.Status.ResetTempStatus();
+        while (_playerData.Status.RemainingUseCount.Value != 0)
+        {
+            var usedInfo = await SelectUseCardAsync();
+            _playerData.CardManager.UseCard(_playerData.CardManager.HandCardContainer, usedInfo.index);
+        }
 
-        //カード選択待機
-        //var selectedData = await SelectCardAsync().Task;
-        //data = CardSystem.CardSystemUtility.GetCardData(selectedData.Item2);
-
-        ////使用したカードの効果を適用
-        //ApplyCardEffect(data);
-
+        _playerData.CardManager.MoveHandCardContainerCardToDiscardContainer();
 
         await UniTask.Delay(1000);
 
     }
     private async UniTask BattlePhaseAsync()
     {
-        
+        enemyController.AttackEneny(_playerData.Status.Attack.Value);
 
-        await UniTask.Delay(1000);
+        await enemyController.PerformEnemiesAction();
+
 
     }
 
-    //private UniTaskCompletionSource<(int, AutoEnum.ECardID)> SelectCardAsync()
-    //{
-    //    var cs = new  UniTaskCompletionSource<(int, AutoEnum.ECardID)>();
+    private  UniTask<IndexIdPair> SelectUseCardAsync()
+    {
+        var cs = new UniTaskCompletionSource<IndexIdPair>();
 
-    //    IDisposable disposable = null;
+        IDisposable disposable = null;
 
-    //    disposable = _playerData.CardManager.containers[(int)PlayerCardManager.EPileType.Hand]
-    //       .OnCardUsed.AsObservable()
-    //       .Subscribe(data =>
-    //       {
-    //           cs.TrySetResult(data);
-    //           disposable?.Dispose();
+        disposable = 
+            useableCardContainer
+            .OnCardUseSelected
+            .Subscribe(info => 
+            {
+                Debug.Log("OnCardUsed");
+                cs.TrySetResult(info); 
+                disposable?.Dispose();
+            });
 
-    //       });
-
-    //    return cs;
-    //}
-
-    //private void ApplyCardEffect(CardData data)
-    //{
-    //    print(data.CardName.ToString() + "を使用");
-
-    //    _playerData.Status.Motivation.Value += data.YP_Increase;
-    //    _playerData.Status.Guard.Value += data.Def_Increase;
+        return cs.Task;
+    }
 
 
-    //    print($"YPが : {data.YP_Increase   }増加");
-    //    print($"DEFが : {data.Def_Increase }増加");
-    //}
 
-  
+
 }

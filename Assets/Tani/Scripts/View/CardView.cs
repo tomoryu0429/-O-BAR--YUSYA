@@ -18,7 +18,7 @@ namespace Tani
        public void DefineCardData(AutoEnum.ECardID id)
         {
             this.ID = id;
-            _image.sprite = CardSystem.CardSystemUtility.GetCardData(id).CardSprite;
+            _image.sprite = CardSystem.Utility.GetCardData(id).CardSprite;
         }
     }
 }

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Tani/Scripts/Enemy/EnemyAttacks.cs.meta
+guid: 6eb11a0fdd16e454182c1be7583e01b6
+========
+guid: f7a9c0e84e7f74e4698f00081a25f990
+>>>>>>>> 1a8189b090cc11dbde180e1d9a04f336057a7578:Assets/Tani/Extension/SubclassSelectorAttribute/Scripts/Runtime/SubclassSelectorAttribute.cs.meta
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Tani/Extension/SubclassSelectorAttribute/Scripts/Runtime/SubclassSelectorAttribute.cs.meta
+guid: f7a9c0e84e7f74e4698f00081a25f990
+========
+guid: 56a9d1b9b5c407141919627227f991f4
+>>>>>>>> 1a8189b090cc11dbde180e1d9a04f336057a7578:Assets/Tani/Extension/SubclassSelectorAttribute/Demo/CommandTestClass.cs.meta
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

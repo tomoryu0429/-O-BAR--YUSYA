@@ -15,42 +15,51 @@ public class SellSyounin : MonoBehaviour
 {
     [SerializeField] PlayerData pd;
     [SerializeField] CardContainer cc;
+    [SerializeField] BuySyounin buysyounin;
 
- //   [SerializeField] List<TextMeshProUGUI> handName = new List<TextMeshProUGUI>();
-  //  [SerializeField] List<TextMeshProUGUI> sellprice = new List<TextMeshProUGUI>();
+    [SerializeField] List<TextMeshProUGUI> handName = new List<TextMeshProUGUI>();
+    [SerializeField] List<TextMeshProUGUI> sellprice = new List<TextMeshProUGUI>();
     [SerializeField] List<int> Sprice = new List<int>();
     [SerializeField] bool sell = true;
 
-    [SerializeField] TextMeshProUGUI MoneyText;
-
     int i = 0;
-    [SerializeField] ECardID HandID;
+
+    SyouninManager sm;
 
     //prehab
     [SerializeField] GameObject Sellpb;
 
-    [SerializeField]Transform trans;
+    [SerializeField] Transform trans;
     // Start is called before the first frame update
     void Start()
     {
+        sm = FindAnyObjectByType<SyouninManager>();
+
         //pd.CardManager.containers[(int)CardManager.EPileType.Hand].AddCard(AutoEnum.ECardID.meet_sozai_card);
         //pd.CardManager.containers[(int)CardManager.EPileType.Hand].AddCard(AutoEnum.ECardID.mash_sozai_card);
 
         //所持金の取得
-        pd.ReactiveProperty_Money
-                  .Subscribe((money) => { MoneyText.text = money.ToString(); })
-        .AddTo(this);
-
-
-        foreach (var hand in pd.CardManager.containers[(int)CardManager.EPileType.Hand].GetAllCards())
+        PlayerData.Instance.Status.Money.Observable.Subscribe(money =>
+        {
+            sm.moneyText.text = money.Value.ToString();
+        }).AddTo(this);
+        /*
+        //購入した際の更新
+        for(int i = 0; i < buysyounin.canBuy.Count; i++)
         {
 
-            var name = pd.CardManager.GetCardData(hand).CardName;
-            var price = pd.CardManager.GetCardData(hand).SellOPrice;
-            HandID = pd.CardManager.GetCardData(hand).CardID;
+        }
+        */
+
+        foreach (var hand in PlayerData.Instance.CardManager.GetSortedAllCardList())
+        {
+
+            var name = CardSystem.CardSystemUtility.GetCardData(hand).CardName;
+            var price = CardSystem.CardSystemUtility.GetCardData(hand).SellOPrice;
             GameObject Sellget = Instantiate(Sellpb, trans);
-            Sellget.transform.Translate(0, -30 * i, 0);
+            Sellget.transform.Translate(-20, -30 * i + 110, 0);
             SellPrehab SP = Sellget.GetComponent<SellPrehab>();
+            SP.handID = CardSystem.CardSystemUtility.GetCardData(hand).CardID;
             SP.handname.text = name;
             SP.sellprice.text = "売値　" + price + "　円";
             SP.SellButton.OnClickAsObservable()
@@ -58,9 +67,9 @@ public class SellSyounin : MonoBehaviour
                 {
                     if (sell)
                     {
-                        pd.Money += price;
+                        PlayerData.Instance.Status.Money.Value += price;
                         Destroy(Sellget);
-                        pd.CardManager.containers[(int)CardManager.EPileType.Hand].Remove(HandID);
+                        PlayerData.Instance.CardManager.DrawpileCardContainer.Remove(SP.handID);
                         sell = false;
                     }
                 })
@@ -69,10 +78,5 @@ public class SellSyounin : MonoBehaviour
         }
 
     }
-        // Update is called once per frame
-        void Update()
-        {
 
-        }
-
-    }
+}

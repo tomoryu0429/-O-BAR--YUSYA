@@ -13,6 +13,7 @@ public class PlayerStatus : IDamagable
         Attack = new ReactiveStatus(10, int.MaxValue);
         Guard = new ReactiveStatus(0, int.MaxValue);
         Money = new ReactiveStatus(0, int.MaxValue);
+        RemainingUseCount = new ReactiveStatus(0, int.MaxValue);
         PlayerDieAsObservable = 
             Health.Observable.Where(health => health.Value == 0)
             .AsUnitObservable().Publish();
@@ -27,12 +28,19 @@ public class PlayerStatus : IDamagable
         Health.Value -= realDamage;
     }
 
+    public void ResetTempStatus()
+    {
+        RemainingUseCount.Value = 1;
+        Guard.Value = 0;
+    }
+
     public ReactiveStatus Health { get; private set; } = null;
     public ReactiveStatus Attack { get; private set; } = null;
     public ReactiveStatus Guard { get; private set; } = null;
     public ReactiveStatus Motivation { get; private set; } = null;
 
     public ReactiveStatus Money { get; private set; } = null;
+    public ReactiveStatus RemainingUseCount { get; private set; } = null;
 
 }
 
