@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Tani/Scripts/UIControls/CardCraft/CraftButton.cs.meta
 guid: d44842dad5ca5104a813847ef2d6a5ac
+========
+guid: f7a9c0e84e7f74e4698f00081a25f990
+>>>>>>>> 1a8189b090cc11dbde180e1d9a04f336057a7578:Assets/Tani/Extension/SubclassSelectorAttribute/Scripts/Runtime/SubclassSelectorAttribute.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2

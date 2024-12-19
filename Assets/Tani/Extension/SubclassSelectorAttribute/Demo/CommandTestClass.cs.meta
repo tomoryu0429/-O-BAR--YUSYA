@@ -1,17 +1,9 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
-<<<<<<<< HEAD:Assets/Tani/Extension/SubclassSelectorAttribute/Demo/CommandTestClass.cs.meta
-guid: 56a9d1b9b5c407141919627227f991f4
-========
-guid: f7a9c0e84e7f74e4698f00081a25f990
->>>>>>>> 1a8189b090cc11dbde180e1d9a04f336057a7578:Assets/Tani/Extension/SubclassSelectorAttribute/Scripts/Runtime/SubclassSelectorAttribute.cs.meta
-=======
-<<<<<<<< HEAD:Assets/Tani/Extension/SubclassSelectorAttribute/Scripts/Runtime/SubclassSelectorAttribute.cs.meta
-guid: f7a9c0e84e7f74e4698f00081a25f990
+<<<<<<<< HEAD:Assets/Tani/Scripts/UIControls/CanvasData.cs.meta
+guid: b64a2fc6eb178f84d83fa88a72e23852
 ========
 guid: 56a9d1b9b5c407141919627227f991f4
 >>>>>>>> 1a8189b090cc11dbde180e1d9a04f336057a7578:Assets/Tani/Extension/SubclassSelectorAttribute/Demo/CommandTestClass.cs.meta
->>>>>>> 1a8189b090cc11dbde180e1d9a04f336057a7578
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2

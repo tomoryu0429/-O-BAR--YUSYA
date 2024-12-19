@@ -1,9 +1,9 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/Tani/Scripts/CardSystem/Utility.cs.meta
-guid: a5f83950844142441b4149014ddb3a5b
+<<<<<<<< HEAD:Assets/Tani/Scripts/UIControls/CardCraft/CraftCardOutputView.cs.meta
+guid: 33dcab2f366378648a9cf775fb6803ce
 ========
-guid: a1e25bf6be30f4f44b5a8ed767a99abb
->>>>>>>> 1a8189b090cc11dbde180e1d9a04f336057a7578:Assets/Tani/Extension/SubclassSelectorAttribute/Scripts/Editor/SubclassSelectorDrawer.cs.meta
+guid: a5f83950844142441b4149014ddb3a5b
+>>>>>>>> 1a8189b090cc11dbde180e1d9a04f336057a7578:Assets/Tani/Scripts/CardSystem/Utility.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
