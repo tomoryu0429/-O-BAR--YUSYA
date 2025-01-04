@@ -9,7 +9,6 @@ using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 using System.Security.Cryptography;
 using TMPro;
 using R3.Triggers;
-using old;
 
 public class BuySyounin : MonoBehaviour
 {
@@ -77,11 +76,11 @@ public class BuySyounin : MonoBehaviour
         ViewCardData();
 
         buybutton[0].OnClickAsObservable()
-                    .Where(_ => canBuy[0] && PlayerData.Instance.Status.Money.Value >= CardSystem.CardSystemUtility.GetCardData(buy1_id).BuyPrice)
+                    .Where(_ => canBuy[0] && PlayerData.Instance.Status.Money.Value >= CardSystem.Utility.GetCardData(buy1_id).BuyPrice)
                     .Subscribe(_ => PurchaseCard(buy1_id, 0));
 
         buybutton[1].OnClickAsObservable()
-                    .Where(_ => canBuy[1] && PlayerData.Instance.Status.Money.Value >= CardSystem.CardSystemUtility.GetCardData(buy2_id).BuyPrice)
+                    .Where(_ => canBuy[1] && PlayerData.Instance.Status.Money.Value >= CardSystem.Utility.GetCardData(buy2_id).BuyPrice)
                     .Subscribe(_ => PurchaseCard(buy2_id, 1));
 
         for (int i = 0; i < 11; i++)
@@ -105,7 +104,7 @@ public class BuySyounin : MonoBehaviour
 
      void PurchaseCard(AutoEnum.ECardID buyid, int id)
     {
-        PlayerData.Instance.Status.Money.Value -= CardSystem.CardSystemUtility.GetCardData(buyid).BuyPrice;
+        PlayerData.Instance.Status.Money.Value -= CardSystem.Utility.GetCardData(buyid).BuyPrice;
         nameText[id].text = "";
         buyText[id].text = "";
         PlayerData.Instance.CardManager.HandCardContainer.Add(buyid);//手札に加える
@@ -148,20 +147,20 @@ public class BuySyounin : MonoBehaviour
 
     void ViewCardData()
     {
-         nameText[0].text = CardSystem.CardSystemUtility.GetCardData(buy1_id).CardName;
-         buyText[0].text = "買値 " + CardSystem.CardSystemUtility.GetCardData(buy1_id).BuyPrice + " 円";
-         S1sprite.sprite = CardSystem.CardSystemUtility.GetCardData(buy1_id).CardSprite;//画像表示
+         nameText[0].text = CardSystem.Utility.GetCardData(buy1_id).CardName;
+         buyText[0].text = "買値 " + CardSystem.Utility.GetCardData(buy1_id).BuyPrice + " 円";
+         S1sprite.sprite = CardSystem.Utility.GetCardData(buy1_id).CardSprite;//画像表示
 
-         nameText[1].text = CardSystem.CardSystemUtility.GetCardData(buy2_id).CardName;
-         buyText[1].text = "買値 " + CardSystem.CardSystemUtility.GetCardData(buy2_id).BuyPrice + " 円";
-         S2sprite.sprite = CardSystem.CardSystemUtility.GetCardData(buy2_id).CardSprite;//画像表示
+         nameText[1].text = CardSystem.Utility.GetCardData(buy2_id).CardName;
+         buyText[1].text = "買値 " + CardSystem.Utility.GetCardData(buy2_id).BuyPrice + " 円";
+         S2sprite.sprite = CardSystem.Utility.GetCardData(buy2_id).CardSprite;//画像表示
 
         //PlayerData.Instance.CardManager.GetSortedAllCardList();//データ取得
         //PlayerData.Instance.CardManager.DrawpileCardContainer.Remove(); 消せる
 
         foreach(var i in PlayerData.Instance.CardManager.GetSortedAllCardList())
         {
-            var name = CardSystem.CardSystemUtility.GetCardData(i).CardName;
+            var name = CardSystem.Utility.GetCardData(i).CardName;
             Debug.Log(name);
         }
 

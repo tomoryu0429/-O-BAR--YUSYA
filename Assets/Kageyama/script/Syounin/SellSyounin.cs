@@ -54,12 +54,12 @@ public class SellSyounin : MonoBehaviour
         foreach (var hand in PlayerData.Instance.CardManager.GetSortedAllCardList())
         {
 
-            var name = CardSystem.CardSystemUtility.GetCardData(hand).CardName;
-            var price = CardSystem.CardSystemUtility.GetCardData(hand).SellOPrice;
+            var name = CardSystem.Utility.GetCardData(hand).CardName;
+            var price = CardSystem.Utility.GetCardData(hand).SellOPrice;
             GameObject Sellget = Instantiate(Sellpb, trans);
             Sellget.transform.Translate(-20, -30 * i + 110, 0);
             SellPrehab SP = Sellget.GetComponent<SellPrehab>();
-            SP.handID = CardSystem.CardSystemUtility.GetCardData(hand).CardID;
+            SP.handID = CardSystem.Utility.GetCardData(hand).CardID;
             SP.handname.text = name;
             SP.sellprice.text = "îÑílÅ@" + price + "Å@â~";
             SP.SellButton.OnClickAsObservable()
